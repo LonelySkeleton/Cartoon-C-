@@ -9,9 +9,9 @@ void HueColor(int orig, int col);
 void Road    (double x, double y);
 void Polosa  (double x, double y);
 void Pavement(double x, double y);
-void Girl    (double x, double y, double scale, double width, double height,   int colour);
-void Empress (double x, double y, double scale, double width, double distance, int colour);
-void Cat     (double x, double y, double scale, double width, double height,   int colour);
+void Girl    (double x, double y, double scale, double width, double height,   double dist, int colour);
+void Empress (double x, double y, double scale, double width, double distance,              int colour);
+void Cat     (double x, double y, double scale, double width, double height,                int colour);
 
 int main()
     {
@@ -29,19 +29,123 @@ int main()
 
     Pavement(700, 400);
 
-    Girl(792, 439, 1, 2, 1, 0);
-    Girl(592, 439, 2, 3, 0, 12347);
-    Girl(462, 562, 0.5, 1, 17, 3);
+//-------for animation-----------//
+//girl
+    int Girlx1 = 792;
+    int Girly1 = 439;
 
-    Empress(345, 219, 1, 1, 0, 0);
-    Empress(100, 219, 0.5, 2, 1, 64);
-    Empress(965, 134, 2, 3, 5, 168356);
+    int Girlx2 = 592;
+    int Girly2 = 439;
 
-    Cat(342, 400, 0.5, 1, 0, 0);
-    Cat(876, 400, 1, 0.5, 2, 64);
-    Cat(234, 134, 2, 1, 0, 123);
+    int Girlx3 = 462;
+    int Girly3 = 562;
+
+    int GirlDis1 = 4;
+    int GirlDis2 = 5;
+    int GirlDis3 = -3;
+
+    int GirlHeight1 = 1;
+    int GirlHeight2 = 0;
+    int GirlHeight3 = 6;
+
+//cat
+    int CatHeight1 = 1;
+    int CatHeight2 = 3;
+    int CatHeight3 = 2;
+
+//empress
+    int Empressx1 = 345;
+    int Empressy1 = 219;
+
+    int Empressx2 = 100;
+    int Empressy2 = 219;
+
+    int Empressx3 = 965;
+    int Empressy3 = 134;
+
+    for (int i=0; i<=30;i++)
+      {
+      Girl(Girlx1, Girly1, 1,   2, GirlHeight1, GirlDis1,     0);
+      Girl(Girlx2, Girly2, 2,   3, GirlHeight2, GirlDis2, 12347);
+      Girl(Girlx3, Girly3, 0.5, 1, GirlHeight3, GirlDis3,     3);
+//--------------------------------
+      Empress(Empressx1, Empressy1, 1,   1, 0,      0);
+      Empress(Empressx2, Empressy2, 0.5, 2, 1,     64);
+      Empress(Empressx3, Empressy3, 2,   3, 5, 168356);
+//--------------------------------
+      Cat(342, 400, 0.5, 1,   CatHeight1,   0);
+      Cat(876, 400, 1,   0.5, CatHeight2,  64);
+      Cat(234, 134, 2,   1,   CatHeight3, 123);
+//--------------------------------
+      Girlx1 = Girlx1 + i + 10;
+      Girly1 = Girly1 + i + 10;
+
+      Girlx2 = Girlx2 + i - 10;
+      Girly2 = Girly2 + i - 10;
+
+      Girlx3 = Girlx3 + i + 10;
+      Girly3 = Girly3 + i - 10;
+//--------------------------------
+      Empressx1 = Empressx1 + i - 5;
+      Empressy1 = Empressy1 + i + 5;
+
+      Empressx2 = Empressx2 + i - 5;
+      Empressy2 = Empressy2 + i - 5;
+
+      Empressx3 = Empressx3 + i + 5;
+      Empressy3 = Empressy3 + i + 5;
+
+      if (i % 2 == 0)
+        {
+        GirlDis1 = -4;
+        GirlDis2 = -5;
+        GirlDis3 =  3;
+
+        GirlHeight1 = 1;
+        GirlHeight2 = 0;
+        GirlHeight3 = 6;
+//--------------------------------
+        CatHeight1 = 3;
+        CatHeight2 = -5;
+        CatHeight3 = -1;
+        }
+
+      else
+        {
+        GirlDis1 = 4;
+        GirlDis2 = 5;
+        GirlDis3 = -3;
+
+        GirlHeight1 = 0;
+        GirlHeight2 = -2;
+        GirlHeight3 = 5;
+//--------------------------------
+        CatHeight1 = 1;
+        CatHeight2 = 5;
+        CatHeight3 = 2;
+        }
+
+      txSleep(150);
+
+      if (i!=30)
+        {
+        txClear();
+        txSetFillColor(RGB(220, 220, 220));
+        txRectangle(0, 0, 1200, 800);
+        Road(114, -45);
+
+        Polosa(820, 390);
+        Polosa(870, 355);
+        Polosa(920, 320);
+        Polosa(970, 285);
+
+        Pavement(700, 400);
+        }
 
 
+
+
+      }
     return 0;
     }
 
@@ -139,18 +243,19 @@ void Pavement(double x, double y)
 
 
 //{-------------------------------------------------------
-//!     Ïðîöåäóðà ðèñîâàíèÿ äåâî÷êè
+//!     ÐŸÑ€Ð¾Ñ†ÐµÐ´ÑƒÑ€Ð° Ñ€Ð¸ÑÐ¾Ð²Ð°Ð½Ð¸Ñ Ð´ÐµÐ²Ð¾Ñ‡ÐºÐ¸
 //!
-//!             ïàðàìåòðû:
-//! x, y    == êîîðäèíàòû íà÷àëüíîé òî÷êè
-//! scale   == ðàçìåð ïðè ìàñøòàáèðîâàíèè
-//! width   == òîëùèíà ëèíèé
-//! height   == ïîäú¸ì ðóêè
-//! colour  == öâåò ôèãóð
+//!             Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹:
+//! x, y    == ÐºÐ¾Ð¾Ñ€Ð´Ð¸Ð½Ð°Ñ‚Ñ‹ Ð½Ð°Ñ‡Ð°Ð»ÑŒÐ½Ð¾Ð¹ Ñ‚Ð¾Ñ‡ÐºÐ¸
+//! scale   == Ñ€Ð°Ð·Ð¼ÐµÑ€ Ð¿Ñ€Ð¸ Ð¼Ð°ÑÑˆÑ‚Ð°Ð±Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ð¸
+//! width   == Ñ‚Ð¾Ð»Ñ‰Ð¸Ð½Ð° Ð»Ð¸Ð½Ð¸Ð¹
+//! height  == Ð¿Ð¾Ð´ÑŠÑ‘Ð¼ Ñ€ÑƒÐºÐ¸
+//! dist    == Ñ€Ð°ÑÑÑ‚Ð¾ÑÐ½Ð¸Ðµ Ð¼ÐµÐ¶Ð´Ñƒ Ð½Ð¾Ð³Ð°Ð¼Ð¸
+//! colour  == Ñ†Ð²ÐµÑ‚ Ñ„Ð¸Ð³ÑƒÑ€
 //!
 //}------------------------------------------------------
 
-void Girl(double x, double y, double scale, double width, double height, int colour)
+void Girl(double x, double y, double scale, double width, double height, double dist, int colour)
     {
     //phone
     txSetFillColor(RGB(0, 255, 255));
@@ -159,8 +264,8 @@ void Girl(double x, double y, double scale, double width, double height, int col
     txPolygon(phone, 4);
 
     //shoes
-    txLine(x - 6 * scale, y + 128 * scale, x +  6 * scale, y + 130 * scale);
-    txLine(x + 6 * scale, y + 128 * scale, x + 18 * scale, y + 130 * scale);
+    txLine(x - 6 - dist * scale, y + 128 * scale, x +  6 - dist * scale, y + 130 * scale);
+    txLine(x + 6 + dist * scale, y + 128 * scale, x + 18 + dist * scale, y + 130 * scale);
 
     //body
         //hair
@@ -195,8 +300,8 @@ void Girl(double x, double y, double scale, double width, double height, int col
         //legs
     txSetColor(TX_BLACK, 2 + width);
     txSetFillColor(RGB (255, 248, 220));
-    txLine(x - 3 * scale, y + 98 * scale, x - 3 * scale, y + 128 * scale);
-    txLine(x + 9 * scale, y + 98 * scale, x + 9 * scale, y + 128 * scale);
+    txLine(x - 3 * scale, y + 98 * scale, x - 3 - dist * scale, y + 128 * scale);
+    txLine(x + 9 * scale, y + 98 * scale, x + 9 + dist * scale, y + 128 * scale);
 
     //headphones
     txSetColor(TX_BLACK, 7 + width);
@@ -225,14 +330,14 @@ void Girl(double x, double y, double scale, double width, double height, int col
 //-----------------------------------------------
 
 //{-------------------------------------------------------
-//!     Ïðîöåäóðà ðèñîâàíèÿ èìïåðàòðèöû
+//!     ÐŸÑ€Ð¾Ñ†ÐµÐ´ÑƒÑ€Ð° Ñ€Ð¸ÑÐ¾Ð²Ð°Ð½Ð¸Ñ Ð¸Ð¼Ð¿ÐµÑ€Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹
 //!
-//!             ïàðàìåòðû:
-//! x, y     == êîîðäèíàòû íà÷àëüíîé òî÷êè
-//! scale    == ðàçìåð ïðè ìàñøòàáèðîâàíèè
-//! width    == òîëùèíà ëèíèé
-//! distance == ðàññòîÿíèå ìåæäó ðóê
-//! colour   == öâåò ôèãóð
+//!             Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹:
+//! x, y     == ÐºÐ¾Ð¾Ñ€Ð´Ð¸Ð½Ð°Ñ‚Ñ‹ Ð½Ð°Ñ‡Ð°Ð»ÑŒÐ½Ð¾Ð¹ Ñ‚Ð¾Ñ‡ÐºÐ¸
+//! scale    == Ñ€Ð°Ð·Ð¼ÐµÑ€ Ð¿Ñ€Ð¸ Ð¼Ð°ÑÑˆÑ‚Ð°Ð±Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ð¸
+//! width    == Ñ‚Ð¾Ð»Ñ‰Ð¸Ð½Ð° Ð»Ð¸Ð½Ð¸Ð¹
+//! distance == Ñ€Ð°ÑÑÑ‚Ð¾ÑÐ½Ð¸Ðµ Ð¼ÐµÐ¶Ð´Ñƒ Ñ€ÑƒÐº
+//! colour   == Ñ†Ð²ÐµÑ‚ Ñ„Ð¸Ð³ÑƒÑ€
 //!
 //}------------------------------------------------------
 
@@ -283,14 +388,14 @@ void Empress(double x, double y, double scale, double width, double distance, in
 //-----------------------------------------------
 
 //{-------------------------------------------------------
-//!     Ïðîöåäóðà ðèñîâàíèÿ èìïåðàòðèöû
+//!     ÐŸÑ€Ð¾Ñ†ÐµÐ´ÑƒÑ€Ð° Ñ€Ð¸ÑÐ¾Ð²Ð°Ð½Ð¸Ñ Ð¸Ð¼Ð¿ÐµÑ€Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹
 //!
-//!             ïàðàìåòðû:
-//! x, y    == êîîðäèíàòû íà÷àëüíîé òî÷êè
-//! scale   == ðàçìåð ïðè ìàñøòàáèðîâàíèè
-//! width   == òîëùèíà ëèíèé
-//! height  == ïîäú¸ì õâîñòà
-//! colour  == öâåò ôèãóð
+//!             Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹:
+//! x, y    == ÐºÐ¾Ð¾Ñ€Ð´Ð¸Ð½Ð°Ñ‚Ñ‹ Ð½Ð°Ñ‡Ð°Ð»ÑŒÐ½Ð¾Ð¹ Ñ‚Ð¾Ñ‡ÐºÐ¸
+//! scale   == Ñ€Ð°Ð·Ð¼ÐµÑ€ Ð¿Ñ€Ð¸ Ð¼Ð°ÑÑˆÑ‚Ð°Ð±Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ð¸
+//! width   == Ñ‚Ð¾Ð»Ñ‰Ð¸Ð½Ð° Ð»Ð¸Ð½Ð¸Ð¹
+//! height  == Ð¿Ð¾Ð´ÑŠÑ‘Ð¼ Ñ…Ð²Ð¾ÑÑ‚Ð°
+//! colour  == Ñ†Ð²ÐµÑ‚ Ñ„Ð¸Ð³ÑƒÑ€
 //!
 //}------------------------------------------------------
 
