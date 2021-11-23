@@ -5,13 +5,19 @@
 
 using namespace std ;
 
-void HueColor(int orig, int col);
-void Road    (double x, double y);
-void Polosa  (double x, double y);
-void Pavement(double x, double y);
-void Girl    (double x, double y, double scale, double width, double height,   double dist, int colour);
-void Empress (double x, double y, double scale, double width, double distance,              int colour);
-void Cat     (double x, double y, double scale, double width, double height,                int colour);
+void HueColor     (int orig, int col);
+
+void Road         (int x,    int y  );
+void Polosa       (int x,    int y  );
+void Pavement     (int x,    int y  );
+
+void Girl         (int x,    int y, double scale, double width, int height,   int dist);
+void Empress      (int x,    int y, double scale, double width, int distance          );
+void Cat          (int x,    int y, double scale, double width, int height            );
+
+void GirlWalking   (int x,    int y, double scale, double width);
+void CatTail       (int x,    int y, double scale, double width);
+void EmpressWalking(int x,    int y, double scale, double width);
 
 int main()
     {
@@ -29,126 +35,114 @@ int main()
 
     Pavement(700, 400);
 
-//-------for animation-----------//
-//girl
-    int Girlx1 = 792;
-    int Girly1 = 439;
+    GirlWalking   (792, 439, 2,  1);
+    CatTail       (342, 400, 2,  1);
+    EmpressWalking(345, 219, 1,  1);
 
-    int Girlx2 = 592;
-    int Girly2 = 439;
-
-    int Girlx3 = 462;
-    int Girly3 = 562;
-
-    int GirlDis1 = 4;
-    int GirlDis2 = 5;
-    int GirlDis3 = -3;
-
-    int GirlHeight1 = 1;
-    int GirlHeight2 = 0;
-    int GirlHeight3 = 6;
-
-//cat
-    int CatHeight1 = 1;
-    int CatHeight2 = 3;
-    int CatHeight3 = 2;
-
-//empress
-    int Empressx1 = 345;
-    int Empressy1 = 219;
-
-    int Empressx2 = 100;
-    int Empressy2 = 219;
-
-    int Empressx3 = 965;
-    int Empressy3 = 134;
-
-    for (int i=0; i<=30;i++)
-      {
-      Girl(Girlx1, Girly1, 1,   2, GirlHeight1, GirlDis1,     0);
-      Girl(Girlx2, Girly2, 2,   3, GirlHeight2, GirlDis2, 12347);
-      Girl(Girlx3, Girly3, 0.5, 1, GirlHeight3, GirlDis3,     3);
-//--------------------------------
-      Empress(Empressx1, Empressy1, 1,   1, 0,      0);
-      Empress(Empressx2, Empressy2, 0.5, 2, 1,     64);
-      Empress(Empressx3, Empressy3, 2,   3, 5, 168356);
-//--------------------------------
-      Cat(342, 400, 0.5, 1,   CatHeight1,   0);
-      Cat(876, 400, 1,   0.5, CatHeight2,  64);
-      Cat(234, 134, 2,   1,   CatHeight3, 123);
-//--------------------------------
-      Girlx1 = Girlx1 + i + 10;
-      Girly1 = Girly1 + i + 10;
-
-      Girlx2 = Girlx2 + i - 10;
-      Girly2 = Girly2 + i - 10;
-
-      Girlx3 = Girlx3 + i + 10;
-      Girly3 = Girly3 + i - 10;
-//--------------------------------
-      Empressx1 = Empressx1 + i - 5;
-      Empressy1 = Empressy1 + i + 5;
-
-      Empressx2 = Empressx2 + i - 5;
-      Empressy2 = Empressy2 + i - 5;
-
-      Empressx3 = Empressx3 + i + 5;
-      Empressy3 = Empressy3 + i + 5;
-
-      if (i % 2 == 0)
-        {
-        GirlDis1 = -4;
-        GirlDis2 = -5;
-        GirlDis3 =  3;
-
-        GirlHeight1 = 1;
-        GirlHeight2 = 0;
-        GirlHeight3 = 6;
-//--------------------------------
-        CatHeight1 = 3;
-        CatHeight2 = -5;
-        CatHeight3 = -1;
-        }
-
-      else
-        {
-        GirlDis1 = 4;
-        GirlDis2 = 5;
-        GirlDis3 = -3;
-
-        GirlHeight1 = 0;
-        GirlHeight2 = -2;
-        GirlHeight3 = 5;
-//--------------------------------
-        CatHeight1 = 1;
-        CatHeight2 = 5;
-        CatHeight3 = 2;
-        }
-
-      txSleep(150);
-
-      if (i!=30)
-        {
-        txClear();
-        txSetFillColor(RGB(220, 220, 220));
-        txRectangle(0, 0, 1200, 800);
-        Road(114, -45);
-
-        Polosa(820, 390);
-        Polosa(870, 355);
-        Polosa(920, 320);
-        Polosa(970, 285);
-
-        Pavement(700, 400);
-        }
-
-
-
-
-      }
     return 0;
     }
+//-------------------------
+void GirlWalking (int x, int y, double scale, double width)
+        {
+         for (int i=0; i<=30;i++)
+             {
+              x += 10;
+              y -= 10;
+              if (i % 2 == 0)
+                {
+                Girl (x, y, scale, width, 2, -4);
+                }
+              else
+                {
+                Girl (x, y, scale, width, -2, 4);
+                }
 
+              txSleep(250);
+
+              if (i!=30)
+                {
+                txClear();
+
+                txSetFillColor(RGB(220, 220, 220));
+                txRectangle(0, 0, 1200, 800);
+                Road(114, -45);
+
+                Polosa(820, 390);
+                Polosa(870, 355);
+                Polosa(920, 320);
+                Polosa(970, 285);
+
+                Pavement(700, 400);
+                }
+             }
+        }
+
+void CatTail (int x, int y, double scale, double width)
+        {
+         for (int i = 0; i <= 30; i++)
+             {
+              if (i % 2 == 0)
+                  {
+                   Cat(x, y, scale, width, 3);
+                  }
+              else
+                  {
+                   Cat(x, y, scale, width, 1);
+                  }
+              txSleep(300);
+
+              if (i!=30)
+                {
+                txClear();
+
+                txSetFillColor(RGB(220, 220, 220));
+                txRectangle(0, 0, 1200, 800);
+                Road(114, -45);
+
+                Polosa(820, 390);
+                Polosa(870, 355);
+                Polosa(920, 320);
+                Polosa(970, 285);
+
+                Pavement(700, 400);
+                }
+             }
+        }
+
+void EmpressWalking (int x, int y, double scale, double width)
+        {
+         for (int i=0; i<=40;i++)
+             {
+              x += 5;
+              y -= 5;
+              if (i % 2 == 0)
+                {
+                Empress (x, y, scale, width, 1);
+                }
+              else
+                {
+                Empress (x, y, scale, width, -1);
+                }
+
+              txSleep(150);
+
+              if (i!=30)
+                {
+                txClear();
+
+                txSetFillColor(RGB(220, 220, 220));
+                txRectangle(0, 0, 1200, 800);
+                Road(114, -45);
+
+                Polosa(820, 390);
+                Polosa(870, 355);
+                Polosa(920, 320);
+                Polosa(970, 285);
+
+                Pavement(700, 400);
+                }
+             }
+        }
 //-------------------------
 void HueColor(int orig, int col)
     {
@@ -198,7 +192,7 @@ void HueColor(int orig, int col)
     }
 
 //-------------------------
-void Road(double x, double y)
+void Road(int x, int y)
     {
     txSetColor(TX_BLACK, 4);
     txSetFillColor(TX_WHITE);
@@ -212,7 +206,7 @@ void Road(double x, double y)
     }
 
 //-----------------------------------------------
-void Polosa(double x, double y)
+void Polosa(int x, int y)
     {
     txSetColor(TX_BLACK, 2);
     txSetFillColor(TX_BLACK);
@@ -222,7 +216,7 @@ void Polosa(double x, double y)
     }
 
 //-----------------------------------------------
-void Pavement(double x, double y)
+void Pavement(int x, int y)
     {
     txSetFillColor(TX_GRAY);
     POINT pavement1[6] = { {x,       y      }, {x +  34, y + 145},
@@ -255,12 +249,12 @@ void Pavement(double x, double y)
 //!
 //}------------------------------------------------------
 
-void Girl(double x, double y, double scale, double width, double height, double dist, int colour)
+void Girl(int x, int y, double scale, double width, int height, int dist)
     {
     //phone
     txSetFillColor(RGB(0, 255, 255));
-    POINT phone[4] = { {x + 27 * scale, y + 29 + height * scale}, {x + 27 * scale, y + 54 + height * scale},
-                       {x + 18 * scale, y + 56 + height * scale}, {x + 18 * scale, y + 27 + height * scale} };
+    POINT phone[4] = { {x + 27 * scale, y + 27 + height * scale}, {x + 27 * scale, y + 56 + height * scale},
+                       {x + 18 * scale, y + 54 + height * scale}, {x + 18 * scale, y + 29 + height * scale} };
     txPolygon(phone, 4);
 
     //shoes
@@ -341,45 +335,54 @@ void Girl(double x, double y, double scale, double width, double height, double 
 //!
 //}------------------------------------------------------
 
-void Empress(double x, double y, double scale, double width, double distance, int colour)
+void Empress(int x, int y, double scale, double width, int distance)
     {
     txSetColor(RGB(0, 0, 0), 2 + width);
     txSetFillColor(RGB(255, 0, 0));
-    POINT empress1[4] = { {x + 0.1 * scale, y - 60 * scale}, {x + 37 * scale, y + 4 * scale},
-                          {x + 0.1 * scale, y + 62 * scale}, {x - 37 * scale, y + 4 * scale} };
-    txPolygon(empress1, 4);
 
+    //collar
+    POINT collar[4] = { {x + 0.1 * scale, y - 60 * scale}, {x + 37 * scale, y + 4 * scale},
+                        {x + 0.1 * scale, y + 62 * scale}, {x - 37 * scale, y + 4 * scale} };
+    txPolygon(collar, 4);
+
+    //dress
     POINT empress2[4] = { {x + 0.1 * scale,  y +  35 * scale}, {x + 46  * scale,  y + 130 * scale},
                           {x - 46  * scale,  y + 130 * scale}, {x + 0.1 * scale,  y +  35 * scale} };
     txPolygon(empress2, 4);
 
+    //sleeves
     txSetColor(RGB(255, 0, 0), 2 + width);
     POINT empress3[4] = { {x + 0.1 * scale, y +  6 * scale}, {x + 26 * scale, y + 44 * scale},
                           {x + 0.1 * scale, y + 90 * scale}, {x - 26 * scale, y + 44 * scale} };
     txPolygon(empress3, 4);
 
+    //braid
     txSetColor(RGB(0, 0, 0), 2 + width);
     txSetFillColor(RGB(0, 0, 0));
-    POINT dress1[4] = { {x - 11 * scale, y + 15 * scale}, {x - 18 * scale, y + 30 * scale},
+    POINT braid1[4] = { {x - 11 * scale, y + 15 * scale}, {x - 18 * scale, y + 30 * scale},
                         {x -  4 * scale, y + 30 * scale}, {x - 11 * scale, y + 15 * scale} };
-    txPolygon(dress1, 4);
-    POINT dress2[4] = { {x - 11 * scale, y + 23 * scale}, {x - 18 * scale, y + 39 * scale},
+    txPolygon(braid1, 4);
+    POINT braid2[4] = { {x - 11 * scale, y + 23 * scale}, {x - 18 * scale, y + 39 * scale},
                         {x -  4 * scale, y + 39 * scale}, {x - 11 * scale, y + 23 * scale} };
-    txPolygon(dress2, 4);
-    POINT dress3[4] = { {x - 11 * scale, y + 30 * scale}, {x - 18 * scale, y + 46 * scale},
+    txPolygon(braid2, 4);
+    POINT braid3[4] = { {x - 11 * scale, y + 30 * scale}, {x - 18 * scale, y + 46 * scale},
                         {x -  4 * scale, y + 46 * scale}, {x - 11 * scale, y + 30 * scale} };
-    txPolygon(dress3, 4);
+    txPolygon(braid3, 4);
 
+    //hair
     txCircle(x + 0.1 * scale, y - 2 * scale, 26 * scale);
 
+    //neck
     txSetColor(RGB(255, 228, 196), 2 + width);
     txSetFillColor(RGB(255, 235, 205));
-    POINT dress4[4] = { {x + 0.1 * scale, y +  1 * scale}, {x + 8 * scale, y + 19 * scale},
-                        {x + 0.1 * scale, y + 35 * scale}, {x - 8 * scale, y + 19 * scale} };
-    txPolygon(dress4, 4);
+    POINT neck[4] = { {x + 0.1 * scale, y +  1 * scale}, {x + 8 * scale, y + 19 * scale},
+                      {x + 0.1 * scale, y + 35 * scale}, {x - 8 * scale, y + 19 * scale} };
+    txPolygon(neck, 4);
 
+    //head
     txCircle(x + 0.1 * scale, y + 0.1 * scale, 21 * scale);
 
+    //arms
     txLine(x + 0.1 - distance * scale, y + 75 * scale, x - 9 * scale, y + 60 * scale);
     txLine(x + 0.1 + distance * scale, y + 75 * scale, x + 9 * scale, y + 60 * scale);
 
@@ -388,7 +391,7 @@ void Empress(double x, double y, double scale, double width, double distance, in
 //-----------------------------------------------
 
 //{-------------------------------------------------------
-//!     Процедура рисования императрицы
+//!     Процедура рисования кота
 //!
 //!             параметры:
 //! x, y    == координаты начальной точки
@@ -400,45 +403,58 @@ void Empress(double x, double y, double scale, double width, double distance, in
 //}------------------------------------------------------
 
 
-void Cat(double x, double y, double scale, double width, double height, int colour)
+void Cat(int x, int y, double scale, double width, int height)
     {
     txSetColor(RGB(0, 0, 0), 2 + width);
     txSetFillColor(RGB(0, 0, 0));
-    POINT cat1[4] = { {x - 8 * scale, y - 15 * scale}, {x - 11 * scale, y + 0.1 * scale},
+
+    //ears
+    POINT earL[4] = { {x - 8 * scale, y - 15 * scale}, {x - 11 * scale, y + 0.1 * scale},
                       {x - 5 * scale, y - 13 * scale}, {x -  8 * scale, y - 15  * scale } };
-    txPolygon(cat1, 4);
-    POINT cat2[4] = { {x +  8 * scale, y - 15  * scale}, {x + 5 * scale, y - 13 * scale},
+    txPolygon(earL, 4);
+
+    POINT earR[4] = { {x +  8 * scale, y - 15  * scale}, {x + 5 * scale, y - 13 * scale},
                       {x + 11 * scale, y + 0.1 * scale}, {x + 8 * scale, y - 15 * scale} };
-    txPolygon(cat2, 4);
-    POINT cat3[4] = { {x + 10 * scale, y + 55 * scale}, {x + 15 + height * scale, y + 26 * scale},
+    txPolygon(earR, 4);
+
+    //tail
+    POINT tail[4] = { {x + 10 * scale, y + 55 * scale}, {x + 15 + height * scale, y + 26 * scale},
                       {x +  5 * scale, y + 55 * scale}, {x + 10 * scale,         y + 55 * scale} };
-    txPolygon(cat3, 4);
+    txPolygon(tail, 4);
 
     txSetColor(RGB (255, 228, 196), 2 + width);
+
+    //head
     txSetFillColor(RGB (255, 228, 196));
     txCircle(x + 0.1 * scale, y + 0.1 * scale, 11 * scale);
 
-    POINT cat4[4] = { {x + 0.1 * scale, y + 0.1 * scale}, {x + 10  * scale,  y + 55  * scale},
+    //body
+    POINT body[4] = { {x + 0.1 * scale, y + 0.1 * scale}, {x + 10  * scale,  y + 55  * scale},
                       {x - 10  * scale, y + 55  * scale}, {x + 0.1 * scale,  y + 0.1 * scale} };
-    txPolygon(cat4, 4);
+    txPolygon(body, 4);
 
     txSetColor(RGB(160, 82, 45));
     txSetFillColor(RGB(160, 82, 45));
+
+    //marks
     txCircle(x - 5 * scale, y -  3 * scale, 5 * scale);
     txCircle(x + 1 * scale, y + 24 * scale, 2 * scale);
     txCircle(x - 2 * scale, y + 52 * scale, 3 * scale);
 
     txSetColor(RGB (0, 0, 0), 2 + width);
     txSetFillColor(RGB (0, 0, 0));
+
+    //face
     txCircle(x + 0.1 * scale, y + 4.5 * scale, 5 * scale);
 
-    POINT cat5[4] = { {x + 5 * scale, y + 35 * scale}, {x + 6 * scale, y + 55 * scale},
+    //legs
+    POINT legR[4] = { {x + 5 * scale, y + 35 * scale}, {x + 6 * scale, y + 55 * scale},
                       {x + 4 * scale, y + 55 * scale}, {x + 5 * scale, y + 35 * scale} };
-    txPolygon(cat5, 4);
+    txPolygon(legR, 4);
 
-    POINT cat6[4] = { {x - 3 * scale, y + 35 * scale}, {x - 2 * scale, y + 55 * scale},
+    POINT legL[4] = { {x - 3 * scale, y + 35 * scale}, {x - 2 * scale, y + 55 * scale},
                       {x - 4 * scale, y + 55 * scale}, {x - 3 * scale, y + 35 * scale} };
-    txPolygon(cat6, 4);
+    txPolygon(legL, 4);
 
     }
 
