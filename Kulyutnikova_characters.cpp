@@ -5,42 +5,52 @@
 
 using namespace std ;
 
-void HueColor     (int orig, int col);
+void Road         (int x, int y);
+void Polosa       (int x, int y);
+void Pavement     (int x, int y);
 
-void Road         (int x,    int y  );
-void Polosa       (int x,    int y  );
-void Pavement     (int x,    int y  );
+void Girl         (int x, int y, double scale, double width, int height,   int dist);
+void Empress      (int x, int y, double scale, double width, int distance          );
+void Cat          (int x, int y, double scale, double width, int height            );
 
-void Girl         (int x,    int y, double scale, double width, int height,   int dist);
-void Empress      (int x,    int y, double scale, double width, int distance          );
-void Cat          (int x,    int y, double scale, double width, int height            );
+void GirlWalking   (int x, int y, double scale, double width);
+void CatTail       (int x, int y, double scale, double width);
+void EmpressWalking(int x, int y, double scale, double width);
 
-void GirlWalking   (int x,    int y, double scale, double width);
-void CatTail       (int x,    int y, double scale, double width);
-void EmpressWalking(int x,    int y, double scale, double width);
+void Background();
+void AllMoving();
 
 int main()
     {
     txCreateWindow(1200, 800);
 
-    txSetFillColor(RGB(220, 220, 220));
-    txRectangle(0, 0, 1200, 800);
+    Background();
 
-    Road(114, -45);
-
-    Polosa(820, 390);
-    Polosa(870, 355);
-    Polosa(920, 320);
-    Polosa(970, 285);
-
-    Pavement(700, 400);
-
-    GirlWalking   (792, 439, 2,  1);
-    CatTail       (342, 400, 2,  1);
-    EmpressWalking(345, 219, 1,  1);
+    //GirlWalking   (792, 439, 1, 1);
+    //CatTail       (342, 400, 2, 1);
+    //EmpressWalking(345, 219, 1, 1);
+    AllMoving() ;
 
     return 0;
     }
+
+//-------------------------
+void Background()
+        {
+        txClear();
+
+        txSetFillColor(RGB(220, 220, 220));
+        txRectangle(0, 0, 1200, 800);
+        Road(114, -45);
+
+        Polosa(820, 390);
+        Polosa(870, 355);
+        Polosa(920, 320);
+        Polosa(970, 285);
+
+        Pavement(700, 400);
+        }
+
 //-------------------------
 void GirlWalking (int x, int y, double scale, double width)
         {
@@ -50,29 +60,18 @@ void GirlWalking (int x, int y, double scale, double width)
               y -= 10;
               if (i % 2 == 0)
                 {
-                Girl (x, y, scale, width, 2, -4);
+                Girl (792+x, 439+y, scale, width, 2, -4);
                 }
               else
                 {
-                Girl (x, y, scale, width, -2, 4);
+                Girl (792+x, 439+y, scale, width, -2, 4);
                 }
 
               txSleep(250);
 
               if (i!=30)
                 {
-                txClear();
-
-                txSetFillColor(RGB(220, 220, 220));
-                txRectangle(0, 0, 1200, 800);
-                Road(114, -45);
-
-                Polosa(820, 390);
-                Polosa(870, 355);
-                Polosa(920, 320);
-                Polosa(970, 285);
-
-                Pavement(700, 400);
+                   Background();
                 }
              }
         }
@@ -81,7 +80,7 @@ void CatTail (int x, int y, double scale, double width)
         {
          for (int i = 0; i <= 30; i++)
              {
-              if (i % 2 == 0)
+              if (i % 3 == 0)
                   {
                    Cat(x, y, scale, width, 3);
                   }
@@ -93,28 +92,17 @@ void CatTail (int x, int y, double scale, double width)
 
               if (i!=30)
                 {
-                txClear();
-
-                txSetFillColor(RGB(220, 220, 220));
-                txRectangle(0, 0, 1200, 800);
-                Road(114, -45);
-
-                Polosa(820, 390);
-                Polosa(870, 355);
-                Polosa(920, 320);
-                Polosa(970, 285);
-
-                Pavement(700, 400);
+                Background();
                 }
              }
         }
 
 void EmpressWalking (int x, int y, double scale, double width)
         {
-         for (int i=0; i<=40;i++)
+         for (int i=0; i<=60;i++)
              {
-              x += 5;
-              y -= 5;
+              x += 1;
+              y += 5;
               if (i % 2 == 0)
                 {
                 Empress (x, y, scale, width, 1);
@@ -124,73 +112,48 @@ void EmpressWalking (int x, int y, double scale, double width)
                 Empress (x, y, scale, width, -1);
                 }
 
-              txSleep(150);
+              txSleep(140);
 
-              if (i!=30)
+              if (i!=60)
                 {
-                txClear();
-
-                txSetFillColor(RGB(220, 220, 220));
-                txRectangle(0, 0, 1200, 800);
-                Road(114, -45);
-
-                Polosa(820, 390);
-                Polosa(870, 355);
-                Polosa(920, 320);
-                Polosa(970, 285);
-
-                Pavement(700, 400);
+                Background();
                 }
              }
         }
-//-------------------------
-void HueColor(int orig, int col)
-    {
-    int redRGB[] =    { 205,240,250,233,255,220,255,178,139,
-                        255,255,255,255,199,219,
-                        255,255,255,255,255,255,
-                        255,255,255,255,250,255,255,238,240,189,
-                        230,216,221,238,218,255,255,186,147,138,148,153,139,128,75,106,72,
-                        255,255,255,255,245,222,210,188,244,218,184,205,210,139,160,165,128,
-                        173,127,124,  0, 50,152,144,  0,  0, 60, 46, 34,  0,  0,154,205,107,128, 85,102,143,32,0,0,
-                          0,  0,224,175,127, 64, 72,  0, 95, 70,176,176,173,135,135,  0, 30,100,123, 65,   0,0,0,0,25,
-                        255,255,240,245,240,240,248,245,255,245,253,255,255,250,250,255,255,
-                        220,211,211,192,169,169,128,128,105,105,119,119,112,112, 47, 47,  0};
-
-    int blueRGB[] = { 92,128,128,150,160, 20,  0, 34,  0,
-                     192,182,105, 20, 21,112,
-                     160,127, 99, 69,140,165,
-                     215,255,255,250,250,239,218,232,230,183,
-                     230,191,160,130,112,  0,  0, 85,112, 43,  0, 50,  0,  0,  0, 90, 61,
-                     248,235,228,222,222,184,180,143,164,165,134,133,105, 69, 82, 42,  0,
-                     255,255,252,255,205,251,238,250,255,179,139,139,128,100,205,142,128,107,205,188,178,139,128,
-                     255,255,255,238,255,224,209,206,158,130,196,224,216,206,206,191,144,149,104,105,  0,  0,  0,0,25,
-                     255,250,255,255,255,248,248,245,245,245,245,250,225,235,240,240,228,
-                     220,211,211,192,169,169,128,128,105,105,136,136,128,128, 79, 79,  0};
-
-    int greenRGB[] = {  92,128,114,122,122, 60,  0, 34,  0,
-                       203,193,180,147,133,147,
-                       122, 80, 71,  0,  0,  0,
-                         0,  0,224,205,210,213,181,185,170,140,107,
-                       250,216,221,238,214,255,255,211,219,226,211,204,139,128,130,205,139,
-                       220,205,196,173,179,135,140,143, 96, 32, 11, 63, 30, 19, 45, 42, 0,
-                        47,  0,  0,  0, 50,152,144,154,127,113, 87, 34,  0,  0, 50, 35,  0, 47,170,143,170,139,128,
-                       255,255,255,238,212,208,204,209,160,180,222,230,230,235,250,255,255,237,238,225,255,205,139,128,112,
-                       255,250,240,250,255,255,255,245,238,220,230,240,240,215,230,245,225,
-                       220,211,211,192,169,169,128,128,105,105,153,153,144,144, 79, 79,  0};
-
-    int newColor = orig + col;
-    while (newColor >= 148)
+/*
+void AllMoving()
         {
-        newColor = newColor - 148;
+          for (int i=0; i<=30;i++)
+             {
+              int x, y = 0 ;
+              x += 5;
+              y -= 5;
+
+              if (i % 2 == 0)
+                    {
+                    Girl (792+x, 439+y, 1, 1, 2, -4);
+                    Empress (345+x, 219+y, 1, 1, 1);
+                    }
+              else if (i % 3 == 0)
+                    {
+                    Cat(342+x, 400+y, 2, 1, 3);
+                    }
+              else
+                    {
+                    Cat(342+x, 400+y, 2, 1, 1);
+                    Girl (792+x, 439+y, 1, 1, -2, 4);
+                    Empress (345+x, 219+y, 1, 1, -1);
+                    }
+
+              txSleep(250);
+
+              if (i!=30)
+                {
+                   Background();
+                }
+             }
         }
-
-    int red = redRGB[newColor];
-    int blue = blueRGB[newColor];
-    int green = greenRGB[newColor];
-    cout << red<<"," << blue<<"," << green;
-    }
-
+        */
 //-------------------------
 void Road(int x, int y)
     {
