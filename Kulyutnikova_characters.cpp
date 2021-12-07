@@ -5,17 +5,23 @@
 
 using namespace std ;
 
-void Road         (int x, int y);
-void Polosa       (int x, int y);
-void Pavement     (int x, int y);
+void HueColor     (int orig, int col);
 
-void Girl         (int x, int y, double scale, double width, int height,   int dist);
-void Empress      (int x, int y, double scale, double width, int distance          );
-void Cat          (int x, int y, double scale, double width, int height            );
+void Road     (int x, int y);
+void Polosa   (int x, int y);
+void Pavement (int x, int y);
+void Houses   (int x, int y);
 
-void GirlWalking   (int x, int y, double scale, double width);
-void CatTail       (int x, int y, double scale, double width);
-void EmpressWalking(int x, int y, double scale, double width);
+void Girl         (int x,    int y, double scale, double width, int height,   int dist);
+void Empress      (int x,    int y, double scale, double width, int distance          );
+void Cat          (int x,    int y, double scale, double width, int height            );
+
+void GirlWalking   (int x,    int y, double scale, double width);
+void CatTail       (int x,    int y, double scale, double width);
+void EmpressWalking(int x,    int y, double scale, double width);
+
+void massovka_fem (int x, int y, double scale, double dist);
+void massovka_male(int x, int y, double scale, double dist);
 
 void Background();
 void AllMoving();
@@ -29,7 +35,7 @@ int main()
     //GirlWalking   (792, 439, 1, 1);
     //CatTail       (342, 400, 2, 1);
     //EmpressWalking(345, 219, 1, 1);
-    AllMoving() ;
+    AllMoving();
 
     return 0;
     }
@@ -49,6 +55,8 @@ void Background()
         Polosa(970, 285);
 
         Pavement(700, 400);
+
+        Houses(15, 45);
         }
 
 //-------------------------
@@ -96,7 +104,6 @@ void CatTail (int x, int y, double scale, double width)
                 }
              }
         }
-
 void EmpressWalking (int x, int y, double scale, double width)
         {
          for (int i=0; i<=60;i++)
@@ -120,7 +127,7 @@ void EmpressWalking (int x, int y, double scale, double width)
                 }
              }
         }
-/*
+
 void AllMoving()
         {
           for (int i=0; i<=30;i++)
@@ -128,32 +135,52 @@ void AllMoving()
               int x, y = 0 ;
               x += 5;
               y -= 5;
-
               if (i % 2 == 0)
                     {
-                    Girl (792+x, 439+y, 1, 1, 2, -4);
-                    Empress (345+x, 219+y, 1, 1, 1);
+                    Girl        (792 + x, 439 + y, 1, 1, 2, -4);
+
+                    massovka_fem( 725 + x, 419 + y, 0.5, 1.5);
+                    massovka_fem( 700 + x, 400 + y, 1  , 1.5);
+                    massovka_fem( 845 + x, 450 + y, 0.5, 1.5);
+                    massovka_fem( 870 + x, 490 + y, 1  , 1.5);
+                    massovka_fem(1055 + x, 150 + y, 0.5, 1.5);
+
+                    massovka_male (1130 + x, 170 + y, 1  , 1.5);
+                    massovka_male ( 650 + x, 460 + y, 0.5, 1.5);
+                    massovka_male ( 750 + x, 560 + y, 1  , 1.5);
                     }
               else if (i % 3 == 0)
                     {
-                    Cat(342+x, 400+y, 2, 1, 3);
+                    Empress (345 + x, 219 + y, 1, 1, 1    );
+                    }
+              else if (i % 4 == 0)
+                    {
+                    Cat(342 + x, 400 + y, 2, 1, 3);
                     }
               else
                     {
-                    Cat(342+x, 400+y, 2, 1, 1);
-                    Girl (792+x, 439+y, 1, 1, -2, 4);
-                    Empress (345+x, 219+y, 1, 1, -1);
+                    Cat     (342 + x, 400 + y, 2, 1, 1    );
+                    Girl    (792 + x, 439 + y, 1, 1, -2, 4);
+                    Empress (345 + x, 219 + y, 1, 1, -1   );
+
+                    massovka_fem( 725 + x, 419 + y, 0.5, 0.5);
+                    massovka_fem( 700 + x, 400 + y, 1  , 0.5);
+                    massovka_fem( 845 + x, 450 + y, 0.5, 0.5);
+                    massovka_fem( 870 + x, 490 + y, 1  , 0.5);
+                    massovka_fem(1055 + x, 150 + y, 0.5, 0.5);
+
+                    massovka_male (1130 + x, 170 + y, 1  , 0.5);
+                    massovka_male ( 650 + x, 460 + y, 0.5, 0.5);
+                    massovka_male ( 750 + x, 560 + y, 1  , 0.5);
                     }
-
               txSleep(250);
-
               if (i!=30)
                 {
                    Background();
                 }
              }
         }
-        */
+
 //-------------------------
 void Road(int x, int y)
     {
@@ -197,6 +224,70 @@ void Pavement(int x, int y)
     }
 
 //-----------------------------------------------
+void Houses(int x, int y)
+    {
+        //house1
+    txSetFillColor(TX_GRAY);
+    txRectangle (x, y, x + 180, y + 305);
+        //window1
+    txSetFillColor(TX_YELLOW);
+    txRectangle (x + 15,  y +  30,  x +  60, y +  80);
+    txRectangle (x + 75,  y +  30,  x + 115, y +  80);
+    txRectangle (x + 129, y +  30,  x + 165, y +  80);
+    txRectangle (x +  15, y + 125,  x +  60, y + 185);
+    txRectangle (x +  75, y + 125,  x + 115, y + 185);
+    txRectangle (x + 129, y + 125,  x + 165, y + 185);
+        //house2
+    txSetFillColor(TX_GRAY);
+    txRectangle (x + 134, y + 15, x + 180 + 134, y + 305 + 15);
+        //window2
+    txSetFillColor(TX_YELLOW);
+    txRectangle (x +  41 + 104, y +  30 + 15, x +  96 + 104,  y +  75 + 15);
+    txRectangle (x + 116 + 104, y +  30 + 15, x + 200 + 104,  y +  75 + 15);
+    txRectangle (x +  38 + 104, y +  90 + 15, x +  65 + 104,  y + 141 + 15);
+    txRectangle (x +  86 + 104, y +  90 + 15, x + 136 + 104,  y + 147 + 15);
+    txRectangle (x + 176 + 104, y +  90 + 15, x + 211 + 104,  y + 147 + 15);
+    txRectangle (x +  41 + 104, y + 165 + 15, x + 100 + 104,  y + 219 + 15);
+    txRectangle (x + 131 + 104, y + 165 + 15, x + 211 + 104,  y + 255 + 15);
+        //house3
+    txSetFillColor(TX_GRAY);
+    txRectangle (x + 120, y + 135, x + 165 + 120, y + 225 + 135);
+        //window3
+    txSetFillColor(TX_YELLOW);
+    txRectangle (x + 15 + 120, y +  30 + 135, x +  60 + 120, y +  45 + 135);
+    txRectangle (x + 75 + 120, y +  27 + 135, x + 120 + 120, y +  72 + 135);
+    txRectangle (x + 12 + 120, y + 102 + 135, x +  72 + 120, y + 138 + 135);
+    txRectangle (x + 90 + 120, y + 102 + 135, x + 135 + 120, y + 138 + 135);
+    txRectangle (x + 75 + 120, y + 153 + 135, x + 111 + 120, y + 210 + 135);
+    txRectangle (x + 30 + 120, y + 165 + 135, x +  60 + 120, y + 221 + 135);
+        //house4
+    txSetFillColor(TX_GRAY);
+    txRectangle (x + 1000, y - 195, x + 180 + 1000, y + 305 - 195);
+        //window4
+    txSetFillColor(TX_YELLOW);
+    txRectangle (x - 150 + 1175, y + 150 - 195,  x - 130 + 1175, y + 240 - 195);
+    txRectangle (x - 100 + 1175, y + 133 - 195,  x -  50 + 1175, y + 185 - 195);
+    }
+void massovka_fem(int x, int y, double scale, double dist)
+    {
+    txSetFillColor(TX_BLACK);
+    txCircle(x + 0.5 * scale, y + 0.5 * scale, 23 * scale);
+    POINT body[4] = { {x           , y + 23*scale}, {x + 27*scale, y + 95*scale},
+                      {x - 27*scale, y + 95*scale}, {x           , y + 23*scale} };
+    txPolygon(body, 4);
+    txLine(x - 5, y + 95*scale, x - 5, y - dist + 115*scale);
+    txLine(x + 5, y + 95*scale, x + 5, y + dist + 115*scale);
+    }
+
+void massovka_male(int x, int y, double scale, double dist)
+    {
+    txSetFillColor(TX_BLACK);
+    txCircle(x + 0.5 * scale, y + 0.5 * scale, 23 * scale);
+    txRectangle(x + 15, y + 95*scale, x - 23, y + 24*scale);
+    txLine(x - 5, y + 95*scale, x - 5, y - dist+ 115*scale);
+    txLine(x + 5, y + 95*scale, x + 5, y + dist+ 115*scale);
+    }
+
 
 
 //{-------------------------------------------------------
@@ -420,4 +511,3 @@ void Cat(int x, int y, double scale, double width, int height)
     txPolygon(legL, 4);
 
     }
-
