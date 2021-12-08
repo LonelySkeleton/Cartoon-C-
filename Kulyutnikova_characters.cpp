@@ -15,6 +15,7 @@ void Houses   (int x, int y);
 void Girl         (int x,    int y, double scale, double width, int height,   int dist);
 void Empress      (int x,    int y, double scale, double width, int distance          );
 void Cat          (int x,    int y, double scale, double width, int height            );
+void Truck        (int x, int y, double scale);
 
 void GirlWalking   (int x, int y, double scale, double width);
 void CatTail       (int x, int y, double scale, double width);
@@ -33,10 +34,12 @@ int main()
 
     Background();
 
-    GirlWalking   (792, 439, 1, 1);
-    CatTail       (342, 400, 2, 1);
-    EmpressWalking(345, 219, 1, 1);
-    people_walk   (725, 419, 1);
+    Truck (500, 300, 1);
+
+    //GirlWalking   (792, 439, 1, 1);
+    //CatTail       (342, 400, 2, 1);
+    //EmpressWalking(345, 219, 1, 1);
+    //people_walk   (725, 419, 1);
     //AllMoving_scene_1();
 
     return 0;
@@ -507,5 +510,10 @@ void Cat(int x, int y, double scale, double width, int height)
     POINT legL[4] = { {ROUND(x - 3 *scale), ROUND(y + 35 *scale)}, {ROUND(x - 2 *scale), ROUND(y + 55 *scale)},
                       {ROUND(x - 4 *scale), ROUND(y + 55 *scale)}, {ROUND(x - 3 *scale), ROUND(y + 35 *scale)} };
     txPolygon(legL, 4);
-
     }
+
+void Truck (int x, int y, double scale)
+        {
+         POINT cabin_front[6] = {{x, y}, {x+90, y-20}, {x+90, y+35}, {x, y+55}};
+         txPolygon(cabin_front, 6)  ;
+        }
