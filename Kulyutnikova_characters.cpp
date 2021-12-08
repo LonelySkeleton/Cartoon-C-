@@ -19,10 +19,10 @@ void Cat          (int x,    int y, double scale, double width, int height      
 void GirlWalking   (int x, int y, double scale, double width);
 void CatTail       (int x, int y, double scale, double width);
 void EmpressWalking(int x, int y, double scale, double width);
-void people_walk   (int x, int y);
+void people_walk   (int x, int y, double scale);
 
 void people_woman (int x, int y, double scale, double dist);
-void people_men(int x, int y, double scale, double dist);
+void people_men   (int x, int y, double scale, double dist);
 
 void Background();
 void AllMoving_scene_1();
@@ -33,10 +33,10 @@ int main()
 
     Background();
 
-    //+++GirlWalking   (792, 439, 1, 1);
-    //CatTail       (342, 400, 2, 1);
-    //EmpressWalking(345, 219, 1, 1);
-    //people_walk   (15, 45);
+    GirlWalking   (792, 439, 1, 1);
+    CatTail       (342, 400, 2, 1);
+    EmpressWalking(345, 219, 1, 1);
+    people_walk   (725, 419, 1);
     //AllMoving_scene_1();
 
     return 0;
@@ -80,75 +80,46 @@ void CatTail (int x, int y, double scale, double width)
         {
          for (int i = 0; i <= 30; i++)
              {
-              Cat(x, y, scale, width, 3);                
-                  
-                  
+              Cat(x, y, scale, width, 3 - 2*(i % 4));
+
               txSleep(300);
 
-              if (i!=30) Background();                
+              if (i!=30) Background();
              }
         }
+//-------------------------
 void EmpressWalking (int x, int y, double scale, double width)
         {
          for (int i=0; i<=60;i++)
-             {
-              x += 1;
-              y += 5;
-              if (i % 2 == 0)
-                {
-                Empress (x, y, scale, width, 1);
-                }
-              else
-                {
-                Empress (x, y, scale, width, -1);
-                }
+            {
+            Empress (x - i*3, y - i*3, scale, width, 1 - 2*(i % 2));
 
-              txSleep(140);
+            txSleep(140);
 
-              if (i!=60)
-                {
-                Background();
-                }
-             }
+            if (i!=60) Background();
+
+            }
         }
-void people_walk(int x, int y)
+//-------------------------
+void people_walk(int x, int y, double scale)
         {
-            for (int i=0; i<=30;i++)
-             {
-              x += 10;
-              y -= 10;
-              if (i % 2 == 0)
+            for (int i=0; i<=45;i++)
                 {
-                people_woman( 725 + x, 419 + y, 0.5, 1.5);
-                people_woman( 700 + x, 400 + y, 1  , 1.5);
-                people_woman( 845 + x, 450 + y, 0.5, 1.5);
-                people_woman( 870 + x, 490 + y, 1  , 1.5);
-                people_woman(1055 + x, 150 + y, 0.5, 1.5);
+                people_woman(x       + i*6, y       - i*6, scale*1  , 5 - 3*(i % 4));
+                people_woman(x -  25 + i*6, y -  19 - i*6, scale*0.5, 3 - 3*(i % 4));
+                people_woman(x + 120 + i*8, y +  31 - i*8, scale*1  , 4 - 3*(i % 4));
+                people_woman(x + 145 + i*4, y +  71 - i*4, scale*1  , 3 - 3*(i % 4));
+                people_woman(x + 330 - i*8, y - 269 + i*8, scale*0.5, 5 - 3*(i % 4));
 
-                people_men (1130 + x, 170 + y, 1  , 1.5);
-                people_men ( 650 + x, 460 + y, 0.5, 1.5);
-                people_men ( 750 + x, 560 + y, 1  , 1.5);
+                people_men(x + 405 - i*4, y - 249 + i*4, scale*0.5, 4 - 3*(i % 4));
+                people_men(x -  75 + i*4, y +  41 - i*4, scale*1  , 2 - 3*(i % 4));
+                people_men(x +  25 + i*3, y + 141 - i*3, scale*1  , 3 - 3*(i % 4));
+
+
+                txSleep(250);
+
+                if (i!=45) Background();
                 }
-              else
-                {
-                people_woman( 725 + x, 419 + y, 0.5, 0.5);
-                people_woman( 700 + x, 400 + y, 1  , 0.5);
-                people_woman( 845 + x, 450 + y, 0.5, 0.5);
-                people_woman( 870 + x, 490 + y, 1  , 0.5);
-                people_woman(1055 + x, 150 + y, 0.5, 0.5);
-
-                people_men (1130 + x, 170 + y, 1  , 0.5);
-                people_men ( 650 + x, 460 + y, 0.5, 0.5);
-                people_men ( 750 + x, 560 + y, 1  , 0.5);
-                }
-
-               txSleep(250);
-
-               if (i!=30)
-                 {
-                 Background();
-                 }
-             }
         }
 //-------------------------
 /*void AllMoving_scene_1()
@@ -300,8 +271,8 @@ void people_woman(int x, int y, double scale, double dist)
                       {ROUND(x - 27*scale), ROUND(y + 95*scale)}, {x                  , ROUND(y + 23*scale)} };
     txPolygon(body, 4);
 
-    txLine(x - 5, ROUND(y + 95*scale), x - 5, ROUND(y - dist + 115*scale));
-    txLine(x + 5, ROUND(y + 95*scale), x + 5, ROUND(y + dist + 115*scale));
+    txLine(x - 5, ROUND(y + 95*scale), ROUND(x - dist - 5), ROUND(y + 115*scale));
+    txLine(x + 5, ROUND(y + 95*scale), ROUND(x + dist + 5), ROUND(y + 115*scale));
     }
 
 void people_men(int x, int y, double scale, double dist)
@@ -309,10 +280,10 @@ void people_men(int x, int y, double scale, double dist)
     txSetFillColor(TX_BLACK);
     txCircle(ROUND(x + 0.5 *scale), ROUND(y + 0.5 *scale), ROUND(23 *scale));
 
-    txRectangle(x + 12, ROUND(y + 95*scale), x - 21, ROUND(y + 24*scale));
+    txRectangle(x + 18, ROUND(y + 95*scale), x - 16, ROUND(y + 24*scale));
 
-    txLine(x - 5, ROUND(y + 95*scale), x - 5, ROUND(y - dist+ 115*scale));
-    txLine(x + 5, ROUND(y + 95*scale), x + 5, ROUND(y + dist+ 115*scale));
+    txLine(x - 5, ROUND(y + 95*scale), ROUND(x - 5 + dist), ROUND(y + 115*scale));
+    txLine(x + 5, ROUND(y + 95*scale), ROUND(x + 5 - dist), ROUND(y + 115*scale));
     }
 
 
