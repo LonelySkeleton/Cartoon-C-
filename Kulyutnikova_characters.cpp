@@ -21,6 +21,7 @@ void GirlWalking   (int x, int y, double scale, double width);
 void CatTail       (int x, int y, double scale, double width);
 void EmpressWalking(int x, int y, double scale, double width);
 void people_walk   (int x, int y, double scale);
+void Truck_moving (int x, int y, double scale);
 
 void people_woman (int x, int y, double scale, double dist);
 void people_men   (int x, int y, double scale, double dist);
@@ -34,12 +35,12 @@ int main()
 
     Background();
 
-    Truck (500, 300, 1);
+    Truck_moving (500, 200, 1);
 
-    //GirlWalking   (792, 439, 1, 1);
-    //CatTail       (342, 400, 2, 1);
-    //EmpressWalking(345, 219, 1, 1);
-    //people_walk   (725, 419, 1);
+    GirlWalking   (792, 439, 1, 1);
+    CatTail       (342, 400, 2, 1);
+    EmpressWalking(345, 219, 1, 1);
+    people_walk   (725, 419, 1);
     //AllMoving_scene_1();
 
     return 0;
@@ -124,6 +125,21 @@ void people_walk(int x, int y, double scale)
                 if (i!=45) Background();
                 }
         }
+
+//-------------------------
+void Truck_moving (int x, int y, double scale)
+        {
+         for (int i = 0; i <= 30; i++)
+            {
+            Truck (x + i*10, y - i*10, scale);
+
+            txSleep (250);
+
+            if (i != 30)   Background ();
+            }
+        }
+
+//--------------------------
 //-------------------------
 /*void AllMoving_scene_1()
         {
@@ -514,6 +530,43 @@ void Cat(int x, int y, double scale, double width, int height)
 
 void Truck (int x, int y, double scale)
         {
-         POINT cabin_front[6] = {{x, y}, {x+90, y-20}, {x+90, y+35}, {x, y+55}};
-         txPolygon(cabin_front, 6)  ;
+            //wheel_hidden
+         txSetFillColor(RGB(0, 0, 0));
+         txEllipse (ROUND(x +  85*scale), ROUND(y + 115*scale), ROUND(x + 117*scale), ROUND(y + 80*scale));
+
+            //cabin
+         txSetFillColor(RGB(47, 79, 79));
+         POINT cabin_front[8] = {{ROUND(x + 0.1*scale), ROUND(y + 0.1*scale)}, {ROUND(x +  95*scale), ROUND(y - 15*scale)},
+                                 {ROUND(x + 95*scale ), ROUND(y + 40*scale )}, {ROUND(x + 120*scale), ROUND(y + 55*scale)},
+                                 {ROUND(x + 30*scale ), ROUND(y + 70*scale )}, {ROUND(x + 0.1*scale), ROUND(y + 55*scale)},
+                                 {ROUND(x + 95*scale ), ROUND(y + 40*scale )}, {ROUND(x + 0.1*scale), ROUND(y + 55*scale)}};
+         txPolygon(cabin_front, 8);
+         POINT _front[4] = {{ROUND(x + 120*scale), ROUND(y +  55*scale)}, {ROUND(x +  30*scale), ROUND(y +  70*scale)},
+                            {ROUND(x +  30*scale), ROUND(y + 115*scale)}, {ROUND(x + 120*scale), ROUND(y + 100*scale)}};
+         txPolygon(_front, 4);
+         POINT cabin_side[6] = {{ROUND(x + 30*scale ), ROUND(y + 115*scale)}, {ROUND(x - 45*scale ), ROUND(y + 65*scale )},
+                                {ROUND(x - 45*scale ), ROUND(y -  25*scale)}, {ROUND(x + 0.1*scale), ROUND(y + 0.1*scale)},
+                                {ROUND(x + 0.1*scale), ROUND(y +  55*scale)}, {ROUND(x + 30*scale ), ROUND(y + 70*scale )}};
+         txPolygon(cabin_side, 6);
+         POINT cabin_up[4] = {{ROUND(x + 0.1*scale), ROUND(y + 0.1*scale)}, {ROUND(x + 95*scale), ROUND(y - 15*scale)},
+                              {ROUND(x + 45*scale ), ROUND(y - 35*scale )}, {ROUND(x - 45*scale), ROUND(y - 25*scale)}};
+         txPolygon(cabin_up, 4);
+
+            //pod
+         txSetFillColor(RGB(192, 192, 192));
+         POINT pod_side[4] = {{ROUND(x -  45*scale), ROUND(y +  65*scale)}, {ROUND(x - 180*scale), ROUND(y - 35*scale)},
+                              {ROUND(x - 180*scale), ROUND(y - 125*scale)}, {ROUND(x -  45*scale), ROUND(y - 45*scale)}};
+         txPolygon(pod_side, 4);
+         POINT pod_fr[4] = {{ROUND(x + 45*scale), ROUND(y - 35*scale)}, {ROUND(x - 45*scale), ROUND(y - 25*scale)},
+                            {ROUND(x - 45*scale), ROUND(y - 45*scale)}, {ROUND(x + 45*scale), ROUND(y - 55*scale)}};
+         txPolygon(pod_fr, 4);
+         POINT pod_up[4] = {{ROUND(x - 45*scale), ROUND(y -  45*scale)}, {ROUND(x +  45*scale), ROUND(y -  55*scale)},
+                            {ROUND(x - 85*scale), ROUND(y - 130*scale)}, {ROUND(x - 180*scale), ROUND(y - 125*scale)}};
+         txPolygon(pod_up, 4);
+
+         //wheels
+         txSetFillColor(RGB(0, 0, 0));
+         txEllipse (ROUND(x + 0.1*scale), ROUND(y + 125*scale), ROUND(x +  30*scale), ROUND(y + 80*scale));
+         txEllipse (ROUND(x - 83*scale ), ROUND(y +  75*scale), ROUND(x -  53*scale), ROUND(y + 30*scale));
+         txEllipse (ROUND(x - 170*scale), ROUND(y -  35*scale), ROUND(x - 140*scale), ROUND(y + 10*scale));
         }
