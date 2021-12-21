@@ -5,47 +5,53 @@
 
 using namespace std ;
 
-void HueColor     (int orig, int col);
+void Road         (int x, int y);
+void Polosa       (int x, int y);
+void Pavement     (int x, int y);
+void Houses       (int x, int y);
+void TrafficLight (int x, int y, int first, int second, int third);
 
-void Road     (int x, int y);
-void Polosa   (int x, int y);
-void Pavement (int x, int y);
-void Houses   (int x, int y);
-
-void Girl         (int x,    int y, double scale, double width, int height,   int dist);
-void Empress      (int x,    int y, double scale, double width, int distance          );
-void Cat          (int x,    int y, double scale, double width, int height            );
+void Girl         (int x, int y, double scale, double width, int height,   int dist);
+void Empress      (int x, int y, double scale, double width, int distance          );
+void Cat          (int x, int y, double scale, double width, int height            );
 void Truck        (int x, int y, double scale);
 
 void GirlWalking   (int x, int y, double scale, double width);
 void CatTail       (int x, int y, double scale, double width);
 void EmpressWalking(int x, int y, double scale, double width);
 void people_walk   (int x, int y, double scale);
-void Truck_moving (int x, int y, double scale);
+void Truck_moving  (int x, int y, double scale);
 
 void people_woman (int x, int y, double scale, double dist);
 void people_men   (int x, int y, double scale, double dist);
 
 void Background();
 void AllMoving_scene_1();
+void SceneFirst();
 
 int main()
     {
     txCreateWindow(1200, 800);
 
-    Background();
 
-    Truck_moving (500, 200, 1);
+    SceneFirst();
 
-    GirlWalking   (792, 439, 1, 1);
-    CatTail       (342, 400, 2, 1);
-    EmpressWalking(345, 219, 1, 1);
-    people_walk   (725, 419, 1);
+    //CatTail       (342, 400, 2, 1);
+    //EmpressWalking(345, 219, 1, 1);
+
+
     //AllMoving_scene_1();
 
     return 0;
     }
-
+//-------------------------
+void SceneFirst()
+        {
+        Background();
+        Truck_moving  (230, -100, 0.3);
+        GirlWalking   (792, 439, 1, 1);
+        people_walk   (725, 419, 1);
+        }
 //-------------------------
 void Background()
         {
@@ -63,14 +69,20 @@ void Background()
         Pavement(700, 400);
 
         Houses(15, 45);
+
+        TrafficLight(750, 435, 2, 1, 1);
         }
 
 //-------------------------
 void GirlWalking (int x, int y, double scale, double width)
         {
-         for (int i = 0; i <= 30; i++)
+         while (x <= 770 and y <= 420)
             {
+            int i = 1;
+
             Girl (x + i*10, y - i*10, scale, width, 2 - 4*(i % 2), -2 * (2 - 4*(i % 2)));
+
+            i+=1;
 
             txSleep (250);
 
@@ -107,7 +119,7 @@ void EmpressWalking (int x, int y, double scale, double width)
 //-------------------------
 void people_walk(int x, int y, double scale)
         {
-            for (int i=0; i<=45;i++)
+            for (int i = 0; i <= 45; i++)
                 {
                 people_woman(x       + i*6, y       - i*6, scale*1  , 5 - 3*(i % 4));
                 people_woman(x -  25 + i*6, y -  19 - i*6, scale*0.5, 3 - 3*(i % 4));
@@ -131,7 +143,7 @@ void Truck_moving (int x, int y, double scale)
         {
          for (int i = 0; i <= 30; i++)
             {
-            Truck (x + i*10, y - i*10, scale);
+            Truck (x + i*15, y + i*10, scale + 0.02*i);
 
             txSleep (250);
 
@@ -139,61 +151,7 @@ void Truck_moving (int x, int y, double scale)
             }
         }
 
-//--------------------------
-//-------------------------
-/*void AllMoving_scene_1()
-        {
-          int x, y = 0 ;
-          for (int i=0; i<=30;i++)
-             {
-              x += 5;
-              y -= 5;
-              if (i % 2 == 0)
-                    {
-                    Girl(792 + x, 439 + y, 1, 1, 2, -4);
 
-                    people_woman( 725 + x, 419 + y, 0.5, 1.5);
-                    people_woman( 700 + x, 400 + y, 1  , 1.5);
-                    people_woman( 845 + x, 450 + y, 0.5, 1.5);
-                    people_woman( 870 + x, 490 + y, 1  , 1.5);
-                    people_woman(1055 + x, 150 + y, 0.5, 1.5);
-
-                    people_men (1130 + x, 170 + y, 1  , 1.5);
-                    people_men ( 650 + x, 460 + y, 0.5, 1.5);
-                    people_men ( 750 + x, 560 + y, 1  , 1.5);
-                    }
-              else if (i % 3 == 0)
-                    {
-                    Empress(345 + x, 219 + y, 1, 1, 1);
-                    }
-              else if (i % 4 == 0)
-                    {
-                    Cat(342 + x, 400 + y, 2, 1, 3);
-                    }
-              else
-                    {
-                    Cat     (342 + x, 400 + y, 2, 1, 1    );
-                    Girl    (792 + x, 439 + y, 1, 1, -2, 4);
-                    Empress (345 + x, 219 + y, 1, 1, -1   );
-
-                    people_woman( 725 + x, 419 + y, 0.5, 0.5);
-                    people_woman( 700 + x, 400 + y, 1  , 0.5);
-                    people_woman( 845 + x, 450 + y, 0.5, 0.5);
-                    people_woman( 870 + x, 490 + y, 1  , 0.5);
-                    people_woman(1055 + x, 150 + y, 0.5, 0.5);
-
-                    people_men (1130 + x, 170 + y, 1  , 0.5);
-                    people_men ( 650 + x, 460 + y, 0.5, 0.5);
-                    people_men ( 750 + x, 560 + y, 1  , 0.5);
-                    }
-              txSleep(250);
-              if (i!=30)
-                {
-                   Background();
-                }
-             }
-        }
-*/
 //-------------------------
 void Road(int x, int y)
     {
@@ -281,6 +239,27 @@ void Houses(int x, int y)
     txRectangle (x  - 150 + 1175, y  + 150 - 195,  x  - 130 + 1175, y  + 240 - 195);
     txRectangle (x  - 100 + 1175, y  + 133 - 195,  x  -  50 + 1175, y  + 185 - 195);
     }
+//----------------------------------------
+void TrafficLight(int x, int y, int first, int second, int third)
+        {
+        txSetFillColor(TX_GRAY);
+        txRectangle (x, y, x + 15, y - 60);
+        txRectangle (x - 12, y - 60, x + 24, y - 129);
+
+        if (first = 1){txSetFillColor(TX_BLACK);}
+        else {txSetFillColor(TX_RED);}
+        txCircle(x + 9, y - 114, 8);
+
+        if (second = 1){ txSetFillColor(TX_BLACK);}
+        else {txSetFillColor(TX_YELLOW);}
+        txCircle(x + 9, y - 96, 8);
+
+        if (third = 1) {txSetFillColor(TX_BLACK);}
+        else {txSetFillColor(TX_GREEN);}
+        txCircle(x + 9, y - 78, 8);
+        }
+
+//----------------------------------------
 void people_woman(int x, int y, double scale, double dist)
     {
     txSetFillColor(TX_BLACK);
@@ -293,7 +272,7 @@ void people_woman(int x, int y, double scale, double dist)
     txLine(x - 5, ROUND(y + 95*scale), ROUND(x - dist - 5), ROUND(y + 115*scale));
     txLine(x + 5, ROUND(y + 95*scale), ROUND(x + dist + 5), ROUND(y + 115*scale));
     }
-
+//-----------------------------------------------
 void people_men(int x, int y, double scale, double dist)
     {
     txSetFillColor(TX_BLACK);
@@ -544,12 +523,12 @@ void Truck (int x, int y, double scale)
          POINT _front[4] = {{ROUND(x + 120*scale), ROUND(y +  55*scale)}, {ROUND(x +  30*scale), ROUND(y +  70*scale)},
                             {ROUND(x +  30*scale), ROUND(y + 115*scale)}, {ROUND(x + 120*scale), ROUND(y + 100*scale)}};
          txPolygon(_front, 4);
-         POINT cabin_side[6] = {{ROUND(x + 30*scale ), ROUND(y + 115*scale)}, {ROUND(x - 45*scale ), ROUND(y + 65*scale )},
-                                {ROUND(x - 45*scale ), ROUND(y -  25*scale)}, {ROUND(x + 0.1*scale), ROUND(y + 0.1*scale)},
+         POINT cabin_side[6] = {{ROUND(x + 30 *scale), ROUND(y + 115*scale)}, {ROUND(x - 45*scale ), ROUND(y + 65*scale )},
+                                {ROUND(x - 45 *scale), ROUND(y -  25*scale)}, {ROUND(x + 0.1*scale), ROUND(y + 0.1*scale)},
                                 {ROUND(x + 0.1*scale), ROUND(y +  55*scale)}, {ROUND(x + 30*scale ), ROUND(y + 70*scale )}};
          txPolygon(cabin_side, 6);
          POINT cabin_up[4] = {{ROUND(x + 0.1*scale), ROUND(y + 0.1*scale)}, {ROUND(x + 95*scale), ROUND(y - 15*scale)},
-                              {ROUND(x + 45*scale ), ROUND(y - 35*scale )}, {ROUND(x - 45*scale), ROUND(y - 25*scale)}};
+                              {ROUND(x + 45 *scale), ROUND(y - 35 *scale)}, {ROUND(x - 45*scale), ROUND(y - 25*scale)}};
          txPolygon(cabin_up, 4);
 
             //pod
