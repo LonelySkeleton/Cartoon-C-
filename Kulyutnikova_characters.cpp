@@ -80,11 +80,11 @@ void GirlAndTruck (int xG, int yG, double scaleG, double width, int xT, int yT, 
         people_woman(xP +  30 - i*8,   yP       - i*8,   scaleP*0.5, 3 - 3*(i % 4));
         people_woman(xP + 450 - i*5,   yP + 391 - i*5,   scaleP*1  , 4 - 3*(i % 4));
         people_woman(xP + 190 - i*4,   yP + 150 - i*4,   scaleP*1  , 3 - 3*(i % 4));
-        people_woman(xP + 330,  yP - 209,  scaleP*0.5, 1);// 5 - 3*(i % 4));
+        people_woman(xP + 330,         yP - 209,         scaleP*0.5, 1);
 
-        people_men(xP + 405,         yP - 159,   scaleP*0.5, 1); //4 - 3*(i % 4));
-        people_men(xP - 575 + i*4*a, yP + 241 - i*4*a, scaleP*1  , 2 - 3*(i % 4));
-        people_men(xP - 200 + i*3,   yP -  51 - i*3,   scaleP*1  , 3 - 3*(i % 4));
+        people_men(xP + 405,         yP - 159,         scaleP*0.5, 1); 
+        people_men(xP - 575 + i*4*a, yP + 241 - i*4*a, scaleP*1,   2 - 3*(i % 4));
+        people_men(xP - 200 + i*3,   yP -  51 - i*3,   scaleP*1,   3 - 3*(i % 4));
 
         txSleep (750);
         }
