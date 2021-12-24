@@ -27,7 +27,7 @@ void people_woman (int x, int y, double scale, double dist);
 void people_men   (int x, int y, double scale, double dist);
 
 void Background ();
-void AllMoving_scene_1 ();
+void Censorship (int x, int y);
 void SceneFirst ();
 
 void GirlAndTruck (int xG, int yG, double scaleG, double width, int xT, int yT, double scaleT, int xP, int yP, double scaleP);
@@ -58,7 +58,6 @@ void SceneFirst ()
 
 void GirlAndTruck (int xG, int yG, double scaleG, double width, int xT, int yT, double scaleT, int xP, int yP, double scaleP)
     {
-
     int i = 0;
     while ( pow( (pow(xG - xT, 2) + pow(yG - yT, 2) ), 0.5) >= 100 )
         {
@@ -81,15 +80,19 @@ void GirlAndTruck (int xG, int yG, double scaleG, double width, int xT, int yT, 
         people_woman(xP +  30 - i*8,   yP       - i*8,   scaleP*0.5, 3 - 3*(i % 4));
         people_woman(xP + 450 - i*5,   yP + 391 - i*5,   scaleP*1  , 4 - 3*(i % 4));
         people_woman(xP + 190 - i*4,   yP + 150 - i*4,   scaleP*1  , 3 - 3*(i % 4));
-        people_woman(xP +  80 + i*20,  yP - 400 + i*20,  scaleP*0.5, 5 - 3*(i % 4));
+        people_woman(xP + 330,  yP - 209,  scaleP*0.5, 1);// 5 - 3*(i % 4));
 
-        people_men(xP + 505 - i*4,   yP - 249 + i*4,   scaleP*0.5, 4 - 3*(i % 4));
+        people_men(xP + 405,         yP - 159,   scaleP*0.5, 1); //4 - 3*(i % 4));
         people_men(xP - 575 + i*4*a, yP + 241 - i*4*a, scaleP*1  , 2 - 3*(i % 4));
         people_men(xP - 200 + i*3,   yP -  51 - i*3,   scaleP*1  , 3 - 3*(i % 4));
 
         txSleep (750);
-
         }
+    while ( pow( (pow(xG - xT, 2) + pow(yG - yT, 2) ), 0.5) <= 200 )
+        {
+        Censorship (830, 320);
+        }
+
     }
 //-------------------------
 void Background ()
@@ -289,7 +292,7 @@ void TrafficLight (int x, int y, int first, int second, int third)
     if (first == 1)
         {txSetFillColor (TX_BLACK);}
     else
-        {txSetFillColor (TX_RED);}
+        {txSetFillColor (RGB(255, 0, 0));}
     txCircle (x + 9, y - 114, 8);
 
     if (second == 1)
@@ -330,7 +333,37 @@ void people_men (int x, int y, double scale, double dist)
     txLine (x + 5, ROUND(y + 95*scale), ROUND(x + 5 - dist), ROUND(y + 115*scale));
     }
 
+void Censorship(int x, int y)
+    {
+    //blood
+    txSetColor (RGB(178, 34, 34));
+    txSetFillColor (RGB(178, 34, 34));
+    txEllipse (x + 15, y + 110, x + 130, y + 150);
+    txEllipse (x + 90, y + 140, x + 120, y + 155);
 
+    //censor
+    txSetColor (RGB(220, 220, 220));
+    txSetFillColor (RGB(220, 220, 220));
+    txRectangle (x, y, x + 100, y + 130);
+
+    txSetColor (RGB(105, 105, 105));
+    txSetFillColor (RGB(105, 105, 105));
+    txRectangle (x + 10, y, x +  20, y + 130);
+    txRectangle (x + 30, y, x +  40, y + 130);
+    txRectangle (x + 50, y, x +  60, y + 130);
+    txRectangle (x + 70, y, x +  80, y + 130);
+    txRectangle (x + 90, y, x + 100, y + 130);
+
+    txSetColor (RGB(192, 192, 192));
+    txSetFillColor (RGB(192, 192, 192));
+    txRectangle (x, y,       x + 100, y +  13);
+    txRectangle (x, y +  26, x + 100, y +  39);
+    txRectangle (x, y +  52, x + 100, y +  65);
+    txRectangle (x, y +  78, x + 100, y +  91);
+    txRectangle (x, y + 104, x + 100, y + 117);
+
+
+    }
 
 //{-------------------------------------------------------
 //!     Процедура рисования девочки
