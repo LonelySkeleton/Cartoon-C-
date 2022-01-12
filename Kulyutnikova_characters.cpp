@@ -27,7 +27,6 @@ void people_woman (int x, int y, double scale, double dist);
 void people_men   (int x, int y, double scale, double dist);
 
 void Background ();
-void Censorship (int x, int y);
 void SceneFirst ();
 
 void GirlAndTruck (int xG, int yG, double scaleG, double width, int xT, int yT, double scaleT, int xP, int yP, double scaleP);
@@ -51,14 +50,12 @@ void SceneFirst ()
     Background ();
     GirlAndTruck (792, 439, 0.9, 1, 230, -100, 0.4, 725, 419, 1);
     txSleep (760);
-    //Truck_moving  (230, -100, 0.3);
-    //GirlWalking   (792, 439, 1, 1);
-    //people_walk   (725, 419, 1   );
     }
 
 void GirlAndTruck (int xG, int yG, double scaleG, double width, int xT, int yT, double scaleT, int xP, int yP, double scaleP)
     {
     int i = 0;
+    int w = 1;
     while ( pow( (pow(xG - xT, 2) + pow(yG - yT, 2) ), 0.5) >= 100 )
         {
         Background ();
@@ -71,10 +68,12 @@ void GirlAndTruck (int xG, int yG, double scaleG, double width, int xT, int yT, 
         yT += i * 15;
 
         i += 1;
+        if (i % 2 == 0) w = 1;
+        else w = 2;
 
         Truck (xT, yT, scaleT + 0.06*i);
         Girl  (xG, yG, scaleG - 0.021*i, width, 2 - 4*(i % 2), -2 * (2 - 4*(i % 2)));
-        TrafficLight (750, 435, 2, 1, 1);
+        TrafficLight (750, 435, 1, w, 1);
 
         people_woman(xP - 520 + i*6*a, yP + 190 - i*6*a, scaleP*1  , 5 - 3*(i % 4));
         people_woman(xP +  30 - i*8,   yP       - i*8,   scaleP*0.5, 3 - 3*(i % 4));
@@ -82,15 +81,27 @@ void GirlAndTruck (int xG, int yG, double scaleG, double width, int xT, int yT, 
         people_woman(xP + 190 - i*4,   yP + 150 - i*4,   scaleP*1  , 3 - 3*(i % 4));
         people_woman(xP + 330,         yP - 209,         scaleP*0.5, 1);
 
-        people_men(xP + 405,         yP - 159,         scaleP*0.5, 1); 
+        people_men(xP + 405,         yP - 159,         scaleP*0.5, 1);
         people_men(xP - 575 + i*4*a, yP + 241 - i*4*a, scaleP*1,   2 - 3*(i % 4));
         people_men(xP - 200 + i*3,   yP -  51 - i*3,   scaleP*1,   3 - 3*(i % 4));
 
         txSleep (750);
         }
-    while ( pow( (pow(xG - xT, 2) + pow(yG - yT, 2) ), 0.5) <= 200 )
+
+     if ( pow( (pow(xG - xT, 2) + pow(yG - yT, 2) ), 0.5) <= 200 )
         {
-        Censorship (830, 320);
+        txSetFillColor (RGB(0, 0, 0));
+        txRectangle (0, 0, 1200, 800);
+
+        txSelectFont ("DS Eraser Cyr", 75, 25, FW_BOLD, true, false, false, 0);
+        txSetColor (RGB(255, 0, 0));
+        txTextOut (470, 50, "Запомни");
+        txSelectFont ("DS Eraser Cyr", 75, 18, FW_BOLD, true, false, false, 0);
+        txSetColor (RGB(255, 255, 255));
+        txTextOut (260, 180, "Переходить проезжую часть дороги");
+        txTextOut (80, 225, "необходимо только на разрешающий сигнал светофора.");
+        txTextOut (50, 380, "Отвлекись от телефона, сделай музыку в наушниках тише.");
+        txTextOut (230, 530, "Следи за тем, что происходит на дороге!");
         }
 
     }
@@ -112,88 +123,6 @@ void Background ()
 
     Houses (15, 45);
     }
-/*
-//-------------------------
-void GirlWalking (int x, int y, double scale, double width)
-    {
-     while (x <= 770 and y <= 415)
-     //for (int i = 0; i <= 30; i++)
-        {
-        int i = 1;
-
-        Girl (x, y, scale, width, 2 - 4*(i % 2), -2 * (2 - 4*(i % 2)));
-
-        x += i * 10;
-        y -= i * 10;
-        i += 1;
-
-        txSleep (250);
-
-        if (i != 30)   Background ();
-        }
-    }
-
-//--------------------------
-void CatTail (int x, int y, double scale, double width)
-    {
-     for (int i = 0; i <= 30; i++)
-         {
-          Cat(x, y, scale, width, 3 - 2*(i % 4));
-
-          txSleep (300);
-
-          if (i!=30) Background();
-         }
-    }
-
-//-------------------------
-void EmpressWalking (int x, int y, double scale, double width)
-    {
-     for (int i=0; i<=60;i++)
-        {
-        Empress (x - i*3, y - i*3, scale, width, 1 - 2*(i % 2));
-
-        txSleep (140);
-
-        if (i!=60) Background();
-        }
-    }
-
-//-------------------------
-void people_walk (int x, int y, double scale)
-    {
-    for (int i = 0; i <= 45; i++)
-        {
-        people_woman(x       + i*6, y       - i*6, scale*1  , 5 - 3*(i % 4));
-        people_woman(x -  25 + i*6, y -  19 - i*6, scale*0.5, 3 - 3*(i % 4));
-        people_woman(x + 120 + i*8, y +  31 - i*8, scale*1  , 4 - 3*(i % 4));
-        people_woman(x + 145 + i*4, y +  71 - i*4, scale*1  , 3 - 3*(i % 4));
-        people_woman(x + 330 - i*8, y - 269 + i*8, scale*0.5, 5 - 3*(i % 4));
-
-        people_men(x + 405 - i*4, y - 249 + i*4, scale*0.5, 4 - 3*(i % 4));
-        people_men(x -  75 + i*4, y +  41 - i*4, scale*1  , 2 - 3*(i % 4));
-        people_men(x +  25 + i*3, y + 141 - i*3, scale*1  , 3 - 3*(i % 4));
-
-        txSleep (250);
-
-        if (i!=45) Background();
-        }
-    }
-
-//-------------------------
-void Truck_moving (int x, int y, double scale)
-    {
-    while (x <= 770 and y <= 415)
-    for (int i = 0; i <= 30; i++)
-        {
-        Truck (x + i*15, y + i*10, scale + 0.02*i);
-
-        txSleep (250);
-
-        if (i != 30)   Background ();
-        }
-    }
-*/
 
 //-------------------------
 void Road (int x, int y)
@@ -245,12 +174,12 @@ void Houses (int x, int y)
     txRectangle (x, y, x  + 180, y + 305);
         //window1
     txSetFillColor (TX_YELLOW);
-    txRectangle (x  + 15,  y +  30,  x +  60,  y +  80);
-    txRectangle (x  + 75,  y +  30,  x + 115,  y +  80);
-    txRectangle (x  + 129, y +  30,  x + 165,  y +  80);
-    txRectangle (x  +  15, y + 125,  x  +  60, y + 185);
-    txRectangle (x  +  75, y + 125,  x  + 115, y + 185);
-    txRectangle (x  + 129, y + 125,  x  + 165, y + 185);
+    txRectangle (x  +  15, y +  30,  x +  60, y +  80);
+    txRectangle (x  +  75, y +  30,  x + 115, y +  80);
+    txRectangle (x  + 129, y +  30,  x + 165, y +  80);
+    txRectangle (x  +  15, y + 125,  x +  60, y + 185);
+    txRectangle (x  +  75, y + 125,  x + 115, y + 185);
+    txRectangle (x  + 129, y + 125,  x + 165, y + 185);
         //house2
     txSetFillColor (TX_GRAY);
     txRectangle (x  + 134, y + 15, x  + 180 + 134, y + 305 + 15);
@@ -298,7 +227,7 @@ void TrafficLight (int x, int y, int first, int second, int third)
     if (second == 1)
         {txSetFillColor (TX_BLACK);}
     else
-        {txSetFillColor (TX_YELLOW);}
+        {txSetFillColor (RGB(255, 215, 0));}
     txCircle (x + 9, y - 96, 8);
 
     if (third == 1)
@@ -331,38 +260,6 @@ void people_men (int x, int y, double scale, double dist)
 
     txLine (x - 5, ROUND(y + 95*scale), ROUND(x - 5 + dist), ROUND(y + 115*scale));
     txLine (x + 5, ROUND(y + 95*scale), ROUND(x + 5 - dist), ROUND(y + 115*scale));
-    }
-
-void Censorship(int x, int y)
-    {
-    //blood
-    txSetColor (RGB(178, 34, 34));
-    txSetFillColor (RGB(178, 34, 34));
-    txEllipse (x + 15, y + 110, x + 130, y + 150);
-    txEllipse (x + 90, y + 140, x + 120, y + 155);
-
-    //censor
-    txSetColor (RGB(220, 220, 220));
-    txSetFillColor (RGB(220, 220, 220));
-    txRectangle (x, y, x + 100, y + 130);
-
-    txSetColor (RGB(105, 105, 105));
-    txSetFillColor (RGB(105, 105, 105));
-    txRectangle (x + 10, y, x +  20, y + 130);
-    txRectangle (x + 30, y, x +  40, y + 130);
-    txRectangle (x + 50, y, x +  60, y + 130);
-    txRectangle (x + 70, y, x +  80, y + 130);
-    txRectangle (x + 90, y, x + 100, y + 130);
-
-    txSetColor (RGB(192, 192, 192));
-    txSetFillColor (RGB(192, 192, 192));
-    txRectangle (x, y,       x + 100, y +  13);
-    txRectangle (x, y +  26, x + 100, y +  39);
-    txRectangle (x, y +  52, x + 100, y +  65);
-    txRectangle (x, y +  78, x + 100, y +  91);
-    txRectangle (x, y + 104, x + 100, y + 117);
-
-
     }
 
 //{-------------------------------------------------------
