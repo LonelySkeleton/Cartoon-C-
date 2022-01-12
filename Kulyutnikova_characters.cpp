@@ -16,13 +16,6 @@ void Girl         (int x, int y, double scale, double width, int height, int dis
 void Empress      (int x, int y, double scale, double width, int distance);
 void Cat          (int x, int y, double scale, double width, int height);
 void Truck        (int x, int y, double scale);
-
-void GirlWalking    (int x, int y, double scale, double width);
-void CatTail        (int x, int y, double scale, double width);
-void EmpressWalking (int x, int y, double scale, double width);
-void people_walk    (int x, int y, double scale);
-void Truck_moving   (int x, int y, double scale);
-
 void people_woman (int x, int y, double scale, double dist);
 void people_men   (int x, int y, double scale, double dist);
 
@@ -47,6 +40,7 @@ int main ()
 //-------------------------
 void SceneFirst ()
     {
+    //txWaveOut (txWaveLoadWav ("Purr.wav")); //добавить звук фона
     Background ();
     GirlAndTruck (792, 439, 0.9, 1, 230, -100, 0.4, 725, 419, 1);
     txSleep (760);
@@ -54,6 +48,7 @@ void SceneFirst ()
 
 void GirlAndTruck (int xG, int yG, double scaleG, double width, int xT, int yT, double scaleT, int xP, int yP, double scaleP)
     {
+    //звук улицы
     int i = 0;
     int w = 1;
     while ( pow( (pow(xG - xT, 2) + pow(yG - yT, 2) ), 0.5) >= 100 )
@@ -87,6 +82,7 @@ void GirlAndTruck (int xG, int yG, double scaleG, double width, int xT, int yT, 
 
         txSleep (750);
         }
+        //за 400 добавить звук торможения и столкновения
 
      if ( pow( (pow(xG - xT, 2) + pow(yG - yT, 2) ), 0.5) <= 200 )
         {
@@ -484,7 +480,7 @@ void Cat (int x, int y, double scale, double width, int height)
                       {ROUND(x - 4 *scale), ROUND(y + 55 *scale)}, {ROUND(x - 3 *scale), ROUND(y + 35 *scale)} };
     txPolygon (legL, 4);
     }
-
+//-----------------------------------------------
 void Truck (int x, int y, double scale)
     {
         //wheel_hidden
