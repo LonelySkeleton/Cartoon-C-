@@ -28,11 +28,7 @@ int main ()
     {
     txCreateWindow (1200, 800);
 
-
     SceneFirst ();
-
-    //CatTail       (342, 400, 2, 1);
-    //EmpressWalking(345, 219, 1, 1);
 
     return 0;
     }
@@ -40,7 +36,7 @@ int main ()
 //-------------------------
 void SceneFirst ()
     {
-    //txWaveOut (txWaveLoadWav ("Purr.wav")); //добавить звук фона
+
     Background ();
     GirlAndTruck (792, 439, 0.9, 1, 230, -100, 0.4, 725, 419, 1);
     txSleep (760);
@@ -48,9 +44,9 @@ void SceneFirst ()
 
 void GirlAndTruck (int xG, int yG, double scaleG, double width, int xT, int yT, double scaleT, int xP, int yP, double scaleP)
     {
-    //звук улицы
     int i = 0;
     int w = 1;
+    txPlaySound ("Сцена1.wav");
     while ( pow( (pow(xG - xT, 2) + pow(yG - yT, 2) ), 0.5) >= 100 )
         {
         Background ();
@@ -82,7 +78,6 @@ void GirlAndTruck (int xG, int yG, double scaleG, double width, int xT, int yT, 
 
         txSleep (750);
         }
-        //за 400 добавить звук торможения и столкновения
 
      if ( pow( (pow(xG - xT, 2) + pow(yG - yT, 2) ), 0.5) <= 200 )
         {
@@ -91,7 +86,7 @@ void GirlAndTruck (int xG, int yG, double scaleG, double width, int xT, int yT, 
 
         txSelectFont ("DS Eraser Cyr", 75, 25, FW_BOLD, true, false, false, 0);
         txSetColor (RGB(255, 0, 0));
-        txTextOut (470, 50, "Запомни");
+        txTextOut (470, 50, "Запомни!");
         txSelectFont ("DS Eraser Cyr", 75, 18, FW_BOLD, true, false, false, 0);
         txSetColor (RGB(255, 255, 255));
         txTextOut (260, 180, "Переходить проезжую часть дороги");
