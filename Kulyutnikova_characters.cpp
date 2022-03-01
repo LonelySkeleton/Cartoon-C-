@@ -16,6 +16,9 @@ void Girl         (int x, int y, double scale, double width, int height, int dis
 void Empress      (int x, int y, double scale, double width, int distance);
 void Cat          (int x, int y, double scale, double width, int height);
 void Truck        (int x, int y, double scale);
+
+void Boy         (int x, int y, double scale, double width, int height, int dist);
+
 void people_woman (int x, int y, double scale, double dist);
 void people_men   (int x, int y, double scale, double dist);
 
@@ -28,7 +31,10 @@ int main ()
     {
     txCreateWindow (1200, 800);
 
-    SceneFirst ();
+    Background();
+    Boy(500, 200, 1, 1, 1, 1);
+
+    //SceneFirst ();
 
     return 0;
     }
@@ -66,15 +72,15 @@ void GirlAndTruck (int xG, int yG, double scaleG, double width, int xT, int yT, 
         Girl  (xG, yG, scaleG - 0.021*i, width, 2 - 4*(i % 2), -2 * (2 - 4*(i % 2)));
         TrafficLight (750, 435, 1, w, 1);
 
-        people_woman(xP - 520 + i*6*a, yP + 190 - i*6*a, scaleP*1  , 5 - 3*(i % 4));
-        people_woman(xP +  30 - i*8,   yP       - i*8,   scaleP*0.5, 3 - 3*(i % 4));
-        people_woman(xP + 450 - i*5,   yP + 391 - i*5,   scaleP*1  , 4 - 3*(i % 4));
-        people_woman(xP + 190 - i*4,   yP + 150 - i*4,   scaleP*1  , 3 - 3*(i % 4));
-        people_woman(xP + 330,         yP - 209,         scaleP*0.5, 1);
+        people_woman (xP - 520 + i*6*a, yP + 190 - i*6*a, scaleP*1  , 5 - 3*(i % 4));
+        people_woman (xP +  30 - i*8,   yP       - i*8,   scaleP*0.5, 3 - 3*(i % 4));
+        people_woman (xP + 450 - i*5,   yP + 391 - i*5,   scaleP*1  , 4 - 3*(i % 4));
+        people_woman (xP + 190 - i*4,   yP + 150 - i*4,   scaleP*1  , 3 - 3*(i % 4));
+        people_woman (xP + 330,         yP - 209,         scaleP*0.5, 1);
 
-        people_men(xP + 405,         yP - 159,         scaleP*0.5, 1);
-        people_men(xP - 575 + i*4*a, yP + 241 - i*4*a, scaleP*1,   2 - 3*(i % 4));
-        people_men(xP - 200 + i*3,   yP -  51 - i*3,   scaleP*1,   3 - 3*(i % 4));
+        people_men (xP + 405,         yP - 159,         scaleP*0.5, 1);
+        people_men (xP - 575 + i*4*a, yP + 241 - i*4*a, scaleP*1,   2 - 3*(i % 4));
+        people_men (xP - 200 + i*3,   yP -  51 - i*3,   scaleP*1,   3 - 3*(i % 4));
 
         txSleep (750);
         }
@@ -86,13 +92,12 @@ void GirlAndTruck (int xG, int yG, double scaleG, double width, int xT, int yT, 
 
         txSelectFont ("DS Eraser Cyr", 75, 25, FW_BOLD, true, false, false, 0);
         txSetColor (RGB(255, 0, 0));
-        txTextOut (470, 50, "Запомни!");
+        txTextOut (470, 50, "Внимание!");
         txSelectFont ("DS Eraser Cyr", 75, 18, FW_BOLD, true, false, false, 0);
         txSetColor (RGB(255, 255, 255));
-        txTextOut (260, 180, "Переходить проезжую часть дороги");
-        txTextOut (80, 225, "необходимо только на разрешающий сигнал светофора.");
-        txTextOut (50, 380, "Отвлекись от телефона, сделай музыку в наушниках тише.");
-        txTextOut (230, 530, "Следи за тем, что происходит на дороге!");
+        txTextOut (300, 200, "Отвлекись от телефона,");
+        txTextOut (275, 265, "сделай музыку в наушниках тише.");
+        txTextOut (230, 430, "Следи за тем, что происходит на дороге!");
         }
 
     }
@@ -344,7 +349,7 @@ void Girl (int x, int y, double scale, double width, int height, int dist)
 //!     Процедура рисования императрицы
 //!
 //!             параметры:
-//! x, ROUND(y     == координаты начальной точки
+//! x, y     == координаты начальной точки
 //! scale    == размер при масштабировании
 //! width    == толщина линий
 //! distance == расстояние между рук
@@ -413,7 +418,7 @@ void Empress (int x, int y, double scale, double width, int distance)
 //!     Процедура рисования кота
 //!
 //!             параметры:
-//! x, ROUND(y    == координаты начальной точки
+//! x, y    == координаты начальной точки
 //! scale   == размер при масштабировании
 //! width   == толщина линий
 //! height  == подъём хвоста
@@ -476,6 +481,15 @@ void Cat (int x, int y, double scale, double width, int height)
     txPolygon (legL, 4);
     }
 //-----------------------------------------------
+
+//{-------------------------------------------------------
+//!     Процедура рисования грузовика
+//!
+//!             параметры:
+//! x, y    == координаты начальной точки
+//! scale   == размер при масштабировании
+//!
+//}------------------------------------------------------
 void Truck (int x, int y, double scale)
     {
         //wheel_hidden
@@ -523,3 +537,63 @@ void Truck (int x, int y, double scale)
      txEllipse (ROUND(x - 83*scale ), ROUND(y +  75*scale), ROUND(x -  53*scale), ROUND(y + 30*scale));
      txEllipse (ROUND(x - 170*scale), ROUND(y -  35*scale), ROUND(x - 140*scale), ROUND(y + 10*scale));
     }
+
+//{-------------------------------------------------------
+//!     Процедура рисования мальчика
+//!
+//!             параметры:
+//! x, y    == координаты начальной точки
+//! scale   == размер при масштабировании
+//! width   == толщина линий
+//! height  == подъём руки
+//! dist    == расстояние между ногами
+//! colour  == цвет фигур
+//!
+//}------------------------------------------------------
+
+void Boy (int x, int y, double scale, double width, int height, int dist)
+    {
+    //shoes
+    txLine (ROUND(x - 6 - dist *scale), ROUND(y + 128 *scale), ROUND(x +  6 - dist *scale), ROUND(y + 130 *scale));
+    txLine (ROUND(x + 6 + dist *scale), ROUND(y + 128 *scale), ROUND(x + 18 + dist *scale), ROUND(y + 130 *scale));
+
+    //body
+        //clothes
+    txSetColor (RGB(65, 105, 225), 2 + width);
+    txSetFillColor (RGB(65, 105, 225));
+    txRectangle(ROUND(x - 20 *scale), ROUND(y +  23 *scale), ROUND(x + 20 *scale), ROUND(y +  98 *scale));
+
+        //head
+    txSetColor (RGB(255, 228, 196), 2 + width);
+    txSetFillColor (RGB(255, 228, 196));
+    txCircle (ROUND(x *scale), ROUND(y *scale), ROUND(22 *scale));
+
+        //fringe
+    txSetColor (RGB(160, 82, 45), 2 + width);
+    txSetFillColor (RGB(160, 82, 45));
+    POINT body3[4] = { {ROUND(x + 14.5 *scale), ROUND(y - 18 *scale)}, {ROUND(x - 22 *scale),  ROUND(y +  5 *scale)},
+                       {ROUND(x - 22.5 *scale), ROUND(y - 11 *scale)}, {ROUND(x -  6 *scale),  ROUND(y - 22 *scale)} };
+    txPolygon (body3, 4);
+
+        //legs
+    txSetColor (TX_BLACK, 2 + width);
+    txSetFillColor (RGB (255, 248, 220));
+    txLine (ROUND(x -  4 *scale), ROUND(y + 98 *scale), ROUND(x -  4 - dist *scale), ROUND(y + 128 *scale));
+    txLine (ROUND(x + 10 *scale), ROUND(y + 98 *scale), ROUND(x + 10 + dist *scale), ROUND(y + 128 *scale));
+
+       //arms
+    txSetColor (TX_BLACK, 2 + width);
+    txLine (ROUND(x + 4 *scale), ROUND(y + 50 *scale), ROUND(x + 37 *scale), ROUND(y + 40 + height *scale));
+    txLine (ROUND(x + 7 *scale), ROUND(y + 56 *scale), ROUND(x + 37 *scale), ROUND(y + 46 + height *scale));
+
+    //hat
+    txSetColor (RGB(255, 165, 0), 2 + width);
+    txSetFillColor (RGB (255, 165, 0));
+    txRectangle(ROUND(x - 24*scale), ROUND(y - 12 *scale), ROUND(x + 25 *scale), ROUND(y - 24 *scale));
+    txSetColor (RGB(0, 0, 0), 2 + width);
+    txSetFillColor (RGB (0, 0, 0));
+    txRectangle(ROUND(x + 15*scale), ROUND(y - 12 *scale), ROUND(x + 39 *scale), ROUND(y - 17 *scale));
+
+    }
+
+//-----------------------------------------------
