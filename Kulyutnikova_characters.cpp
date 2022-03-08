@@ -14,7 +14,8 @@ void Houses       (int x, int y);
 void TrafficLight (int x, int y, int first, int second, int third);
 
 void Background_Second ();
-void Rails (int x, int y, double width);
+void Rails (int x, int y);
+void Stop (int x, int y, int type);
 
 void Girl         (int x, int y, double scale, double width, int height, int dist);
 void Empress      (int x, int y, double scale, double width, int distance);
@@ -22,7 +23,7 @@ void Cat          (int x, int y, double scale, double width, int height);
 void Truck        (int x, int y, double scale);
 
 void Boy         (int x, int y, double scale, double width, int height, int dist);
-void Tram        (int x, int y, double scale);
+void Tram        (int x, int y, double scale, int type);
 
 void people_woman (int x, int y, double scale, double dist);
 void people_men   (int x, int y, double scale, double dist);
@@ -37,13 +38,7 @@ int main ()
     {
     txCreateWindow (1200, 800);
 
-    Background_Second();
-    Boy(500, 200, 1, 1, 1, 1);
-    Tram(700, 210, 0.75);
-    txSetColor(TX_BLACK, 6);
-    txLine(740, 270, 690, 300);
-    Tram(100, 310, 0.75);
-    //Tram(100, 310, 0.75);
+    SceneSecond();
 
     //SceneFirst ();
 
@@ -62,6 +57,17 @@ void SceneFirst ()
 void SceneSecond ()
     {
     Background_Second();
+    Boy(40, 200, 0.75, 1, 1, 1);
+
+    Tram(700, 210, 0.75, 2);
+    txSetColor(TX_BLACK, 6);
+    txLine(740, 270, 690, 300);
+    Tram(100, 310, 0.75, 2);
+
+    Tram(700, 310, 0.75, 1);
+    txSetColor(TX_BLACK, 6);
+    txLine(740, 370, 690, 400);
+    Tram(100, 410, 0.75, 1);
     //IgorAndTram (792, 439, 0.9, 1, 230, -100, 0.4, 725, 419, 1);
     txSleep (760);
     }
@@ -269,17 +275,20 @@ void Background_Second ()
         txLine(0 * i, 1200 - 5 * i, 0 + 25 * i, 1200 + 55 * i);
         }
 
-    Rails (0, 450, 2);
+    Rails (0, 450);
+    Stop (900, 600, 1);
+    Stop (700, 200, 2);
 
     //Pavement (700, 400);
 
     //Houses (15, 45);
     }
 
-//===============CROWD SCENE===========
-void Rails (int x, int y, double width)
+//============ELEMENTS BACKGROUND SECOND=======
+
+void Rails (int x, int y)
     {
-    txSetColor (TX_BLACK, 2 + width);
+    txSetColor (TX_BLACK, 2);
     txLine(x, y     , x + 1200, y - 200);
     txLine(x, y + 50, x + 1200, y - 150);
 
@@ -296,6 +305,45 @@ void Rails (int x, int y, double width)
         */
     }
 
+//----------------------------------------
+void Stop (int x, int y, int type)
+    {
+    txSetColor(RGB(0, 0, 0), 2);
+
+    if (type == 2)
+            {
+            txSetFillColor(RGB(224, 255, 255));
+            POINT back[4] = {{ROUND(x + 0.1 * 2.25),  ROUND(y - 60 * 2.25)}, {ROUND(x + 0.1 * 2.25), ROUND(y + 0.1 * 2.25)},
+                             {ROUND(x +  80 * 2.25),  ROUND(y - 10 * 2.25)}, {ROUND(x +  80 * 2.25), ROUND(y - 70  * 2.25)}};
+            txPolygon(back, 4);
+            }
+
+    txSetFillColor(RGB(224, 255, 255));
+
+    POINT side[4] = {{ROUND(x + 0.1 * 2.25), ROUND(y  + 0.1 * 2.25)}, {ROUND(x + 0.1 * 2.25),  ROUND(y - 60 * 2.25)},
+                     {ROUND(x + 20  * 2.25), ROUND(y - 35   * 2.25)}, {ROUND(x + 20  * 2.25),  ROUND(y + 25 * 2.25)}};
+    txPolygon(side, 4);
+
+
+    POINT side2[4] = {{ROUND(x + 100 * 2.25), ROUND(y + 15 * 2.25)}, {ROUND(x + 100 * 2.25),  ROUND(y - 45 * 2.25)},
+                      {ROUND(x +  80 * 2.25), ROUND(y - 70 * 2.25)}, {ROUND(x +  80 * 2.25),  ROUND(y - 10 * 2.25)}};
+    txPolygon(side2, 4);
+
+    if (type == 1)
+    {
+    txSetFillColor(RGB(224, 255, 255));
+    POINT back[4] = {{ROUND(x +  20 * 2.25), ROUND(y - 35  * 2.25)}, {ROUND(x +  20 * 2.25),  ROUND(y + 10 * 2.25)},
+                     {ROUND(x + 100 * 2.25), ROUND(y + 0.1 * 2.25)}, {ROUND(x + 100 * 2.25),  ROUND(y - 45 * 2.25)}};
+    txPolygon(back, 4);
+    }
+
+    txSetFillColor(RGB(0, 0, 128));
+
+    POINT roof[4] = {{ROUND(x + 100 * 2.25), ROUND(y - 45 * 2.25)}, {ROUND(x +  80 * 2.25), ROUND(y - 70 * 2.25)},
+                     {ROUND(x + 0.1 * 2.25), ROUND(y - 60 * 2.25)}, {ROUND(x +  20 * 2.25), ROUND(y - 35 * 2.25)}};
+    txPolygon(roof, 4);
+    }
+//===============CROWD SCENE===========
 //----------------------------------------
 void people_woman (int x, int y, double scale, double dist)
     {
@@ -634,13 +682,13 @@ void Boy (int x, int y, double scale, double width, int height, int dist)
         //head
     txSetColor (RGB(255, 228, 196), 2 + width);
     txSetFillColor (RGB(255, 228, 196));
-    txCircle (ROUND(x *scale), ROUND(y *scale), ROUND(22 *scale));
+    txCircle (ROUND(x + 0.01 *scale), ROUND(y + 0.01 *scale), ROUND(22 *scale));
 
         //fringe
     txSetColor (RGB(160, 82, 45), 2 + width);
     txSetFillColor (RGB(160, 82, 45));
     POINT body3[4] = { {ROUND(x + 14.5 *scale), ROUND(y - 18 *scale)}, {ROUND(x - 22 *scale),  ROUND(y +  5 *scale)},
-                       {ROUND(x - 22.5 *scale), ROUND(y - 11 *scale)}, {ROUND(x -  6 *scale),  ROUND(y - 22 *scale)} };
+                       {ROUND(x - 22.25 *scale), ROUND(y - 11 *scale)}, {ROUND(x -  6 *scale),  ROUND(y - 22 *scale)} };
     txPolygon (body3, 4);
 
         //legs
@@ -671,9 +719,10 @@ void Boy (int x, int y, double scale, double width, int height, int dist)
 //!             параметры:
 //! x, y    == координаты начальной точки
 //! scale   == размер при масштабировании
+//! type    == вид трамвая
 //!
 //}------------------------------------------------------
-void Tram (int x, int y, double scale)
+void Tram (int x, int y, double scale, int type)
     {
     txSetColor(TX_BLACK, 2);
     txSetFillColor(TX_BLACK);
@@ -693,10 +742,6 @@ void Tram (int x, int y, double scale)
                           {ROUND(x + 130 *scale), ROUND(y -  75 *scale)}, {ROUND(x + 800 *scale), ROUND(y - 180 *scale)},
                           {ROUND(x + 820 *scale), ROUND(y -  20 *scale)}, {ROUND(x + 800 *scale), ROUND(y +  80 *scale)}};
     txPolygon(tram_body, 6);
-
-    POINT number[4] = {{ROUND(x + 25  *scale), ROUND(y + 0.1 *scale)}, {ROUND(x + 30 *scale), ROUND(y -  45 *scale)},
-                       {ROUND(x + 70  *scale), ROUND(y - 15 *scale)}, {ROUND(x + 65 *scale), ROUND(y +  35 *scale)}};
-    txPolygon(number, 4);
 
     txSetFillColor (RGB (220, 20, 60));
     POINT tram_roof[4] = {{ROUND(x +  20 *scale), ROUND(y - 175 *scale)}, {ROUND(x + 130 *scale), ROUND(y - 75 *scale)},
@@ -719,4 +764,20 @@ void Tram (int x, int y, double scale)
                             {ROUND(x + 110  *scale), ROUND(y - 65 *scale)}, {ROUND(x + 85 *scale), ROUND(y +   50 *scale)}};
     txPolygon(window_face, 4);
 
+    if (type == 1)
+        {txSetFillColor (RGB (255, 250, 250));
+        POINT number[4] = {{ROUND(x + 25  *scale), ROUND(y + 0.1 *scale)}, {ROUND(x + 30 *scale), ROUND(y -  45 *scale)},
+                           {ROUND(x + 70  *scale), ROUND(y - 15 *scale)}, {ROUND(x + 65 *scale), ROUND(y +  35 *scale)}};
+        txPolygon(number, 4);
+        }
+    if (type == 2)
+        {txSetFillColor (RGB (255, 250, 250));
+        POINT number[4] = {{ROUND(x +  27  *scale), ROUND(y - 110 *scale)}, {ROUND(x + 30 *scale), ROUND(y -  140 *scale)},
+                           {ROUND(x + 110  *scale), ROUND(y - 70 *scale)}, {ROUND(x + 105 *scale), ROUND(y -   40 *scale)}};
+        txPolygon(number, 4);
+
+        txSetFillColor (RGB (255, 250, 205));
+        txEllipse (ROUND(x + 18 *scale), ROUND(y + 35 *scale), ROUND(x + 45 *scale), ROUND(y + 60 *scale));
+        txEllipse (ROUND(x + 58 *scale), ROUND(y + 65 *scale), ROUND(x + 85 *scale), ROUND(y + 90 *scale));
+        }
     }
