@@ -6,13 +6,15 @@
 
 using namespace std ;
 
+void Background_First ();
 void Road         (int x, int y);
-void Rails        (int x, int y);
-void Layout       (int x, int y);
 void Polosa       (int x, int y);
-void Pavement     (int x, int y, int choice);
-void Houses       (int x, int y, double size, int choice);
+void Pavement     (int x, int y);
+void Houses       (int x, int y);
 void TrafficLight (int x, int y, int first, int second, int third);
+
+void Background_Second ();
+void Rails (int x, int y, double width);
 
 void Girl         (int x, int y, double scale, double width, int height, int dist);
 void Empress      (int x, int y, double scale, double width, int distance);
@@ -20,34 +22,47 @@ void Cat          (int x, int y, double scale, double width, int height);
 void Truck        (int x, int y, double scale);
 
 void Boy         (int x, int y, double scale, double width, int height, int dist);
+void Tram        (int x, int y, double scale);
 
 void people_woman (int x, int y, double scale, double dist);
 void people_men   (int x, int y, double scale, double dist);
 
-void Background_Scene_First  ();
-void Background_Scene_Second ();
 void SceneFirst ();
+void SceneSecond ();
 
 void GirlAndTruck (int xG, int yG, double scaleG, double width, int xT, int yT, double scaleT, int xP, int yP, double scaleP);
+void IgorAndTram  (int xG, int yG, double scaleG, double width, int xT, int yT, double scaleT, int xP, int yP, double scaleP);
 
 int main ()
     {
     txCreateWindow (1200, 800);
 
+    Background_Second();
+    Boy(500, 200, 1, 1, 1, 1);
+    Tram(700, 210, 0.75);
+    txSetColor(TX_BLACK, 6);
+    txLine(740, 270, 690, 300);
+    Tram(100, 310, 0.75);
+    //Tram(100, 310, 0.75);
 
     //SceneFirst ();
 
-    Background_Scene_Second ();
-    //Boy (800, 500, 1, 1, 1, 1);
     return 0;
     }
 
 //-------------------------
 void SceneFirst ()
     {
-
-    Background_Scene_First ();
+    Background_First ();
     GirlAndTruck (792, 439, 0.9, 1, 230, -100, 0.4, 725, 419, 1);
+    txSleep (760);
+    }
+
+//-------------------------
+void SceneSecond ()
+    {
+    Background_Second();
+    //IgorAndTram (792, 439, 0.9, 1, 230, -100, 0.4, 725, 419, 1);
     txSleep (760);
     }
 
@@ -58,7 +73,7 @@ void GirlAndTruck (int xG, int yG, double scaleG, double width, int xT, int yT, 
     txPlaySound ("Сцена1.wav");
     while ( pow( (pow(xG - xT, 2) + pow(yG - yT, 2) ), 0.5) >= 100 )
         {
-        Background_Scene_First ();
+        Background_First ();
         int a = 1;
         if ( (pow( (pow(xG - xT, 2) + pow(yG - yT, 2)), 0.5) ) <= 500 ) a = 2;
 
@@ -98,45 +113,34 @@ void GirlAndTruck (int xG, int yG, double scaleG, double width, int xT, int yT, 
         txTextOut (470, 50, "Внимание!");
         txSelectFont ("DS Eraser Cyr", 75, 18, FW_BOLD, true, false, false, 0);
         txSetColor (RGB(255, 255, 255));
-        txTextOut (300, 200, "Отвлекись от телефона,");
+        txTextOut (350, 200, "Отвлекись от телефона,");
         txTextOut (275, 265, "сделай музыку в наушниках тише.");
         txTextOut (230, 430, "Следи за тем, что происходит на дороге!");
         }
 
     }
+
+//||||||||||||||BACKGROUND FIRST|||||||||||||
 //-------------------------
-void Background_Scene_First ()
+void Background_First ()
     {
     txClear ();
 
     txSetFillColor (RGB(220, 220, 220));
     txRectangle (0, 0, 1200, 800);
     Road (114, -45);
-    Layout(114, -45);
 
     Polosa (820, 390);
     Polosa (870, 355);
     Polosa (920, 320);
     Polosa (970, 285);
 
-    Pavement (700, 400, 1);
+    Pavement (700, 400);
 
-    Houses (15, 45, 1, 1);
+    Houses (15, 45);
     }
 
-//-------------------------
-void Background_Scene_Second ()
-    {
-    txClear ();
-
-    txSetFillColor (RGB(220, 220, 220));
-    txRectangle (0, 0, 1200, 800);
-    Road (114, -45);
-
-    Pavement (700, 400, 2);
-
-    Houses (5, 45, 1.5, 2);
-    }
+//============ELEMENTS BACKGROUND FIRST=======
 
 //-------------------------
 void Road (int x, int y)
@@ -146,12 +150,6 @@ void Road (int x, int y)
     POINT road[4] = { {x,        y      }, {x + 126,  y - 105},
                       {x + 1236, y + 450}, {x + 1086, y + 735} };
     txPolygon (road, 4);
-
-    }
-
-//-----------------------------------------------
-void Layout (int x, int y)
-    {
     txLine (x + 481, y + 195, x +  571, y + 245);
     txLine (x + 331, y +  95, x +  421, y + 145);
     txLine (x + 631, y + 295, x +  721, y + 345);
@@ -168,33 +166,14 @@ void Polosa (int x, int y)
     txPolygon (polosa, 4);
     }
 
-//-------------------------
-void Rails (int x, int y)
-{
-
-}
 //-----------------------------------------------
-void Pavement (int x, int y, int choice)
+void Pavement (int x, int y)
     {
     txSetFillColor (TX_GRAY);
-    txSetColor (TX_BLACK, 1.5);
-
-    if (choice == 1)
-        {
-        POINT pavement1[6] = { {x,       y      }, {x +  34, y + 145},
-                               {x - 580, y + 400}, {x - 700, y + 400},
-                               {x - 700, y + 200}, {x,       y      } };
-        txPolygon (pavement1, 6);
-        }
-
-    if (choice == 2)
-        {
-        POINT pavement1[6] = { {x + 150      , y + 200      }, {x +  34 + 290, y + 145 + 100},
-                               {x - 580 + 200, y + 400 + 100}, {x - 700 + 390, y + 400 + 200},
-                               {x - 700 + 150, y + 200 + 200}, {x + 150      , y + 200      } };
-        txPolygon (pavement1, 6);
-        }
-
+    POINT pavement1[6] = { {x,       y      }, {x +  34, y + 145},
+                           {x - 580, y + 400}, {x - 700, y + 400},
+                           {x - 700, y + 200}, {x,       y      } };
+    txPolygon (pavement1, 6);
     POINT pavement2[6] = { {x - 694, y - 445}, {x - 586, y - 445},
                            {x + 500, y + 290}, {x + 500, y + 400},
                            {x + 350, y + 400}, {x - 694, y - 445} };
@@ -203,59 +182,54 @@ void Pavement (int x, int y, int choice)
                            {x + 600, y - 110}, {x + 650, y +  50},
                            {x - 460, y - 550}  };
     txPolygon (pavement3, 5);
-
-
     }
 
 //-----------------------------------------------
-void Houses (int x, int y, double size, int choice)
+void Houses (int x, int y)
     {
         //house1
     txSetFillColor (TX_GRAY);
-    txRectangle (ROUND(x + 0.1 *size), ROUND(y + 0.1 *size), ROUND(x  + 180 *size), ROUND(y + 305  *size));
+    txRectangle (x, y, x  + 180, y + 305);
         //window1
     txSetFillColor (TX_YELLOW);
-    txRectangle (ROUND(x  +  15*size), ROUND(y +  30*size),  ROUND(x +  60*size), ROUND(y +  80*size));
-    txRectangle (ROUND(x  +  75*size), ROUND(y +  30*size),  ROUND(x + 115*size), ROUND(y +  80*size));
-    txRectangle (ROUND(x  + 129*size), ROUND(y +  30*size),  ROUND(x + 165*size), ROUND(y +  80*size));
-    txRectangle (ROUND(x  +  15*size), ROUND(y + 125*size),  ROUND(x +  60*size), ROUND(y + 185*size));
-    txRectangle (ROUND(x  +  75*size), ROUND(y + 125*size),  ROUND(x + 115*size), ROUND(y + 185*size));
-    txRectangle (ROUND(x  + 129*size), ROUND(y + 125*size),  ROUND(x + 165*size), ROUND(y + 185*size));
+    txRectangle (x  +  15, y +  30,  x +  60, y +  80);
+    txRectangle (x  +  75, y +  30,  x + 115, y +  80);
+    txRectangle (x  + 129, y +  30,  x + 165, y +  80);
+    txRectangle (x  +  15, y + 125,  x +  60, y + 185);
+    txRectangle (x  +  75, y + 125,  x + 115, y + 185);
+    txRectangle (x  + 129, y + 125,  x + 165, y + 185);
         //house2
     txSetFillColor (TX_GRAY);
-    txRectangle (ROUND(x  + (134 + 50)*size), ROUND(y + (15 + 50)*size), ROUND(x  + (180 + 134 + 50)*size), ROUND(y + (305 + 15 + 50)*size));
+    txRectangle (x  + 134, y + 15, x  + 180 + 134, y + 305 + 15);
         //window2
     txSetFillColor (TX_YELLOW);
-    txRectangle (ROUND(x  + ( 41 + 104 + 50)*size), ROUND(y  + ( 30 + 15 + 50)*size), ROUND(x  + ( 96 + 104 + 50)*size),  ROUND(y + ( 75 + 15 + 50)*size));
-    txRectangle (ROUND(x  + (116 + 104 + 50)*size), ROUND(y  + ( 30 + 15 + 50)*size), ROUND(x  + (200 + 104 + 50)*size),  ROUND(y + ( 75 + 15 + 50)*size));
-    txRectangle (ROUND(x  + ( 38 + 104 + 50)*size), ROUND(y  + ( 90 + 15 + 50)*size), ROUND(x  + ( 65 + 104 + 50)*size),  ROUND(y + (141 + 15 + 50)*size));
-    txRectangle (ROUND(x  + ( 86 + 104 + 50)*size), ROUND(y  + ( 90 + 15 + 50)*size), ROUND(x  + (136 + 104 + 50)*size),  ROUND(y + (147 + 15 + 50)*size));
-    txRectangle (ROUND(x  + (176 + 104 + 50)*size), ROUND(y  + ( 90 + 15 + 50)*size), ROUND(x  + (211 + 104 + 50)*size),  ROUND(y + (147 + 15 + 50)*size));
-    txRectangle (ROUND(x  + ( 41 + 104 + 50)*size), ROUND(y  + (165 + 15 + 50)*size), ROUND(x  + (100 + 104 + 50)*size),  ROUND(y + (219 + 15 + 50)*size));
-    txRectangle (ROUND(x  + (131 + 104 + 50)*size), ROUND(y  + (165 + 15 + 50)*size), ROUND(x  + (211 + 104 + 50)*size),  ROUND(y + (255 + 15 + 50)*size));
-
-    if (choice == 1)
-        {
+    txRectangle (x  +  41 + 104, y  +  30 + 15, x  +  96 + 104,  y  +  75 + 15);
+    txRectangle (x  + 116 + 104, y  +  30 + 15, x  + 200 + 104,  y  +  75 + 15);
+    txRectangle (x  +  38 + 104, y  +  90 + 15, x  +  65 + 104,  y  + 141 + 15);
+    txRectangle (x  +  86 + 104, y  +  90 + 15, x  + 136 + 104,  y  + 147 + 15);
+    txRectangle (x  + 176 + 104, y  +  90 + 15, x  + 211 + 104,  y  + 147 + 15);
+    txRectangle (x  +  41 + 104, y  + 165 + 15, x  + 100 + 104,  y  + 219 + 15);
+    txRectangle (x  + 131 + 104, y  + 165 + 15, x  + 211 + 104,  y  + 255 + 15);
         //house3
-        txSetFillColor (TX_GRAY);
-        txRectangle (ROUND(x  + 120 *size), ROUND(y  + 135 *size), ROUND(x  + (165 + 120)*size), ROUND(y  + (225 + 145)*size));
-            //window3
-        txSetFillColor (TX_YELLOW);
-        txRectangle (ROUND(x  + (15 + 120)*size), ROUND(y  + ( 30 + 135)*size), ROUND(x  + ( 60 + 120)*size), ROUND(y  + ( 45 + 135)*size));
-        txRectangle (ROUND(x  + (75 + 120)*size), ROUND(y  + ( 27 + 135)*size), ROUND(x  + (120 + 120)*size), ROUND(y  + ( 72 + 135)*size));
-        txRectangle (ROUND(x  + (12 + 120)*size), ROUND(y  + (102 + 135)*size), ROUND(x  + ( 72 + 120)*size), ROUND(y  + (138 + 135)*size));
-        txRectangle (ROUND(x  + (90 + 120)*size), ROUND(y  + (102 + 135)*size), ROUND(x  + (135 + 120)*size), ROUND(y  + (138 + 135)*size));
-        txRectangle (ROUND(x  + (75 + 120)*size), ROUND(y  + (153 + 135)*size), ROUND(x  + (111 + 120)*size), ROUND(y  + (210 + 135)*size));
-        txRectangle (ROUND(x  + (30 + 120)*size), ROUND(y  + (165 + 135)*size), ROUND(x  + ( 60 + 120)*size), ROUND(y  + (221 + 135)*size));
-            //house4
-        txSetFillColor (TX_GRAY);
-        txRectangle (ROUND(x  + 1000 *size), ROUND(y  - 195 *size), ROUND(x  + (180 + 1000)*size), ROUND(y  + (305 - 195)*size));
-            //window4
-        txSetFillColor (TX_YELLOW);
-        txRectangle (ROUND(x  - (150 + 1175)*size), ROUND(y  + (150 - 195)*size),  ROUND(x  - (130 + 1175)*size), ROUND(y  + (240 - 195)*size));
-        txRectangle (ROUND(x  - (100 + 1175)*size), ROUND(y  + (133 - 195)*size),  ROUND(x  - ( 50 + 1175)*size), ROUND(y  + (185 - 195)*size));
-        }
+    txSetFillColor (TX_GRAY);
+    txRectangle (x  + 120, y  + 155, x  + 165 + 120, y  + 225 + 155);
+        //window3
+    txSetFillColor (TX_YELLOW);
+    txRectangle (x  + 15 + 120, y  +  30 + 155, x  +  60 + 120, y  +  45 + 155);
+    txRectangle (x  + 75 + 120, y  +  27 + 155, x  + 120 + 120, y  +  72 + 155);
+    txRectangle (x  + 12 + 120, y  + 102 + 155, x  +  72 + 120, y  + 138 + 155);
+    txRectangle (x  + 90 + 120, y  + 102 + 155, x  + 135 + 120, y  + 138 + 155);
+    txRectangle (x  + 75 + 120, y  + 153 + 155, x  + 111 + 120, y  + 210 + 155);
+    txRectangle (x  + 30 + 120, y  + 165 + 155, x  +  60 + 120, y  + 221 + 155);
+        //house4
+    txSetFillColor (TX_GRAY);
+    txRectangle (x  + 1000, y  - 195, x  + 180 + 1000, y  + 305 - 195);
+        //window4
+    txSetFillColor (TX_YELLOW);
+    txRectangle (x  - 150 + 1175, y  + 150 - 195,  x  - 130 + 1175, y  + 240 - 195);
+    txRectangle (x  - 100 + 1175, y  + 133 - 195,  x  -  50 + 1175, y  + 185 - 195);
     }
+
 //----------------------------------------
 void TrafficLight (int x, int y, int first, int second, int third)
     {
@@ -282,6 +256,46 @@ void TrafficLight (int x, int y, int first, int second, int third)
     txCircle (x + 9, y - 78, 8);
     }
 
+//||||||||||BACKGROUND SECOND||||||||||||||||
+void Background_Second ()
+    {
+    txClear ();
+
+    txSetFillColor (RGB(220, 220, 220));
+    txRectangle (0, 0, 1200, 800);
+
+    for (int i = 1; i <= 1200; i++)
+        {
+        txLine(0 * i, 1200 - 5 * i, 0 + 25 * i, 1200 + 55 * i);
+        }
+
+    Rails (0, 450, 2);
+
+    //Pavement (700, 400);
+
+    //Houses (15, 45);
+    }
+
+//===============CROWD SCENE===========
+void Rails (int x, int y, double width)
+    {
+    txSetColor (TX_BLACK, 2 + width);
+    txLine(x, y     , x + 1200, y - 200);
+    txLine(x, y + 50, x + 1200, y - 150);
+
+    txLine(x, y + 100, x + 1200, y - 100);
+    txLine(x, y + 150, x + 1200, y -  50);
+/*
+    int k = 1;
+    for (int i = 1; i <= 15; i++)
+        {
+        txLine(x      * k, y -  5 * k, x + 25 * k, y +  55 * k);
+        txLine(x + 25 * k, y + 90 * k, x + 50 * k, y + 155 * k);
+        k += 50;
+        }
+        */
+    }
+
 //----------------------------------------
 void people_woman (int x, int y, double scale, double dist)
     {
@@ -306,6 +320,8 @@ void people_men (int x, int y, double scale, double dist)
     txLine (x - 5, ROUND(y + 95*scale), ROUND(x - 5 + dist), ROUND(y + 115*scale));
     txLine (x + 5, ROUND(y + 95*scale), ROUND(x + 5 - dist), ROUND(y + 115*scale));
     }
+
+//==================MAIN CHARACTER FIRST=======
 
 //{-------------------------------------------------------
 //!     Процедура рисования девочки
@@ -587,6 +603,8 @@ void Truck (int x, int y, double scale)
      txEllipse (ROUND(x - 170*scale), ROUND(y -  35*scale), ROUND(x - 140*scale), ROUND(y + 10*scale));
     }
 
+//===================MAIN CHARACTERS SECOND========
+
 //{-------------------------------------------------------
 //!     Процедура рисования мальчика
 //!
@@ -603,6 +621,7 @@ void Truck (int x, int y, double scale)
 void Boy (int x, int y, double scale, double width, int height, int dist)
     {
     //shoes
+    txSetColor (RGB(0, 0, 0), 2 + width);
     txLine (ROUND(x - 6 - dist *scale), ROUND(y + 128 *scale), ROUND(x +  6 - dist *scale), ROUND(y + 130 *scale));
     txLine (ROUND(x + 6 + dist *scale), ROUND(y + 128 *scale), ROUND(x + 18 + dist *scale), ROUND(y + 130 *scale));
 
@@ -644,7 +663,60 @@ void Boy (int x, int y, double scale, double width, int height, int dist)
     txRectangle(ROUND(x + 15*scale), ROUND(y - 12 *scale), ROUND(x + 39 *scale), ROUND(y - 17 *scale));
 
     }
-
 //-----------------------------------------------
 
+//{-------------------------------------------------------
+//!     Процедура рисования трамвая
+//!
+//!             параметры:
+//! x, y    == координаты начальной точки
+//! scale   == размер при масштабировании
+//!
+//}------------------------------------------------------
+void Tram (int x, int y, double scale)
+    {
+    txSetColor(TX_BLACK, 2);
+    txSetFillColor(TX_BLACK);
+    txCircle(x + 200, y + 120 , 20);
+    txCircle(x + 450, y + 80 , 20);
 
+    txSetFillColor(TX_WHITE);
+    POINT tram_face[4] = {{ROUND(x + 0.1  *scale), ROUND(y + 0.1 *scale)}, {ROUND(x +  20 *scale),  ROUND(y -  175 *scale)},
+                          {ROUND(x + 130  *scale), ROUND(y - 75  *scale)}, {ROUND(x + 100 *scale),  ROUND(y +  85 *scale)}};
+    txPolygon(tram_face, 4);
+
+    POINT tram_face_down[4] = {{ROUND(x + 0.1 *scale), ROUND(y + 0.1 *scale)}, {ROUND(x +  20 *scale),  ROUND(y + 80 *scale)},
+                               {ROUND(x + 130 *scale), ROUND(y + 185 *scale)}, {ROUND(x + 100 *scale),  ROUND(y + 85 *scale)}};
+    txPolygon(tram_face_down, 4);
+
+    POINT tram_body[6] = {{ROUND(x + 130 *scale), ROUND(y + 185 *scale)}, {ROUND(x + 100 *scale), ROUND(y +  85 *scale)},
+                          {ROUND(x + 130 *scale), ROUND(y -  75 *scale)}, {ROUND(x + 800 *scale), ROUND(y - 180 *scale)},
+                          {ROUND(x + 820 *scale), ROUND(y -  20 *scale)}, {ROUND(x + 800 *scale), ROUND(y +  80 *scale)}};
+    txPolygon(tram_body, 6);
+
+    POINT number[4] = {{ROUND(x + 25  *scale), ROUND(y + 0.1 *scale)}, {ROUND(x + 30 *scale), ROUND(y -  45 *scale)},
+                       {ROUND(x + 70  *scale), ROUND(y - 15 *scale)}, {ROUND(x + 65 *scale), ROUND(y +  35 *scale)}};
+    txPolygon(number, 4);
+
+    txSetFillColor (RGB (220, 20, 60));
+    POINT tram_roof[4] = {{ROUND(x +  20 *scale), ROUND(y - 175 *scale)}, {ROUND(x + 130 *scale), ROUND(y - 75 *scale)},
+                          {ROUND(x + 800 *scale), ROUND(y - 180 *scale)}, {ROUND(x + 690 *scale), ROUND(y - 280 *scale)}};
+    txPolygon(tram_roof, 4);
+
+    POINT line_body[4] = {{ROUND(x + 100 *scale), ROUND(y +  85 *scale)}, {ROUND(x + 820 *scale), ROUND(y -   20 *scale)},
+                          {ROUND(x + 810 *scale), ROUND(y +  30 *scale)}, {ROUND(x + 115 *scale), ROUND(y +  135 *scale)}};
+    txPolygon(line_body, 4);
+    POINT line_face[4] = {{ROUND(x + 115 *scale), ROUND(y + 135 *scale)}, {ROUND(x + 100 *scale), ROUND(y +  85 *scale)},
+                          {ROUND(x + 0.1 *scale), ROUND(y + 0.1 *scale)}, {ROUND(x +  14 *scale), ROUND(y +  55 *scale)}};
+    txPolygon(line_face, 4);
+
+    txSetFillColor (RGB (224, 255, 255));
+    POINT window_body[4] = {{ROUND(x + 140 *scale), ROUND(y +  65 *scale)}, {ROUND(x + 790 *scale), ROUND(y -  28 *scale)},
+                            {ROUND(x + 790 *scale), ROUND(y - 158 *scale)}, {ROUND(x + 140 *scale), ROUND(y -  60 *scale)}};
+    txPolygon(window_body, 4);
+
+    POINT window_face[4] = {{ROUND(x +  15  *scale), ROUND(y - 10 *scale)}, {ROUND(x + 30 *scale), ROUND(y -  135 *scale)},
+                            {ROUND(x + 110  *scale), ROUND(y - 65 *scale)}, {ROUND(x + 85 *scale), ROUND(y +   50 *scale)}};
+    txPolygon(window_face, 4);
+
+    }
