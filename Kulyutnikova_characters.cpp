@@ -9,8 +9,8 @@ using namespace std ;
 void Background_First ();
 void Road         (int x, int y);
 void Polosa       (int x, int y);
-void Pavement     (int x, int y);
-void Houses       (int x, int y);
+void Pavement     (int x, int y, int choice);
+void Houses       (int x, int y, int choice);
 void TrafficLight (int x, int y, int first, int second, int third);
 
 void Background_Second ();
@@ -22,8 +22,10 @@ void Empress      (int x, int y, double scale, double width, int distance);
 void Cat          (int x, int y, double scale, double width, int height);
 void Truck        (int x, int y, double scale);
 
-void Boy         (int x, int y, double scale, double width, int height, int dist);
-void Tram        (int x, int y, double scale, int type);
+void Boy             (int x, int y, double scale, double width, int height, int dist);
+void Tram            (int x, int y, double scale, int type);
+void Tram_Door_Left  (int x, int y, double scale);
+void Tram_Door_Right (int x, int y, double scale);
 
 void people_woman (int x, int y, double scale, double dist);
 void people_men   (int x, int y, double scale, double dist);
@@ -32,16 +34,13 @@ void SceneFirst ();
 void SceneSecond ();
 
 void GirlAndTruck (int xG, int yG, double scaleG, double width, int xT, int yT, double scaleT, int xP, int yP, double scaleP);
-void IgorAndTram  (int xG, int yG, double scaleG, double width, int xT, int yT, double scaleT, int xP, int yP, double scaleP);
+void IgorAndTram  (int xB, int yB, double scaleB, double width, int xT, int yT, double scaleT, int xP, int yP, double scaleP);
 
 int main ()
     {
     txCreateWindow (1200, 800);
-
-    SceneSecond();
-
     //SceneFirst ();
-
+    SceneSecond();
     return 0;
     }
 
@@ -57,18 +56,27 @@ void SceneFirst ()
 void SceneSecond ()
     {
     Background_Second();
-    Boy(40, 200, 0.75, 1, 1, 1);
+    Boy(40, 200, 0.65, 1, 1, 1);
+    Tram(900, 200, 0.65, 2);
+    Tram(700, 333, 0.65, 1);
 
-    Tram(700, 210, 0.75, 2);
-    txSetColor(TX_BLACK, 6);
-    txLine(740, 270, 690, 300);
-    Tram(100, 310, 0.75, 2);
 
-    Tram(700, 310, 0.75, 1);
-    txSetColor(TX_BLACK, 6);
-    txLine(740, 370, 690, 400);
-    Tram(100, 410, 0.75, 1);
+    Tram_Door_Left(ROUND(1108 * 0.65), ROUND(502 * 0.65), 0.65);
+    Tram_Door_Left(ROUND( 240 * 0.65), ROUND(648 * 0.65), 0.65);
+    Tram_Door_Left(ROUND(1585 * 0.65), ROUND(431 * 0.65), 0.65);
+    Tram_Door_Left(ROUND( 686 * 0.65), ROUND(578 * 0.65), 0.65);
+
+    Tram_Door_Right(ROUND(1108 * 0.65), ROUND(502 * 0.65), 0.65);
+    Tram_Door_Right(ROUND( 240 * 0.65), ROUND(648 * 0.65), 0.65);
+    Tram_Door_Right(ROUND(1585 * 0.65), ROUND(431 * 0.65), 0.65);
+    Tram_Door_Right(ROUND( 686 * 0.65), ROUND(578 * 0.65), 0.65);
     //IgorAndTram (792, 439, 0.9, 1, 230, -100, 0.4, 725, 419, 1);
+
+    people_woman(800, 500, 0.75, 2);
+    people_woman(200, 200, 0.65, 2);
+    people_woman(100, 700, 0.5, 2);
+    people_men(250, 200, 0.65, 2);
+    people_men(450, 750, 0.5, 2);
     txSleep (760);
     }
 
@@ -141,9 +149,9 @@ void Background_First ()
     Polosa (920, 320);
     Polosa (970, 285);
 
-    Pavement (700, 400);
+    Pavement (700, 400, 1);
 
-    Houses (15, 45);
+    Houses (15, 45, 1);
     }
 
 //============ELEMENTS BACKGROUND FIRST=======
@@ -173,67 +181,93 @@ void Polosa (int x, int y)
     }
 
 //-----------------------------------------------
-void Pavement (int x, int y)
+void Pavement (int x, int y, int choice)
     {
-    txSetFillColor (TX_GRAY);
-    POINT pavement1[6] = { {x,       y      }, {x +  34, y + 145},
-                           {x - 580, y + 400}, {x - 700, y + 400},
-                           {x - 700, y + 200}, {x,       y      } };
-    txPolygon (pavement1, 6);
-    POINT pavement2[6] = { {x - 694, y - 445}, {x - 586, y - 445},
-                           {x + 500, y + 290}, {x + 500, y + 400},
-                           {x + 350, y + 400}, {x - 694, y - 445} };
-    txPolygon (pavement2, 6);
-    POINT pavement3[5] = { {x - 460, y - 550}, {x - 400, y - 550},
-                           {x + 600, y - 110}, {x + 650, y +  50},
-                           {x - 460, y - 550}  };
-    txPolygon (pavement3, 5);
+    if (choice == 1)
+        {txSetFillColor (TX_GRAY);
+        POINT pavement1[6] = { {x,       y      }, {x +  34, y + 145},
+                               {x - 580, y + 400}, {x - 700, y + 400},
+                               {x - 700, y + 200}, {x,       y      } };
+        txPolygon (pavement1, 6);
+        POINT pavement2[6] = { {x - 694, y - 445}, {x - 586, y - 445},
+                               {x + 500, y + 290}, {x + 500, y + 400},
+                               {x + 350, y + 400}, {x - 694, y - 445} };
+        txPolygon (pavement2, 6);
+        POINT pavement3[5] = { {x - 460, y - 550}, {x - 400, y - 550},
+                               {x + 600, y - 110}, {x + 650, y +  50},
+                               {x - 460, y - 550}  };
+        txPolygon (pavement3, 5);
+        }
+    if (choice == 2)
+        {txSetFillColor (RGB(154, 205, 50));
+        POINT pavement1[3] = { {x       , y      }, {x + 1200, y - 200},
+                               {x + 1200, y + 800}               };
+        txPolygon (pavement1, 3);
+
+        }
     }
 
 //-----------------------------------------------
-void Houses (int x, int y)
+void Houses (int x, int y, int choice)
     {
-        //house1
-    txSetFillColor (TX_GRAY);
-    txRectangle (x, y, x  + 180, y + 305);
-        //window1
-    txSetFillColor (TX_YELLOW);
-    txRectangle (x  +  15, y +  30,  x +  60, y +  80);
-    txRectangle (x  +  75, y +  30,  x + 115, y +  80);
-    txRectangle (x  + 129, y +  30,  x + 165, y +  80);
-    txRectangle (x  +  15, y + 125,  x +  60, y + 185);
-    txRectangle (x  +  75, y + 125,  x + 115, y + 185);
-    txRectangle (x  + 129, y + 125,  x + 165, y + 185);
-        //house2
-    txSetFillColor (TX_GRAY);
-    txRectangle (x  + 134, y + 15, x  + 180 + 134, y + 305 + 15);
-        //window2
-    txSetFillColor (TX_YELLOW);
-    txRectangle (x  +  41 + 104, y  +  30 + 15, x  +  96 + 104,  y  +  75 + 15);
-    txRectangle (x  + 116 + 104, y  +  30 + 15, x  + 200 + 104,  y  +  75 + 15);
-    txRectangle (x  +  38 + 104, y  +  90 + 15, x  +  65 + 104,  y  + 141 + 15);
-    txRectangle (x  +  86 + 104, y  +  90 + 15, x  + 136 + 104,  y  + 147 + 15);
-    txRectangle (x  + 176 + 104, y  +  90 + 15, x  + 211 + 104,  y  + 147 + 15);
-    txRectangle (x  +  41 + 104, y  + 165 + 15, x  + 100 + 104,  y  + 219 + 15);
-    txRectangle (x  + 131 + 104, y  + 165 + 15, x  + 211 + 104,  y  + 255 + 15);
-        //house3
-    txSetFillColor (TX_GRAY);
-    txRectangle (x  + 120, y  + 155, x  + 165 + 120, y  + 225 + 155);
-        //window3
-    txSetFillColor (TX_YELLOW);
-    txRectangle (x  + 15 + 120, y  +  30 + 155, x  +  60 + 120, y  +  45 + 155);
-    txRectangle (x  + 75 + 120, y  +  27 + 155, x  + 120 + 120, y  +  72 + 155);
-    txRectangle (x  + 12 + 120, y  + 102 + 155, x  +  72 + 120, y  + 138 + 155);
-    txRectangle (x  + 90 + 120, y  + 102 + 155, x  + 135 + 120, y  + 138 + 155);
-    txRectangle (x  + 75 + 120, y  + 153 + 155, x  + 111 + 120, y  + 210 + 155);
-    txRectangle (x  + 30 + 120, y  + 165 + 155, x  +  60 + 120, y  + 221 + 155);
-        //house4
-    txSetFillColor (TX_GRAY);
-    txRectangle (x  + 1000, y  - 195, x  + 180 + 1000, y  + 305 - 195);
-        //window4
-    txSetFillColor (TX_YELLOW);
-    txRectangle (x  - 150 + 1175, y  + 150 - 195,  x  - 130 + 1175, y  + 240 - 195);
-    txRectangle (x  - 100 + 1175, y  + 133 - 195,  x  -  50 + 1175, y  + 185 - 195);
+    if (choice == 1)
+        {
+          //house1
+        txSetFillColor (TX_GRAY);
+        txRectangle (x, y, x  + 180, y + 305);
+            //window1
+        txSetFillColor (TX_YELLOW);
+        txRectangle (x  +  15, y +  30,  x +  60, y +  80);
+        txRectangle (x  +  75, y +  30,  x + 115, y +  80);
+        txRectangle (x  + 129, y +  30,  x + 165, y +  80);
+        txRectangle (x  +  15, y + 125,  x +  60, y + 185);
+        txRectangle (x  +  75, y + 125,  x + 115, y + 185);
+        txRectangle (x  + 129, y + 125,  x + 165, y + 185);
+            //house2
+        txSetFillColor (TX_GRAY);
+        txRectangle (x  + 134, y + 15, x  + 180 + 134, y + 305 + 15);
+            //window2
+        txSetFillColor (TX_YELLOW);
+        txRectangle (x  +  41 + 104, y  +  30 + 15, x  +  96 + 104,  y  +  75 + 15);
+        txRectangle (x  + 116 + 104, y  +  30 + 15, x  + 200 + 104,  y  +  75 + 15);
+        txRectangle (x  +  38 + 104, y  +  90 + 15, x  +  65 + 104,  y  + 141 + 15);
+        txRectangle (x  +  86 + 104, y  +  90 + 15, x  + 136 + 104,  y  + 147 + 15);
+        txRectangle (x  + 176 + 104, y  +  90 + 15, x  + 211 + 104,  y  + 147 + 15);
+        txRectangle (x  +  41 + 104, y  + 165 + 15, x  + 100 + 104,  y  + 219 + 15);
+        txRectangle (x  + 131 + 104, y  + 165 + 15, x  + 211 + 104,  y  + 255 + 15);
+            //house3
+        txSetFillColor (TX_GRAY);
+        txRectangle (x  + 120, y  + 155, x  + 165 + 120, y  + 225 + 155);
+            //window3
+        txSetFillColor (TX_YELLOW);
+        txRectangle (x  + 15 + 120, y  +  30 + 155, x  +  60 + 120, y  +  45 + 155);
+        txRectangle (x  + 75 + 120, y  +  27 + 155, x  + 120 + 120, y  +  72 + 155);
+        txRectangle (x  + 12 + 120, y  + 102 + 155, x  +  72 + 120, y  + 138 + 155);
+        txRectangle (x  + 90 + 120, y  + 102 + 155, x  + 135 + 120, y  + 138 + 155);
+        txRectangle (x  + 75 + 120, y  + 153 + 155, x  + 111 + 120, y  + 210 + 155);
+        txRectangle (x  + 30 + 120, y  + 165 + 155, x  +  60 + 120, y  + 221 + 155);
+            //house4
+        txSetFillColor (TX_GRAY);
+        txRectangle (x  + 1000, y  - 195, x  + 180 + 1000, y  + 305 - 195);
+            //window4
+        txSetFillColor (TX_YELLOW);
+        txRectangle (x  - 150 + 1175, y  + 150 - 195,  x  - 130 + 1175, y  + 240 - 195);
+        txRectangle (x  - 100 + 1175, y  + 133 - 195,  x  -  50 + 1175, y  + 185 - 195);
+        }
+    if (choice == 2)
+        {
+        txSetFillColor (TX_GRAY);
+        POINT house[4] = {{x, y}, {x, y + 305}, {x + 380, y + 250}, {x + 380, y}};
+        txPolygon(house, 4);
+
+        POINT wall[4] = {{x, y}, {x, y + 305}, {x - 60, y + 220}, {x - 60, y}};
+        txPolygon(wall, 4);
+
+        POINT house2[4] = {{x + 380, y}, {x + 380, y + 250}, {x + 580, y + 218}, {x + 580, y}};
+        txPolygon(house2, 4);
+
+        }
+
     }
 
 //----------------------------------------
@@ -279,9 +313,10 @@ void Background_Second ()
     Stop (900, 600, 1);
     Stop (700, 200, 2);
 
-    //Pavement (700, 400);
+    Houses(50, -150, 2);
 
-    //Houses (15, 45);
+    Pavement (0, 900, 2);
+
     }
 
 //============ELEMENTS BACKGROUND SECOND=======
@@ -724,60 +759,141 @@ void Boy (int x, int y, double scale, double width, int height, int dist)
 //}------------------------------------------------------
 void Tram (int x, int y, double scale, int type)
     {
+    int x1 = x;
+    int x2 = x - 560;
+    int y1 = y;
+    int y2 = y + 93;
     txSetColor(TX_BLACK, 2);
     txSetFillColor(TX_BLACK);
-    txCircle(x + 200, y + 120 , 20);
-    txCircle(x + 450, y + 80 , 20);
+    //wheels
+    txCircle(ROUND(x1 + 266 *scale), ROUND(y1 + 160 *scale), ROUND(27 *scale));
+    txCircle(ROUND(x1 + 600 *scale), ROUND(y1 + 106 *scale), ROUND(27 *scale));
+                //-------------------
+    txCircle(ROUND(x2 + 266 *scale), ROUND(y2 + 160 *scale), ROUND(27 *scale));
+    txCircle(ROUND(x2 + 600 *scale), ROUND(y2 + 106 *scale), ROUND(27 *scale));
 
+    //body
     txSetFillColor(TX_WHITE);
-    POINT tram_face[4] = {{ROUND(x + 0.1  *scale), ROUND(y + 0.1 *scale)}, {ROUND(x +  20 *scale),  ROUND(y -  175 *scale)},
-                          {ROUND(x + 130  *scale), ROUND(y - 75  *scale)}, {ROUND(x + 100 *scale),  ROUND(y +  85 *scale)}};
-    txPolygon(tram_face, 4);
+    POINT tram_face_f[4] = {{ROUND(x1 + 0.1  *scale), ROUND(y1 + 0.1 *scale)}, {ROUND(x1 +  20 *scale),  ROUND(y1 -  175 *scale)},
+                            {ROUND(x1 + 130  *scale), ROUND(y1 - 75  *scale)}, {ROUND(x1 + 100 *scale),  ROUND(y1 +   85 *scale)}};
+    txPolygon(tram_face_f, 4);
+                //-------------------
+    POINT tram_face_s[4] = {{ROUND(x2 + 0.1  *scale), ROUND(y2 + 0.1 *scale)}, {ROUND(x2 +  20 *scale),  ROUND(y2 -  175 *scale)},
+                            {ROUND(x2 + 130  *scale), ROUND(y2 - 75  *scale)}, {ROUND(x2 + 100 *scale),  ROUND(y2 +   85 *scale)}};
+    txPolygon(tram_face_s, 4);
+    //-------------------
+    POINT tram_face_down_f[4] = {{ROUND(x1 + 0.1 *scale), ROUND(y1 + 0.1 *scale)}, {ROUND(x1 +  20 *scale),  ROUND(y1 + 80 *scale)},
+                                 {ROUND(x1 + 130 *scale), ROUND(y1 + 185 *scale)}, {ROUND(x1 + 100 *scale),  ROUND(y1 + 85 *scale)}};
+    txPolygon(tram_face_down_f, 4);
+                 //-------------------
+    POINT tram_face_down_s[4] = {{ROUND(x2 + 0.1 *scale), ROUND(y2 + 0.1 *scale)}, {ROUND(x2 +  20 *scale),  ROUND(y2 + 80 *scale)},
+                                 {ROUND(x2 + 130 *scale), ROUND(y2 + 185 *scale)}, {ROUND(x2 + 100 *scale),  ROUND(y2 + 85 *scale)}};
+    txPolygon(tram_face_down_s, 4);
+    //-------------------
+    POINT tram_body_f[6] = {{ROUND(x1 + 130 *scale), ROUND(y1 + 185 *scale)}, {ROUND(x1 + 100 *scale), ROUND(y1 +  85 *scale)},
+                            {ROUND(x1 + 130 *scale), ROUND(y1 -  75 *scale)}, {ROUND(x1 + 800 *scale), ROUND(y1 - 180 *scale)},
+                            {ROUND(x1 + 820 *scale), ROUND(y1 -  20 *scale)}, {ROUND(x1 + 800 *scale), ROUND(y1 +  80 *scale)}};
+    txPolygon(tram_body_f, 6);
 
-    POINT tram_face_down[4] = {{ROUND(x + 0.1 *scale), ROUND(y + 0.1 *scale)}, {ROUND(x +  20 *scale),  ROUND(y + 80 *scale)},
-                               {ROUND(x + 130 *scale), ROUND(y + 185 *scale)}, {ROUND(x + 100 *scale),  ROUND(y + 85 *scale)}};
-    txPolygon(tram_face_down, 4);
+    txSetColor(TX_BLACK, 4);
+    txLine(ROUND(x + 40), ROUND(y + 60), ROUND(x - 30), ROUND(y + 90));
+                //-------------------
+    txSetColor(TX_BLACK, 2);
+    POINT tram_body_s[6] = {{ROUND(x2 + 130 *scale), ROUND(y2 + 185 *scale)}, {ROUND(x2 + 100 *scale), ROUND(y2 +  85 *scale)},
+                            {ROUND(x2 + 130 *scale), ROUND(y2 -  75 *scale)}, {ROUND(x2 + 800 *scale), ROUND(y2 - 180 *scale)},
+                            {ROUND(x2 + 820 *scale), ROUND(y2 -  20 *scale)}, {ROUND(x2 + 800 *scale), ROUND(y2 +  80 *scale)}};
+    txPolygon(tram_body_s, 6);
 
-    POINT tram_body[6] = {{ROUND(x + 130 *scale), ROUND(y + 185 *scale)}, {ROUND(x + 100 *scale), ROUND(y +  85 *scale)},
-                          {ROUND(x + 130 *scale), ROUND(y -  75 *scale)}, {ROUND(x + 800 *scale), ROUND(y - 180 *scale)},
-                          {ROUND(x + 820 *scale), ROUND(y -  20 *scale)}, {ROUND(x + 800 *scale), ROUND(y +  80 *scale)}};
-    txPolygon(tram_body, 6);
-
+    //-------------------
     txSetFillColor (RGB (220, 20, 60));
-    POINT tram_roof[4] = {{ROUND(x +  20 *scale), ROUND(y - 175 *scale)}, {ROUND(x + 130 *scale), ROUND(y - 75 *scale)},
-                          {ROUND(x + 800 *scale), ROUND(y - 180 *scale)}, {ROUND(x + 690 *scale), ROUND(y - 280 *scale)}};
-    txPolygon(tram_roof, 4);
+    POINT tram_roof_f[4] = {{ROUND(x1 +  20 *scale), ROUND(y1 - 175 *scale)}, {ROUND(x1 + 130 *scale), ROUND(y1 -  75 *scale)},
+                            {ROUND(x1 + 800 *scale), ROUND(y1 - 180 *scale)}, {ROUND(x1 + 690 *scale), ROUND(y1 - 280 *scale)}};
+    txPolygon(tram_roof_f, 4);
+                //-------------------
+    POINT tram_roof_s[4] = {{ROUND(x2 +  20 *scale), ROUND(y2 - 175 *scale)}, {ROUND(x2 + 130 *scale), ROUND(y2 -  75 *scale)},
+                            {ROUND(x2 + 800 *scale), ROUND(y2 - 180 *scale)}, {ROUND(x2 + 690 *scale), ROUND(y2 - 280 *scale)}};
+    txPolygon(tram_roof_s, 4);
 
-    POINT line_body[4] = {{ROUND(x + 100 *scale), ROUND(y +  85 *scale)}, {ROUND(x + 820 *scale), ROUND(y -   20 *scale)},
-                          {ROUND(x + 810 *scale), ROUND(y +  30 *scale)}, {ROUND(x + 115 *scale), ROUND(y +  135 *scale)}};
-    txPolygon(line_body, 4);
-    POINT line_face[4] = {{ROUND(x + 115 *scale), ROUND(y + 135 *scale)}, {ROUND(x + 100 *scale), ROUND(y +  85 *scale)},
-                          {ROUND(x + 0.1 *scale), ROUND(y + 0.1 *scale)}, {ROUND(x +  14 *scale), ROUND(y +  55 *scale)}};
-    txPolygon(line_face, 4);
+    //line
+    POINT line_body_f[4] = {{ROUND(x1 + 100 *scale), ROUND(y1 +  85 *scale)}, {ROUND(x1 + 820 *scale), ROUND(y1 -   20 *scale)},
+                            {ROUND(x1 + 810 *scale), ROUND(y1 +  30 *scale)}, {ROUND(x1 + 115 *scale), ROUND(y1 +  135 *scale)}};
+    txPolygon(line_body_f, 4);
+                //-------------------
+    POINT line_body_s[4] = {{ROUND(x2 + 100 *scale), ROUND(y2 +  85 *scale)}, {ROUND(x2 + 820 *scale), ROUND(y2 -   20 *scale)},
+                            {ROUND(x2 + 810 *scale), ROUND(y2 +  30 *scale)}, {ROUND(x2 + 115 *scale), ROUND(y2 +  135 *scale)}};
+    txPolygon(line_body_s, 4);
+    //-------------------
+    POINT line_face_f[4] = {{ROUND(x1 + 115 *scale), ROUND(y1 + 135 *scale)}, {ROUND(x1 + 100 *scale), ROUND(y1 +  85 *scale)},
+                            {ROUND(x1 + 0.1 *scale), ROUND(y1 + 0.1 *scale)}, {ROUND(x1 +  14 *scale), ROUND(y1 +  55 *scale)}};
+    txPolygon(line_face_f, 4);
+                //-------------------
+    POINT line_face_s[4] = {{ROUND(x2 + 115 *scale), ROUND(y2 + 135 *scale)}, {ROUND(x2 + 100 *scale), ROUND(y2 +  85 *scale)},
+                            {ROUND(x2 + 0.1 *scale), ROUND(y2 + 0.1 *scale)}, {ROUND(x2 +  14 *scale), ROUND(y2 +  55 *scale)}};
+    txPolygon(line_face_s, 4);
 
+    //window
     txSetFillColor (RGB (224, 255, 255));
-    POINT window_body[4] = {{ROUND(x + 140 *scale), ROUND(y +  65 *scale)}, {ROUND(x + 790 *scale), ROUND(y -  28 *scale)},
-                            {ROUND(x + 790 *scale), ROUND(y - 158 *scale)}, {ROUND(x + 140 *scale), ROUND(y -  60 *scale)}};
-    txPolygon(window_body, 4);
+    POINT window_body_f[4] = {{ROUND(x1 + 140 *scale), ROUND(y1 +  65 *scale)}, {ROUND(x1 + 790 *scale), ROUND(y1 -  28 *scale)},
+                              {ROUND(x1 + 790 *scale), ROUND(y1 - 158 *scale)}, {ROUND(x1 + 140 *scale), ROUND(y1 -  60 *scale)}};
+    txPolygon(window_body_f, 4);
+                //-------------------
+    POINT window_body_s[4] = {{ROUND(x2 + 140 *scale), ROUND(y2 +  65 *scale)}, {ROUND(x2 + 790 *scale), ROUND(y2 -  28 *scale)},
+                              {ROUND(x2 + 790 *scale), ROUND(y2 - 158 *scale)}, {ROUND(x2 + 140 *scale), ROUND(y2 -  60 *scale)}};
+    txPolygon(window_body_s, 4);
+    //-------------------
+    POINT window_face_f[4] = {{ROUND(x1 +  15  *scale), ROUND(y1 - 10 *scale)}, {ROUND(x1 + 30 *scale), ROUND(y1 -  135 *scale)},
+                              {ROUND(x1 + 110  *scale), ROUND(y1 - 65 *scale)}, {ROUND(x1 + 85 *scale), ROUND(y1 +   50 *scale)}};
+    txPolygon(window_face_f, 4);
+                //-------------------
+    POINT window_face_s[4] = {{ROUND(x2 +  15  *scale), ROUND(y2 - 10 *scale)}, {ROUND(x2 + 30 *scale), ROUND(y2 -  135 *scale)},
+                              {ROUND(x2 + 110  *scale), ROUND(y2 - 65 *scale)}, {ROUND(x2 + 85 *scale), ROUND(y2 +   50 *scale)}};
+    txPolygon(window_face_s, 4);
 
-    POINT window_face[4] = {{ROUND(x +  15  *scale), ROUND(y - 10 *scale)}, {ROUND(x + 30 *scale), ROUND(y -  135 *scale)},
-                            {ROUND(x + 110  *scale), ROUND(y - 65 *scale)}, {ROUND(x + 85 *scale), ROUND(y +   50 *scale)}};
-    txPolygon(window_face, 4);
-
+    //number
     if (type == 1)
         {txSetFillColor (RGB (255, 250, 250));
-        POINT number[4] = {{ROUND(x + 25  *scale), ROUND(y + 0.1 *scale)}, {ROUND(x + 30 *scale), ROUND(y -  45 *scale)},
-                           {ROUND(x + 70  *scale), ROUND(y - 15 *scale)}, {ROUND(x + 65 *scale), ROUND(y +  35 *scale)}};
-        txPolygon(number, 4);
+        POINT number_f[4] = {{ROUND(x1 + 25  *scale), ROUND(y1 + 0.1 *scale)}, {ROUND(x1 + 30 *scale), ROUND(y1 -  45 *scale)},
+                             {ROUND(x1 + 70  *scale), ROUND(y1 - 15  *scale)}, {ROUND(x1 + 65 *scale), ROUND(y1 +  35 *scale)}};
+        txPolygon(number_f, 4);
+                    //-------------------
+        POINT number_s[4] = {{ROUND(x2 + 25 *scale), ROUND(y2 + 0.1 *scale)}, {ROUND(x2 + 30 *scale), ROUND(y2 -  45 *scale)},
+                             {ROUND(x2 + 70 *scale), ROUND(y2 - 15  *scale)}, {ROUND(x2 + 65 *scale), ROUND(y2 +  35 *scale)}};
+        txPolygon(number_s, 4);
         }
     if (type == 2)
         {txSetFillColor (RGB (255, 250, 250));
-        POINT number[4] = {{ROUND(x +  27  *scale), ROUND(y - 110 *scale)}, {ROUND(x + 30 *scale), ROUND(y -  140 *scale)},
-                           {ROUND(x + 110  *scale), ROUND(y - 70 *scale)}, {ROUND(x + 105 *scale), ROUND(y -   40 *scale)}};
-        txPolygon(number, 4);
+        POINT number_f[4] = {{ROUND(x1 +  27  *scale), ROUND(y1 - 110 *scale)}, {ROUND(x1 +  30 *scale), ROUND(y1 -  140 *scale)},
+                             {ROUND(x1 + 110  *scale), ROUND(y1 -  70 *scale)}, {ROUND(x1 + 105 *scale), ROUND(y1 -   40 *scale)}};
+        txPolygon(number_f, 4);
+                    //-------------------
+        POINT number_s[4] = {{ROUND(x2 +  27  *scale), ROUND(y2 - 110 *scale)}, {ROUND(x2 +  30 *scale), ROUND(y2 -  140 *scale)},
+                             {ROUND(x2 + 110  *scale), ROUND(y2 -  70 *scale)}, {ROUND(x2 + 105 *scale), ROUND(y2 -   40 *scale)}};
+        txPolygon(number_s, 4);
 
+        //lights
         txSetFillColor (RGB (255, 250, 205));
-        txEllipse (ROUND(x + 18 *scale), ROUND(y + 35 *scale), ROUND(x + 45 *scale), ROUND(y + 60 *scale));
-        txEllipse (ROUND(x + 58 *scale), ROUND(y + 65 *scale), ROUND(x + 85 *scale), ROUND(y + 90 *scale));
+        txEllipse (ROUND(x1 + 18 *scale), ROUND(y1 + 35 *scale), ROUND(x1 + 45 *scale), ROUND(y1 + 60 *scale));
+        txEllipse (ROUND(x1 + 58 *scale), ROUND(y1 + 65 *scale), ROUND(x1 + 85 *scale), ROUND(y1 + 90 *scale));
+                    //-------------------
+        txEllipse (ROUND(x2 + 18 *scale), ROUND(y2 + 35 *scale), ROUND(x2 + 45 *scale), ROUND(y2 + 60 *scale));
+        txEllipse (ROUND(x2 + 58 *scale), ROUND(y2 + 65 *scale), ROUND(x2 + 85 *scale), ROUND(y2 + 90 *scale));
         }
+    }
+
+void Tram_Door_Left (int x, int y, double scale)
+    {
+    txSetFillColor (RGB(178, 34, 34));
+    txSetColor (RGB(0, 0, 0), 2);
+    POINT door_left[4] = {{ROUND(x + 150 *scale), ROUND(y -  45 *scale)}, {ROUND(x + 150 *scale), ROUND(y + 150 *scale)},
+                          {ROUND(x + 200 *scale), ROUND(y + 143 *scale)}, {ROUND(x + 200 *scale), ROUND(y -  53 *scale)}};
+    txPolygon(door_left, 4);
+    }
+
+void Tram_Door_Right (int x, int y, double scale)
+    {
+    txSetFillColor (RGB(178, 34, 34));
+    txSetColor (RGB(0, 0, 0), 2);
+    POINT door_right[4] = {{ROUND(x + 200  *scale), ROUND(y + 143 *scale)}, {ROUND(x + 200 *scale), ROUND(y -  53 *scale)},
+                           {ROUND(x + 250  *scale), ROUND(y -  60 *scale)}, {ROUND(x + 250 *scale), ROUND(y + 134 *scale)}};
+    txPolygon(door_right, 4);
     }
