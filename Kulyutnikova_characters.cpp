@@ -17,15 +17,25 @@ void Background_Second ();
 void Rails (int x, int y);
 void Stop (int x, int y, int type);
 
+void Background_Third ();
+void Highway (int x, int y);
+void Curb (int x, int y);
+void Grass (int x, int y);
+void Footpath (int x, int y);
+void Lawn (int x, int y);
+
 void Girl         (int x, int y, double scale, double width, int height, int dist);
 void Empress      (int x, int y, double scale, double width, int distance);
 void Cat          (int x, int y, double scale, double width, int height);
 void Truck        (int x, int y, double scale);
 
-void Boy             (int x, int y, double scale, double width, int height, int dist);
+void Igor            (int x, int y, double scale, double width, int height, int dist);
 void Tram            (int x, int y, double scale, int type);
 void Tram_Door_Left  (int x, int y, double scale);
 void Tram_Door_Right (int x, int y, double scale);
+
+void Maxim   (int x, int y, double scale, double width, int height, int dist);
+void Scooter (int x, int y, double scale, int type);
 
 void people_woman (int x, int y, double scale, double dist);
 void people_men   (int x, int y, double scale, double dist);
@@ -41,6 +51,10 @@ int main ()
     txCreateWindow (1200, 800);
     //SceneFirst ();
     SceneSecond();
+
+    //Background_Third();
+    //Maxim(250, 250, 1, 1, 1, 1);
+    //Igor(550, 250, 1, 1, 1, 1);
     return 0;
     }
 
@@ -56,27 +70,17 @@ void SceneFirst ()
 void SceneSecond ()
     {
     Background_Second();
-    Boy(40, 200, 0.65, 1, 1, 1);
-    Tram(900, 200, 0.65, 2);
-    Tram(700, 333, 0.65, 1);
-
-
-    Tram_Door_Left(ROUND(1108 * 0.65), ROUND(502 * 0.65), 0.65);
-    Tram_Door_Left(ROUND( 240 * 0.65), ROUND(648 * 0.65), 0.65);
-    Tram_Door_Left(ROUND(1585 * 0.65), ROUND(431 * 0.65), 0.65);
-    Tram_Door_Left(ROUND( 686 * 0.65), ROUND(578 * 0.65), 0.65);
-
-    Tram_Door_Right(ROUND(1108 * 0.65), ROUND(502 * 0.65), 0.65);
-    Tram_Door_Right(ROUND( 240 * 0.65), ROUND(648 * 0.65), 0.65);
-    Tram_Door_Right(ROUND(1585 * 0.65), ROUND(431 * 0.65), 0.65);
-    Tram_Door_Right(ROUND( 686 * 0.65), ROUND(578 * 0.65), 0.65);
-    //IgorAndTram (792, 439, 0.9, 1, 230, -100, 0.4, 725, 419, 1);
+    Igor(40, 200, 0.65, 1, 1, 1);
+    //Tram(900, 200, 0.65, 2);
+    //Tram(700, 333, 0.65, 1);
 
     people_woman(800, 500, 0.75, 2);
     people_woman(200, 200, 0.65, 2);
     people_woman(100, 700, 0.5, 2);
     people_men(250, 200, 0.65, 2);
     people_men(450, 750, 0.5, 2);
+
+    IgorAndTram (1, 1, 1, 1, -200, 480, 0.65, 1500, 100, 0.65);
     txSleep (760);
     }
 
@@ -131,6 +135,54 @@ void GirlAndTruck (int xG, int yG, double scaleG, double width, int xT, int yT, 
         txTextOut (275, 265, "сделай музыку в наушниках тише.");
         txTextOut (230, 430, "Следи за тем, что происходит на дороге!");
         }
+
+    }
+void IgorAndTram  (int xB, int yB, double scaleB, double width, int xT1, int yT1, double scaleT1, int xT2, int yT2, double scaleT2)
+    {
+    for(int i = 0; i <= 25; i++)
+        {
+        Background_Second();
+
+        xT2 -= i * 3;
+        yT2 += i * 0.6;
+        xT1 += i * 6;
+        yT1 -= i * 0.95;
+
+        i += 1;
+
+        Tram (xT2, yT2, scaleT2 + 0.0006*i, 2);
+        Tram (xT1, yT1, scaleT1 + 0.00003*i, 1);
+
+        Tram_Door_Left(ROUND((xT1 + 408) * 0.65), ROUND((yT1 + 169) * 0.65), 0.65 + 0.00003*i);
+        Tram_Door_Left(ROUND((xT1 - 460) * 0.65), ROUND((yT1 + 315) * 0.65), 0.65 + 0.00003*i);
+        Tram_Door_Left(ROUND((xT1 + 885) * 0.65), ROUND((yT1 +  98) * 0.65), 0.65 + 0.00003*i);
+        Tram_Door_Left(ROUND((xT1 -  14) * 0.65), ROUND((yT1 + 245) * 0.65), 0.65 + 0.00003*i);
+
+        Tram_Door_Right(ROUND((xT1 + 408) * 0.65), ROUND((yT1 + 169) * 0.65), 0.65 + 0.00003*i);
+        Tram_Door_Right(ROUND((xT1 - 460) * 0.65), ROUND((yT1 + 315) * 0.65), 0.65 + 0.00003*i);
+        Tram_Door_Right(ROUND((xT1 + 885) * 0.65), ROUND((yT1 +  98) * 0.65), 0.65 + 0.00003*i);
+        Tram_Door_Right(ROUND((xT1 -  14) * 0.65), ROUND((yT1 + 245) * 0.65), 0.65 + 0.00003*i);
+        txSleep (750);
+        }
+
+
+
+
+
+
+
+        //Igor  (xG, yG, scaleG - 0.021*i, width, 2 - 4*(i % 2), -2 * (2 - 4*(i % 2)));
+
+        //people_woman (xP - 520 + i*6*a, yP + 190 - i*6*a, scaleP*1  , 5 - 3*(i % 4));
+        //people_woman (xP +  30 - i*8,   yP       - i*8,   scaleP*0.5, 3 - 3*(i % 4));
+        //people_woman (xP + 450 - i*5,   yP + 391 - i*5,   scaleP*1  , 4 - 3*(i % 4));
+        //people_woman (xP + 190 - i*4,   yP + 150 - i*4,   scaleP*1  , 3 - 3*(i % 4));
+        //people_woman (xP + 330,         yP - 209,         scaleP*0.5, 1);
+
+       //people_men (xP + 405,         yP - 159,         scaleP*0.5, 1);
+       // people_men (xP - 575 + i*4*a, yP + 241 - i*4*a, scaleP*1,   2 - 3*(i % 4));
+       // people_men (xP - 200 + i*3,   yP -  51 - i*3,   scaleP*1,   3 - 3*(i % 4));
+
 
     }
 
@@ -306,7 +358,7 @@ void Background_Second ()
 
     for (int i = 1; i <= 1200; i++)
         {
-        txLine(0 * i, 1200 - 5 * i, 0 + 25 * i, 1200 + 55 * i);
+        //txLine(0 * i, 1200 - 5 * i, 0 + 25 * i, 1200 + 55 * i);
         }
 
     Rails (0, 450);
@@ -378,6 +430,87 @@ void Stop (int x, int y, int type)
                      {ROUND(x + 0.1 * 2.25), ROUND(y - 60 * 2.25)}, {ROUND(x +  20 * 2.25), ROUND(y - 35 * 2.25)}};
     txPolygon(roof, 4);
     }
+//||||||||||||||BACKGROUND THIRD|||||||||||||
+//-------------------------
+void Background_Third ()
+    {
+    Highway(0, 0);
+    Curb(0, 0);
+    Lawn(0, 0);
+    Grass(566, 751);
+    Grass(728, 629);
+    Grass(795, 417);
+    Grass(1109, 85);
+    Grass(1180, 179);
+    Grass(982, 257);
+    Grass(1105, 323);
+    Grass(1133, 513);
+    Grass(960, 523);
+    Grass(1090, 647);
+    Grass(908, 749);
+    Grass(1156, 776);
+    Footpath(0, 0);
+    }
+//============ELEMENTS BACKGROUND THIRD=======
+
+void Highway (int x, int y)
+    {
+    txSetColor (RGB(192, 192, 192));
+    txSetFillColor (RGB(192, 192, 192));
+    POINT road[3] = {{ROUND(x + 0.1), ROUND(y + 0.1)}, {ROUND(x + 643),  ROUND(y + 0.1)},
+                     {ROUND(x + 0.1), ROUND(y + 645 )}};
+    txPolygon(road, 3);
+    txSetFillColor (RGB(255, 255, 255));
+    txSetColor (RGB(255, 255, 255), 4);
+    txLine(x + 0.1, y + 207, x +  58, y + 158);
+    txLine(x + 212, y +  54, x + 273, y + 0.1);
+    }
+//----------------------------------------
+void Curb (int x, int y)
+    {
+    txSetColor (RGB(105, 105, 105));
+    txSetFillColor (RGB(105, 105, 105));
+    POINT curb1[4] = {{ROUND(x + 0.1), ROUND(y + 646)}, {ROUND(x + 0.1),  ROUND(y + 667)},
+                      {ROUND(x + 665), ROUND(y + 0.1)}, {ROUND(x + 644),  ROUND(y + 0.1)}};
+    txPolygon(curb1, 4);
+    POINT curb2[4] = {{ROUND(x +  385), ROUND(y + 800)}, {ROUND(x + 403),  ROUND(y + 800)},
+                      {ROUND(x + 1070), ROUND(y + 0.1)}, {ROUND(x + 1054),  ROUND(y + 0.1)}};
+    txPolygon(curb2, 4);
+    }
+//----------------------------------------
+void Grass (int x, int y)
+    {
+    txSetColor (RGB(0, 100, 0));
+    txSetFillColor (RGB(0, 100, 0));
+    POINT grass1[4] = {{ROUND(x + 0.1), ROUND(y + 0.1)}, {ROUND(x - 7),  ROUND(y - 27)},
+                       {ROUND(x - 3  ), ROUND(y - 27 )}, {ROUND(x + 3),  ROUND(y -  1)}};
+    txPolygon(grass1, 4);
+    POINT grass2[4] = {{ROUND(x + 6), ROUND(y +  2)}, {ROUND(x + 5),  ROUND(y - 25)},
+                       {ROUND(x + 9), ROUND(y - 25)}, {ROUND(x + 9),  ROUND(y +  2)}};
+    txPolygon(grass2, 4);
+    POINT grass3[4] = {{ROUND(x + 14), ROUND(y -  1)}, {ROUND(x + 16),  ROUND(y - 29)},
+                       {ROUND(x + 19), ROUND(y - 30)}, {ROUND(x + 17),  ROUND(y +  1)}};
+    txPolygon(grass3, 4);
+    }
+//----------------------------------------
+void Footpath (int x, int y)
+    {
+    txSetColor (RGB(211, 211, 211));
+    txSetFillColor (RGB(211, 211, 211));
+    POINT footpath[5] = {{ROUND(x + 0.1 ), ROUND(y + 668)}, {ROUND(x + 666), ROUND(y + 0.1)},
+                         {ROUND(x + 1054), ROUND(y + 0.1)}, {ROUND(x + 384), ROUND(y + 800)},
+                         {ROUND(x + 0.1 ), ROUND(y + 800)}};
+    txPolygon(footpath, 5);
+    }
+//----------------------------------------
+void Lawn (int x, int y)
+    {
+    txSetColor (RGB(154, 205, 50));
+    txSetFillColor (RGB(154, 205, 50));
+    POINT lawn[4] = {{ROUND(x + 404),  ROUND(y + 800)}, {ROUND(x + 1071), ROUND(y + 0.1)},
+                     {ROUND(x + 1200), ROUND(y + 0.1)}, {ROUND(x + 1200), ROUND(y + 800)}};
+    txPolygon(lawn, 4);
+    }
 //===============CROWD SCENE===========
 //----------------------------------------
 void people_woman (int x, int y, double scale, double dist)
@@ -415,7 +548,6 @@ void people_men (int x, int y, double scale, double dist)
 //! width   == толщина линий
 //! height  == подъём руки
 //! dist    == расстояние между ногами
-//! colour  == цвет фигур
 //!
 //}------------------------------------------------------
 
@@ -501,7 +633,6 @@ void Girl (int x, int y, double scale, double width, int height, int dist)
 //! scale    == размер при масштабировании
 //! width    == толщина линий
 //! distance == расстояние между рук
-//! colour   == цвет фигур
 //!
 //}------------------------------------------------------
 
@@ -570,7 +701,6 @@ void Empress (int x, int y, double scale, double width, int distance)
 //! scale   == размер при масштабировании
 //! width   == толщина линий
 //! height  == подъём хвоста
-//! colour  == цвет фигур
 //!
 //}------------------------------------------------------
 
@@ -689,7 +819,7 @@ void Truck (int x, int y, double scale)
 //===================MAIN CHARACTERS SECOND========
 
 //{-------------------------------------------------------
-//!     Процедура рисования мальчика
+//!     Процедура рисования Игоря
 //!
 //!             параметры:
 //! x, y    == координаты начальной точки
@@ -697,11 +827,10 @@ void Truck (int x, int y, double scale)
 //! width   == толщина линий
 //! height  == подъём руки
 //! dist    == расстояние между ногами
-//! colour  == цвет фигур
 //!
 //}------------------------------------------------------
 
-void Boy (int x, int y, double scale, double width, int height, int dist)
+void Igor (int x, int y, double scale, double width, int height, int dist)
     {
     //shoes
     txSetColor (RGB(0, 0, 0), 2 + width);
@@ -722,7 +851,7 @@ void Boy (int x, int y, double scale, double width, int height, int dist)
         //fringe
     txSetColor (RGB(160, 82, 45), 2 + width);
     txSetFillColor (RGB(160, 82, 45));
-    POINT body3[4] = { {ROUND(x + 14.5 *scale), ROUND(y - 18 *scale)}, {ROUND(x - 22 *scale),  ROUND(y +  5 *scale)},
+    POINT body3[4] = { {ROUND(x + 14.5  *scale), ROUND(y - 18 *scale)}, {ROUND(x - 22 *scale),  ROUND(y +  5 *scale)},
                        {ROUND(x - 22.25 *scale), ROUND(y - 11 *scale)}, {ROUND(x -  6 *scale),  ROUND(y - 22 *scale)} };
     txPolygon (body3, 4);
 
@@ -896,4 +1025,81 @@ void Tram_Door_Right (int x, int y, double scale)
     POINT door_right[4] = {{ROUND(x + 200  *scale), ROUND(y + 143 *scale)}, {ROUND(x + 200 *scale), ROUND(y -  53 *scale)},
                            {ROUND(x + 250  *scale), ROUND(y -  60 *scale)}, {ROUND(x + 250 *scale), ROUND(y + 134 *scale)}};
     txPolygon(door_right, 4);
+    }
+
+//===================MAIN CHARACTERS THIRD========
+//{-------------------------------------------------------
+//!     Процедура рисования Максима
+//!
+//!             параметры:
+//! x, y    == координаты начальной точки
+//! scale   == размер при масштабировании
+//! width   == толщина линий
+//! height  == подъём руки
+//! dist    == расстояние между ногами
+//!
+//}------------------------------------------------------
+void Maxim (int x, int y, double scale, double width, int height, int dist)
+    {
+    //shoes
+    txSetColor (RGB(0, 0, 0), 2 + width);
+    txLine (ROUND(x + 10 - dist *scale), ROUND(y + 108 *scale), ROUND(x - 0.1 - dist *scale), ROUND(y + 110 *scale));
+    txLine (ROUND(x - 6 + dist *scale), ROUND(y + 108 *scale), ROUND(x - 16 + dist *scale), ROUND(y + 110 *scale));
+
+    //body
+        //clothes
+    txSetColor (RGB(30, 144, 255), 2 + width);
+    txSetFillColor (RGB(30, 144, 255));
+    txRectangle(ROUND(x + 20 *scale), ROUND(y +  23 *scale), ROUND(x - 20 *scale), ROUND(y +  88 *scale));
+
+        //head
+    txSetColor (RGB(255, 235, 205), 2 + width);
+    txSetFillColor (RGB(255, 235, 205));
+    txCircle (ROUND(x + 0.01 *scale), ROUND(y + 0.01 *scale), ROUND(24 *scale));
+
+        //fringe
+    txSetColor (RGB(250, 250, 210), 2 + width);
+    txSetFillColor (RGB(250, 250, 210));
+    POINT body3[4] = { {ROUND(x - 20.5  *scale), ROUND(y - 13 *scale)}, {ROUND(x + 20 *scale),  ROUND(y +  5 *scale)},
+                       {ROUND(x + 22.25 *scale), ROUND(y - 17 *scale)}, {ROUND(x +  2 *scale),  ROUND(y - 22 *scale)} };
+    txPolygon (body3, 4);
+
+        //legs
+    txSetColor (TX_BLACK, 2 + width);
+    txSetFillColor (RGB (255, 248, 220));
+    txLine (ROUND(x +  6 *scale), ROUND(y + 88 *scale), ROUND(x + 6 - dist *scale), ROUND(y + 108 *scale));
+    txLine (ROUND(x - 10 *scale), ROUND(y + 88 *scale), ROUND(x - 10 + dist *scale), ROUND(y + 108 *scale));
+
+       //arms
+    txSetColor (TX_BLACK, 2 + width);
+    txLine (ROUND(x -  4 *scale), ROUND(y + 48 *scale), ROUND(x - 37 *scale), ROUND(y + 37 + height *scale));
+    txLine (ROUND(x - 20 *scale), ROUND(y + 37 *scale), ROUND(x - 37 *scale), ROUND(y + 31 + height *scale));
+
+    //hat
+    txSetColor (RGB(25, 25, 112), 2 + width);
+    txSetFillColor (RGB (25, 25, 112));
+    POINT hat[4] = { {ROUND(x + 31 *scale), ROUND(y -  2 *scale)}, {ROUND(x + 36 *scale),  ROUND(y - 13 *scale)},
+                     {ROUND(x - 10 *scale), ROUND(y - 32 *scale)}, {ROUND(x - 15 *scale),  ROUND(y - 20 *scale)} };
+    txPolygon (hat, 4);
+
+    txSetColor (RGB(30, 144, 255), 2 + width);
+    txSetFillColor (RGB (30, 144, 255));
+    POINT visor[4] = { {ROUND(x + 43 *scale), ROUND(y -  1 *scale)}, {ROUND(x + 46 *scale),  ROUND(y - 7 *scale)},
+                       {ROUND(x + 27 *scale), ROUND(y - 13 *scale)}, {ROUND(x + 24 *scale),  ROUND(y - 8 *scale)} };
+    txPolygon (visor, 4);
+    }
+
+//{-------------------------------------------------------
+//!     Процедура рисования самоката
+//!
+//!             параметры:
+//! x, y    == координаты начальной точки
+//! scale   == размер при масштабировании
+//! type    == вид самоката
+//!
+//}------------------------------------------------------
+void Scooter (int x, int y, double scale, int type)
+    {
+
+
     }
