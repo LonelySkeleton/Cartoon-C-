@@ -30,21 +30,21 @@ void Cat          (int x, int y, double scale, double width, int height);
 void Truck        (int x, int y, double scale);
 
 void Igor            (int x, int y, double scale, double width, int height, int dist);
-void Tram            (int x, int y, double scale, int type);
-void Tram_Door_Left  (int x, int y, double scale);
-void Tram_Door_Right (int x, int y, double scale);
+void Tram            (double x, double y, double scale, int type);
+void Tram_Door_Left  (double x, double y, double x1, double y1, double scale);
+void Tram_Door_Right (double x, double y, double x1, double y1, double scale);
 
 void Maxim   (int x, int y, double scale, double width, int height, int dist);
 void Scooter (int x, int y, double scale, int type);
 
-void people_woman (int x, int y, double scale, double dist);
-void people_men   (int x, int y, double scale, double dist);
+void people_woman (double x, double y, double scale, double dist);
+void people_men   (double x, double y, double scale, double dist);
 
 void SceneFirst ();
 void SceneSecond ();
 
 void GirlAndTruck (int xG, int yG, double scaleG, double width, int xT, int yT, double scaleT, int xP, int yP, double scaleP);
-void IgorAndTram  (int xB, int yB, double scaleB, double width, int xT, int yT, double scaleT, int xP, int yP, double scaleP);
+void IgorAndTram  (double xB, double yB, double scaleB, double width, double xT, double yT, double scaleT, double xP, double yP, double scaleP);
 
 int main ()
     {
@@ -70,17 +70,11 @@ void SceneFirst ()
 void SceneSecond ()
     {
     Background_Second();
-    Igor(40, 200, 0.65, 1, 1, 1);
+    //Igor(40, 200, 0.65, 1, 1, 1);
     //Tram(900, 200, 0.65, 2);
     //Tram(700, 333, 0.65, 1);
 
-    people_woman(800, 500, 0.75, 2);
-    people_woman(200, 200, 0.65, 2);
-    people_woman(100, 700, 0.5, 2);
-    people_men(250, 200, 0.65, 2);
-    people_men(450, 750, 0.5, 2);
-
-    IgorAndTram (1, 1, 1, 1, -200, 480, 0.65, 1500, 100, 0.65);
+    IgorAndTram (380, 420, 0.65, 1, -200, 480, 0.65, 1500, 100, 0.65);
     txSleep (760);
     }
 
@@ -137,7 +131,7 @@ void GirlAndTruck (int xG, int yG, double scaleG, double width, int xT, int yT, 
         }
 
     }
-void IgorAndTram  (int xB, int yB, double scaleB, double width, int xT1, int yT1, double scaleT1, int xT2, int yT2, double scaleT2)
+void IgorAndTram  (double xI, double yI, double scaleI, double width, double xT1, double yT1, double scaleT1, double xT2, double yT2, double scaleT2)
     {
     for(int i = 0; i <= 25; i++)
         {
@@ -150,40 +144,60 @@ void IgorAndTram  (int xB, int yB, double scaleB, double width, int xT1, int yT1
 
         i += 1;
 
-        Tram (xT2, yT2, scaleT2 + 0.0006*i, 2);
-        Tram (xT1, yT1, scaleT1 + 0.00003*i, 1);
+        Tram (xT2, yT2, scaleT2, 2);
+        Tram (xT1, yT1, scaleT1, 1);
 
-        Tram_Door_Left(ROUND((xT1 + 408) * 0.65), ROUND((yT1 + 169) * 0.65), 0.65 + 0.00003*i);
-        Tram_Door_Left(ROUND((xT1 - 460) * 0.65), ROUND((yT1 + 315) * 0.65), 0.65 + 0.00003*i);
-        Tram_Door_Left(ROUND((xT1 + 885) * 0.65), ROUND((yT1 +  98) * 0.65), 0.65 + 0.00003*i);
-        Tram_Door_Left(ROUND((xT1 -  14) * 0.65), ROUND((yT1 + 245) * 0.65), 0.65 + 0.00003*i);
+        Tram_Door_Left(ROUND((xT1 + 408) * 0.65), ROUND((yT1 + 169) * 0.65), ROUND((xT1 + 408) * 0.65), ROUND((yT1 + 169) * 0.65), 0.65 + 0.00003*i);
+        Tram_Door_Left(ROUND((xT1 - 460) * 0.65), ROUND((yT1 + 315) * 0.65), ROUND((xT1 - 460) * 0.65), ROUND((yT1 + 315) * 0.65), 0.65 + 0.00003*i);
+        Tram_Door_Left(ROUND((xT1 + 885) * 0.65), ROUND((yT1 +  98) * 0.65), ROUND((xT1 + 885) * 0.65), ROUND((yT1 +  98) * 0.65), 0.65 + 0.00003*i);
+        Tram_Door_Left(ROUND((xT1 -  14) * 0.65), ROUND((yT1 + 245) * 0.65), ROUND((xT1 -  14) * 0.65), ROUND((yT1 + 245) * 0.65), 0.65 + 0.00003*i);
 
-        Tram_Door_Right(ROUND((xT1 + 408) * 0.65), ROUND((yT1 + 169) * 0.65), 0.65 + 0.00003*i);
-        Tram_Door_Right(ROUND((xT1 - 460) * 0.65), ROUND((yT1 + 315) * 0.65), 0.65 + 0.00003*i);
-        Tram_Door_Right(ROUND((xT1 + 885) * 0.65), ROUND((yT1 +  98) * 0.65), 0.65 + 0.00003*i);
-        Tram_Door_Right(ROUND((xT1 -  14) * 0.65), ROUND((yT1 + 245) * 0.65), 0.65 + 0.00003*i);
+        Tram_Door_Right(ROUND((xT1 + 408) * 0.65), ROUND((yT1 + 169) * 0.65), ROUND((xT1 + 408) * 0.65), ROUND((yT1 + 169) * 0.65), 0.65 + 0.00003*i);
+        Tram_Door_Right(ROUND((xT1 - 460) * 0.65), ROUND((yT1 + 315) * 0.65), ROUND((xT1 - 460) * 0.65), ROUND((yT1 + 315) * 0.65), 0.65 + 0.00003*i);
+        Tram_Door_Right(ROUND((xT1 + 885) * 0.65), ROUND((yT1 +  98) * 0.65), ROUND((xT1 + 885) * 0.65), ROUND((yT1 +  98) * 0.65), 0.65 + 0.00003*i);
+        Tram_Door_Right(ROUND((xT1 -  14) * 0.65), ROUND((yT1 + 245) * 0.65), ROUND((xT1 -  14) * 0.65), ROUND((yT1 + 245) * 0.65), 0.65 + 0.00003*i);
+
         txSleep (750);
         }
 
+    for(int i = 0; i <= 15; i++)
+        {
+        Background_Second();
+        Tram_Door_Left(ROUND((xT1 + 408) * 0.65), ROUND((yT1 + 169) * 0.65), ROUND((xT1 + 408 - i * 3) * 0.65), ROUND((yT1 + 169) * 0.65), 0.65 + 0.00003*i);
+        Tram_Door_Left(ROUND((xT1 - 460) * 0.65), ROUND((yT1 + 315) * 0.65), ROUND((xT1 - 460 - i * 3) * 0.65), ROUND((yT1 + 315) * 0.65), 0.65 + 0.00003*i);
+        Tram_Door_Left(ROUND((xT1 + 885) * 0.65), ROUND((yT1 +  98) * 0.65), ROUND((xT1 + 885 - i * 3) * 0.65), ROUND((yT1 +  98) * 0.65), 0.65 + 0.00003*i);
+        Tram_Door_Left(ROUND((xT1 -  14) * 0.65), ROUND((yT1 + 245) * 0.65), ROUND((xT1 -  14 - i * 3) * 0.65), ROUND((yT1 + 245) * 0.65), 0.65 + 0.00003*i);
 
+        Tram_Door_Right(ROUND((xT1 + 408 + i * 3) * 0.65), ROUND((yT1 + 169) * 0.65), ROUND((xT1 + 408) * 0.65), ROUND((yT1 + 169) * 0.65), 0.65 + 0.00003*i);
+        Tram_Door_Right(ROUND((xT1 - 460 + i * 3) * 0.65), ROUND((yT1 + 315) * 0.65), ROUND((xT1 - 460) * 0.65), ROUND((yT1 + 315) * 0.65), 0.65 + 0.00003*i);
+        Tram_Door_Right(ROUND((xT1 + 885 + i * 3) * 0.65), ROUND((yT1 +  98) * 0.65), ROUND((xT1 + 885) * 0.65), ROUND((yT1 +  98) * 0.65), 0.65 + 0.00003*i);
+        Tram_Door_Right(ROUND((xT1 -  14 + i * 3) * 0.65), ROUND((yT1 + 245) * 0.65), ROUND((xT1 -  14) * 0.65), ROUND((yT1 + 245) * 0.65), 0.65 + 0.00003*i);
 
+        i += 1;
 
+        txSleep (750);
+        }
 
+    for(int i = 0; i <= 10; i++)
+        {
+        Background_Second();
 
+        xI += i * 2.3;
+        yI += i * 3.1;
 
-        //Igor  (xG, yG, scaleG - 0.021*i, width, 2 - 4*(i % 2), -2 * (2 - 4*(i % 2)));
+        Igor  (xI, yI, scaleI, width, 2 - 4*(i % 2), -2 * (2 - 4*(i % 2)));
 
-        //people_woman (xP - 520 + i*6*a, yP + 190 - i*6*a, scaleP*1  , 5 - 3*(i % 4));
-        //people_woman (xP +  30 - i*8,   yP       - i*8,   scaleP*0.5, 3 - 3*(i % 4));
-        //people_woman (xP + 450 - i*5,   yP + 391 - i*5,   scaleP*1  , 4 - 3*(i % 4));
-        //people_woman (xP + 190 - i*4,   yP + 150 - i*4,   scaleP*1  , 3 - 3*(i % 4));
-        //people_woman (xP + 330,         yP - 209,         scaleP*0.5, 1);
+        people_woman(800 - i*6, 500 + i*1.5, 0.75, 5 - 3*(i % 4));
+        people_woman(200      , 200        , 0.65, 2);
+        people_woman(100 + i*2, 700 + i*2  , 0.5 , 2 - 3*(i % 4));
 
-       //people_men (xP + 405,         yP - 159,         scaleP*0.5, 1);
-       // people_men (xP - 575 + i*4*a, yP + 241 - i*4*a, scaleP*1,   2 - 3*(i % 4));
-       // people_men (xP - 200 + i*3,   yP -  51 - i*3,   scaleP*1,   3 - 3*(i % 4));
+        people_men(250      , 200      , 0.65, 2);
+        people_men(450 - i*3, 750 - i*3, 0.5 , 3 - 3*(i % 4));
 
+        i += 1;
 
+        txSleep (750);
+        }
     }
 
 //||||||||||||||BACKGROUND FIRST|||||||||||||
@@ -513,7 +527,7 @@ void Lawn (int x, int y)
     }
 //===============CROWD SCENE===========
 //----------------------------------------
-void people_woman (int x, int y, double scale, double dist)
+void people_woman (double x, double y, double scale, double dist)
     {
     txSetFillColor (TX_BLACK);
     txCircle (ROUND(x + 0.5 *scale), ROUND(y + 0.5 *scale), ROUND(23 *scale));
@@ -526,7 +540,7 @@ void people_woman (int x, int y, double scale, double dist)
     txLine (x + 5, ROUND(y + 95*scale), ROUND(x + dist + 5), ROUND(y + 115*scale));
     }
 //-----------------------------------------------
-void people_men (int x, int y, double scale, double dist)
+void people_men (double x, double y, double scale, double dist)
     {
     txSetFillColor (TX_BLACK);
     txCircle (ROUND(x + 0.5 *scale), ROUND(y + 0.5 *scale), ROUND(23 *scale));
@@ -886,7 +900,7 @@ void Igor (int x, int y, double scale, double width, int height, int dist)
 //! type    == вид трамвая
 //!
 //}------------------------------------------------------
-void Tram (int x, int y, double scale, int type)
+void Tram (double x, double y, double scale, int type)
     {
     int x1 = x;
     int x2 = x - 560;
@@ -1009,21 +1023,31 @@ void Tram (int x, int y, double scale, int type)
         }
     }
 
-void Tram_Door_Left (int x, int y, double scale)
+void Tram_Door_Left (double x, double y, double x1, double y1, double scale)
     {
+    txSetFillColor (RGB(0, 0, 0));
+    POINT inside[4] = {{ROUND(x + 150 *scale), ROUND(y -  45 *scale)}, {ROUND(x + 150 *scale), ROUND(y + 150 *scale)},
+                       {ROUND(x + 200 *scale), ROUND(y + 143 *scale)}, {ROUND(x + 200 *scale), ROUND(y -  53 *scale)}};
+    txPolygon(inside, 4);
+
     txSetFillColor (RGB(178, 34, 34));
     txSetColor (RGB(0, 0, 0), 2);
-    POINT door_left[4] = {{ROUND(x + 150 *scale), ROUND(y -  45 *scale)}, {ROUND(x + 150 *scale), ROUND(y + 150 *scale)},
-                          {ROUND(x + 200 *scale), ROUND(y + 143 *scale)}, {ROUND(x + 200 *scale), ROUND(y -  53 *scale)}};
+    POINT door_left[4] = {{ROUND(x  + 150 *scale), ROUND(y  -  45 *scale)}, {ROUND(x  + 150 *scale), ROUND(y  + 150 *scale)},
+                          {ROUND(x1 + 200 *scale), ROUND(y1 + 143 *scale)}, {ROUND(x1 + 200 *scale), ROUND(y1 -  53 *scale)}};
     txPolygon(door_left, 4);
     }
 
-void Tram_Door_Right (int x, int y, double scale)
+void Tram_Door_Right (double x, double y, double x1, double y1, double scale)
     {
+    txSetFillColor (RGB(0, 0, 0));
+    POINT inside[4] = {{ROUND(x1 + 200 *scale), ROUND(y1 + 143 *scale)}, {ROUND(x1 + 200 *scale), ROUND(y1  -  53 *scale)},
+                       {ROUND(x1 + 250 *scale), ROUND(y1 -  60 *scale)}, {ROUND(x1 + 250 *scale), ROUND(y1 + 134 *scale)}};
+    txPolygon(inside, 4);
+
     txSetFillColor (RGB(178, 34, 34));
     txSetColor (RGB(0, 0, 0), 2);
-    POINT door_right[4] = {{ROUND(x + 200  *scale), ROUND(y + 143 *scale)}, {ROUND(x + 200 *scale), ROUND(y -  53 *scale)},
-                           {ROUND(x + 250  *scale), ROUND(y -  60 *scale)}, {ROUND(x + 250 *scale), ROUND(y + 134 *scale)}};
+    POINT door_right[4] = {{ROUND(x  + 200  *scale), ROUND(y  + 143 *scale)}, {ROUND(x  + 200 *scale), ROUND(y  -  53 *scale)},
+                           {ROUND(x1 + 250  *scale), ROUND(y1 -  60 *scale)}, {ROUND(x1 + 250 *scale), ROUND(y1 + 134 *scale)}};
     txPolygon(door_right, 4);
     }
 
@@ -1098,8 +1122,5 @@ void Maxim (int x, int y, double scale, double width, int height, int dist)
 //! type    == вид самоката
 //!
 //}------------------------------------------------------
-void Scooter (int x, int y, double scale, int type)
-    {
+//void Scooter (int x, int y, double scale, int type)
 
-
-    }
