@@ -1083,8 +1083,8 @@ void Igor (int x, int y, double scale, int width, int height, int dist)
     {
     //shoes
     txSetColor (RGB(0, 0, 0), 2 + width);
-    txLine (ROUND(x - 6 - dist *scale), ROUND(y + 128 *scale), ROUND(x +  6 - dist *scale), ROUND(y + 130 *scale));
-    txLine (ROUND(x + 6 + dist *scale), ROUND(y + 128 *scale), ROUND(x + 18 + dist *scale), ROUND(y + 130 *scale));
+    txLine (ROUND(x - 6 - dist *scale), ROUND(y + 128 *scale), ROUND(x +  3 - dist *scale), ROUND(y + 130 *scale));
+    txLine (ROUND(x + 6 + dist *scale), ROUND(y + 128 *scale), ROUND(x + 15 + dist *scale), ROUND(y + 130 *scale));
 
     //body
         //clothes
@@ -1155,8 +1155,8 @@ void Igor_Reverse (int x, int y, double scale, int width, int height, int dist)
     {
     //shoes
     txSetColor (RGB(0, 0, 0), 2 + width);
-    txLine (ROUND(x + 6 - dist *scale), ROUND(y + 128 *scale), ROUND(x -  6 - dist *scale), ROUND(y + 130 *scale));
-    txLine (ROUND(x + 6 + dist *scale), ROUND(y + 128 *scale), ROUND(x - 18 + dist *scale), ROUND(y + 130 *scale));
+    txLine (ROUND(x + 6 - dist *scale), ROUND(y + 128 *scale), ROUND(x -  3 - dist *scale), ROUND(y + 130 *scale));
+    txLine (ROUND(x + 6 + dist *scale), ROUND(y + 128 *scale), ROUND(x - 15 + dist *scale), ROUND(y + 130 *scale));
 
     //body
         //clothes
