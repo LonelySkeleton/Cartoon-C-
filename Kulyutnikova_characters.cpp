@@ -16,7 +16,7 @@ void IgorAndTram  (double xB, double yB, double scaleB, int width, double xT, do
 int main ()
     {
     txCreateWindow (1200, 800);
-    SceneFirst ();
+    //SceneFirst ();
     SceneSecond();
 
     //Background_Third();
@@ -41,7 +41,7 @@ void SceneSecond ()
     //Tram(900, 200, 0.65, 2);
     //Tram(700, 333, 0.65, 1);
 
-    IgorAndTram (380, 420, 0.65, 1, -200, 480, 0.65, 1500, 83, 0.65, 800, 500);
+    IgorAndTram (286, 419, 0.65, 1, 700, 323, 0.7, 900, 190, 0.7, 800, 500);
     txSleep (760);
     }
 
@@ -50,7 +50,7 @@ void GirlAndTruck (int xG, int yG, double scaleG, int width, int xT, int yT, dou
     int i = 0;
     int w = 1;
     txPlaySound ("Сцена1.wav");
-    while ( pow( (pow(xG - xT, 2) + pow(yG - yT, 2) ), 0.5) >= 100 )
+    while (pow((pow(xG - xT, 2) + pow(yG - yT, 2)), 0.5) >= 100 )
         {
         Background_First ();
         int a = 1;
@@ -75,9 +75,9 @@ void GirlAndTruck (int xG, int yG, double scaleG, int width, int xT, int yT, dou
         people_woman (xP + 190 - i*4,   yP + 150 - i*4,   scaleP*1  , 3 - 3*(i % 4));
         people_woman (xP + 330,         yP - 209,         scaleP*0.5, 1);
 
-        people_men (xP + 405,         yP - 159,         scaleP*0.5, 1);
-        people_men (xP - 575 + i*4*a, yP + 241 - i*4*a, scaleP*1,   2 - 3*(i % 4));
-        people_men (xP - 200 + i*3,   yP -  51 - i*3,   scaleP*1,   3 - 3*(i % 4));
+        people_man (xP + 405,         yP - 159,         scaleP*0.5, 1);
+        people_man (xP - 575 + i*4*a, yP + 241 - i*4*a, scaleP*1,   2 - 3*(i % 4));
+        people_man (xP - 200 + i*3,   yP -  51 - i*3,   scaleP*1,   3 - 3*(i % 4));
 
         txSleep (750);
         }
@@ -95,118 +95,86 @@ void GirlAndTruck (int xG, int yG, double scaleG, int width, int xT, int yT, dou
         txTextOut (350, 200, "Отвлекись от телефона,");
         txTextOut (275, 265, "сделай музыку в наушниках тише.");
         txTextOut (230, 430, "Следи за тем, что происходит на дороге!");
+        txSleep (7500);
         }
 
     }
 void IgorAndTram  (double xI, double yI, double scaleI, int width, double xT1, double yT1, double scaleT1, double xT2, double yT2, double scaleT2, int xM, int yM)
     {
-    for(int i = 0; i <= 25; i++)
+    int m = 1;
+    int b = 1;
+    int b1 = 1;
+    int b2 = 1;
+    int d = 6;
+    int t = 0;
+    int counter = 0;
+    txPlaySound ("Сцена2.wav");
+    while (pow((pow(xI - xT2, 2) + pow(yI - yT2, 2)), 0.5) >= 100 )
         {
         Background_Second();
 
-        xT2 -= i * 3;
-        yT2 += i * 0.6;
-        xT1 += i * 6;
-        yT1 -= i * 0.95;
+        xI += b * 1.3;
+        yI += b * 3.1;
 
-        i += 1;
+        xI -= b1 * 4.3;
+        yI += b1 * 1.1;
 
-        Tram (xT2, yT2, scaleT2, 2);
-        Tram (xT1, yT1, scaleT1, 1);
+        xI -= b2 * 0.3;
+        yI -= b2 * 2.1;
 
-        //Tram_Door_Left(ROUND((xT1 + 408) * 0.65), ROUND((yT1 + 169) * 0.65), ROUND((xT1 + 408) * 0.65), ROUND((yT1 + 169) * 0.65), 0.65 + 0.00003*i);
-        //Tram_Door_Left(ROUND((xT1 - 460) * 0.65), ROUND((yT1 + 315) * 0.65), ROUND((xT1 - 460) * 0.65), ROUND((yT1 + 315) * 0.65), 0.65 + 0.00003*i);
-        //Tram_Door_Left(ROUND((xT1 + 885) * 0.65), ROUND((yT1 +  98) * 0.65), ROUND((xT1 + 885) * 0.65), ROUND((yT1 +  98) * 0.65), 0.65 + 0.00003*i);
-        //Tram_Door_Left(ROUND((xT1 -  14) * 0.65), ROUND((yT1 + 245) * 0.65), ROUND((xT1 -  14) * 0.65), ROUND((yT1 + 245) * 0.65), 0.65 + 0.00003*i);
+        xT1 += t * 3;
+        yT1 -= t * 0.6;
 
-        //Tram_Door_Right(ROUND((xT1 + 408) * 0.65), ROUND((yT1 + 169) * 0.65), ROUND((xT1 + 408) * 0.65), ROUND((yT1 + 169) * 0.65), 0.65 + 0.00003*i);
-        //Tram_Door_Right(ROUND((xT1 - 460) * 0.65), ROUND((yT1 + 315) * 0.65), ROUND((xT1 - 460) * 0.65), ROUND((yT1 + 315) * 0.65), 0.65 + 0.00003*i);
-        //Tram_Door_Right(ROUND((xT1 + 885) * 0.65), ROUND((yT1 +  98) * 0.65), ROUND((xT1 + 885) * 0.65), ROUND((yT1 +  98) * 0.65), 0.65 + 0.00003*i);
-        //Tram_Door_Right(ROUND((xT1 -  14) * 0.65), ROUND((yT1 + 245) * 0.65), ROUND((xT1 -  14) * 0.65), ROUND((yT1 + 245) * 0.65), 0.65 + 0.00003*i);
+        xT2 -= t * 5;
+        yT2 += t * 0.6;
 
-        txSleep (750);
-        }
-
-    for(int i = 0; i <= 15; i++)
-        {
-        Background_Second();
-        Tram_Door_Left(ROUND((xT1 + 408) * 0.65), ROUND((yT1 + 169) * 0.65), ROUND((xT1 + 408 - i * 3) * 0.65), ROUND((yT1 + 169) * 0.65), 0.65 + 0.00003*i);
-        Tram_Door_Left(ROUND((xT1 - 460) * 0.65), ROUND((yT1 + 315) * 0.65), ROUND((xT1 - 460 - i * 3) * 0.65), ROUND((yT1 + 315) * 0.65), 0.65 + 0.00003*i);
-        Tram_Door_Left(ROUND((xT1 + 885) * 0.65), ROUND((yT1 +  98) * 0.65), ROUND((xT1 + 885 - i * 3) * 0.65), ROUND((yT1 +  98) * 0.65), 0.65 + 0.00003*i);
-        Tram_Door_Left(ROUND((xT1 -  14) * 0.65), ROUND((yT1 + 245) * 0.65), ROUND((xT1 -  14 - i * 3) * 0.65), ROUND((yT1 + 245) * 0.65), 0.65 + 0.00003*i);
-
-        Tram_Door_Right(ROUND((xT1 + 408 + i * 3) * 0.65), ROUND((yT1 + 169) * 0.65), ROUND((xT1 + 408) * 0.65), ROUND((yT1 + 169) * 0.65), 0.65 + 0.00003*i);
-        Tram_Door_Right(ROUND((xT1 - 460 + i * 3) * 0.65), ROUND((yT1 + 315) * 0.65), ROUND((xT1 - 460) * 0.65), ROUND((yT1 + 315) * 0.65), 0.65 + 0.00003*i);
-        Tram_Door_Right(ROUND((xT1 + 885 + i * 3) * 0.65), ROUND((yT1 +  98) * 0.65), ROUND((xT1 + 885) * 0.65), ROUND((yT1 +  98) * 0.65), 0.65 + 0.00003*i);
-        Tram_Door_Right(ROUND((xT1 -  14 + i * 3) * 0.65), ROUND((yT1 + 245) * 0.65), ROUND((xT1 -  14) * 0.65), ROUND((yT1 + 245) * 0.65), 0.65 + 0.00003*i);
-
-        i += 1;
-
-        txSleep (750);
-        }
-
-    for(int i = 0; i <= 10; i++)
-        {
-        Background_Second();
-
-        xI += i * 2.3;
-        yI += i * 3.1;
-
-        Igor  (xI, yI, scaleI, width, 2, 5 - 3*(i % 4));
-
-        people_woman(xM - i*6      , yM + i*1.5      , 0.75, 5 - 3*(i % 4));
+        people_woman(xM - m*6      , yM + m*1.5      , 0.75, 5 - 3*(m % 4));
         people_woman(xM - 600      , yM - 300        , 0.65, 2);
-        people_woman(xM - 700 + i*2, yM + 200 + i*2  , 0.5 , 2 - 3*(i % 4));
+        people_woman(xM - 700 + m*2, yM + 200 + m*2  , 0.5 , 2 - 3*(m % 4));
 
-        people_men(xM - 550      , yM - 300      , 0.65, 2);
-        people_men(xM - 350 - i*3, yM + 250 - i*3, 0.5 , 3 - 3*(i % 4));
+        people_man(xM - 550      , yM - 300      , 0.65, 2);
+        people_man(xM - 350 - m*3, yM + 250 - m*3, 0.5 , 3 - 3*(m % 4));
 
-        i += 1;
+        Tram(xT2, yT2, scaleT2, 2);
+        Tram(xT1, yT1, scaleT1, 1);
 
-        txSleep (750);
+        if (counter <= 10)
+        {
+        Tram_Door_Left(ROUND(1108 * 0.65), ROUND(502 * 0.65), ROUND(1108 * 0.65 - d * 3), ROUND(502 * 0.65), 0.65 + 0.00003 * 6);
+        Tram_Door_Left(ROUND( 240 * 0.65), ROUND(648 * 0.65), ROUND( 240 * 0.65 - d * 3), ROUND(648 * 0.65), 0.65 + 0.00003 * 6);
+        Tram_Door_Left(ROUND(1585 * 0.65), ROUND(431 * 0.65), ROUND(1585 * 0.65 - d * 3), ROUND(431 * 0.65), 0.65 + 0.00003 * 6);
+        Tram_Door_Left(ROUND( 686 * 0.65), ROUND(578 * 0.65), ROUND( 686 * 0.65 - d * 3), ROUND(578 * 0.65), 0.65 + 0.00003 * 6);
+
+        Tram_Door_Right(ROUND(1108 * 0.65 + d * 3), ROUND(502 * 0.65), ROUND(1108 * 0.65), ROUND(502 * 0.65), 0.65 + 0.00003 * 6);
+        Tram_Door_Right(ROUND( 240 * 0.65 + d * 3), ROUND(648 * 0.65), ROUND( 240 * 0.65), ROUND(648 * 0.65), 0.65 + 0.00003 * 6);
+        Tram_Door_Right(ROUND(1585 * 0.65 + d * 3), ROUND(431 * 0.65), ROUND(1585 * 0.65), ROUND(431 * 0.65), 0.65 + 0.00003 * 6);
+        Tram_Door_Right(ROUND( 686 * 0.65 + d * 3), ROUND(578 * 0.65), ROUND( 686 * 0.65), ROUND(578 * 0.65), 0.65 + 0.00003 * 6);
         }
 
-    for(int i = 0; i <= 15; i++)
-        {
-        Background_Second();
 
-        xI -= i * 2.3;
-        xT2 -= i * 3;
-        yT2 += i * 0.6;
+        Igor_Reverse  (xI, yI, scaleI, width, 2, 5 - 3*(counter % 4));
+        if (counter >  8) {Igor_Reverse  (xI, yI, scaleI, width, 2, 5 - 3*(counter % 4)); d = 0; b1 += 1; if (counter % 5 == 0) {t += 1;}}
+        if (counter > 16) {Igor_Reverse  (xI, yI, scaleI, width, 2, 5 - 3*(counter % 4)); b1 = 0; b2 += 1; if (counter % 2 !=0) {txRectangle(0, 0, 1200, 8000);}}
 
-        Igor_Reverse  (xI, yI, scaleI, width, 2, 5 - 3*(i % 4));
+        if (counter >= 30)
+        {txSetFillColor (RGB(0, 0, 0));
+        txRectangle (0, 0, 1200, 800);
 
-        people_woman(xM - i*6      , yM + i*1.5      , 0.75, 5 - 3*(i % 4));
-        people_woman(xM - 600      , yM - 300        , 0.65, 2);
-        people_woman(xM - 700 + i*2, yM + 200 + i*2  , 0.5 , 2 - 3*(i % 4));
+        txSelectFont ("DS Eraser Cyr", 75, 25, FW_BOLD, true, false, false, 0);
+        txSetColor (RGB(255, 0, 0));
+        txTextOut (470, 250, "Внимание!");
+        txSelectFont ("DS Eraser Cyr", 75, 18, FW_BOLD, true, false, false, 0);
+        txSetColor (RGB(255, 255, 255));
+        txTextOut (350, 50, "Так Игорь стал инвалидом: ");
+        txTextOut (275, 100, "его сбил трамвай, и оторвало ногу");
+        txTextOut (230, 430, "Следи за тем, что происходит на дороге!");
+        txSleep (7500);}
 
-        people_men(xM - 550      , yM - 300      , 0.65, 2);
-        people_men(xM - 350 - i*3, yM + 250 - i*3, 0.5 , 3 - 3*(i % 4));
 
-        Tram (xT2, yT2, scaleT2, 2);
-
-        i += 1;
-
-        txSleep (750);
-        }
-
-    while ( pow( (pow(xI - xT2, 2) + pow(yI - yT2, 2) ), 0.5) >= 300 )
-        {
-        int i = 1;
-        Background_Second();
-
-        xI += i * 0.5;
-        yI -= i * 3;
-
-        xT2 -= i * 2;
-        yT2 += i * 0.6;
-
-        Igor_Reverse  (xI, yI, scaleI, width, 2, 5 - 3*(i % 4));
-
-        Tram (xT2, yT2, scaleT2, 2);
-
-        i += 1;
-
+        m += 1;
+        counter += 1;
+        if (counter <= 8) {b += 1; d = 6;}
+        else {b = 0;}
         txSleep (750);
         }
     }
