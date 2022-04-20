@@ -62,6 +62,7 @@ void Maxim   (int x, int y, double scale,
               int dist);
 void Scooter (int x, int y, double scale,
               int type);
+void Ball    (int x, int y, double scale);
 
 //-----------------------
 void people_woman (int x, int y, double scale,
@@ -1083,8 +1084,8 @@ void Igor (int x, int y, double scale, int width, int height, int dist)
     {
     //shoes
     txSetColor (RGB(0, 0, 0), 2 + width);
-    txLine (ROUND(x - 6 - dist *scale), ROUND(y + 128 *scale), ROUND(x +  3 - dist *scale), ROUND(y + 130 *scale));
-    txLine (ROUND(x + 6 + dist *scale), ROUND(y + 128 *scale), ROUND(x + 15 + dist *scale), ROUND(y + 130 *scale));
+    txLine (ROUND(x - 6 - dist *scale), ROUND(y + 128 *scale), ROUND(x +  6 - dist *scale), ROUND(y + 130 *scale));
+    txLine (ROUND(x + 6 + dist *scale), ROUND(y + 128 *scale), ROUND(x + 18 + dist *scale), ROUND(y + 130 *scale));
 
     //body
         //clothes
@@ -1155,8 +1156,8 @@ void Igor_Reverse (int x, int y, double scale, int width, int height, int dist)
     {
     //shoes
     txSetColor (RGB(0, 0, 0), 2 + width);
-    txLine (ROUND(x + 6 - dist *scale), ROUND(y + 128 *scale), ROUND(x -  3 - dist *scale), ROUND(y + 130 *scale));
-    txLine (ROUND(x + 6 + dist *scale), ROUND(y + 128 *scale), ROUND(x - 15 + dist *scale), ROUND(y + 130 *scale));
+    txLine (ROUND(x + 6 - dist *scale), ROUND(y + 128 *scale), ROUND(x -  6 - dist *scale), ROUND(y + 130 *scale));
+    txLine (ROUND(x + 6 + dist *scale), ROUND(y + 128 *scale), ROUND(x - 18 + dist *scale), ROUND(y + 130 *scale));
 
     //body
         //clothes
@@ -1350,7 +1351,6 @@ void Tram (double x, double y, double scale, int type)
         Tram_Door_Left(ROUND( 240 * 0.65), ROUND(648 * 0.65), ROUND( 240 * 0.65), ROUND(648 * 0.65), 0.65);
         Tram_Door_Left(ROUND(1585 * 0.65), ROUND(431 * 0.65), ROUND(1585 * 0.65), ROUND(431 * 0.65), 0.65);
         Tram_Door_Left(ROUND( 686 * 0.65), ROUND(578 * 0.65), ROUND( 686 * 0.65), ROUND(578 * 0.65), 0.65);
-
         Tram_Door_Right(ROUND(1108 * 0.65) - x2, ROUND(502 * 0.65), ROUND(1108 * 0.65), ROUND(502 * 0.65), 0.65);
         Tram_Door_Right(ROUND( 240 * 0.65), ROUND(648 * 0.65), ROUND( 240 * 0.65), ROUND(648 * 0.65), 0.65);
         Tram_Door_Right(ROUND(1585 * 0.65), ROUND(431 * 0.65), ROUND(1585 * 0.65), ROUND(431 * 0.65), 0.65);
@@ -1468,7 +1468,7 @@ void Maxim (int x, int y, double scale, double width, int height, int dist)
     //shoes
     txSetColor (RGB(0, 0, 0), 2 + width);
     txLine (ROUND(x + 10 - dist *scale), ROUND(y + 108 *scale), ROUND(x - 0.1 - dist *scale), ROUND(y + 110 *scale));
-    txLine (ROUND(x - 6 + dist *scale), ROUND(y + 108 *scale), ROUND(x - 16 + dist *scale), ROUND(y + 110 *scale));
+    txLine (ROUND(x -  6 + dist *scale), ROUND(y + 108 *scale), ROUND(x - 16  + dist *scale), ROUND(y + 110 *scale));
 
     //body
         //clothes
@@ -1536,4 +1536,53 @@ void Maxim (int x, int y, double scale, double width, int height, int dist)
 //! @endcode
 //}----------------------------------
 
-//void Scooter (int x, int y, double scale, int type)
+void Scooter (int x, int y, double scale, int type)
+    {
+    //wheels
+    txSetColor(RGB(0, 0, 0), 3);
+    txSetFillColor(RGB(0, 0, 0));
+    txEllipse (x + 17 *scale, y + 100 *scale, x + 31 *scale, y + 125 *scale);
+    txEllipse (x - 62 *scale, y + 180 *scale, x - 48 *scale, y + 205 *scale);
+
+    //deca
+    txSetColor(RGB(255, 0, 0), 3);
+    txSetFillColor(RGB(255, 0, 0));
+    POINT deca[4] = {{ROUND(x + 13 *scale), ROUND(y +  94 *scale)}, {ROUND(x + 35 *scale), ROUND(y + 101 *scale)},
+                     {ROUND(x - 58 *scale), ROUND(y + 195 *scale)}, {ROUND(x - 80 *scale), ROUND(y + 188 *scale)}};
+    txPolygon(deca, 4);
+
+    //stand
+    txSetColor(RGB(0, 0, 0), 3);
+    txSetFillColor(RGB(0, 0, 0));
+    txRectangle(ROUND(x + 20 *scale), ROUND(y + 14 *scale), ROUND(x + 25 *scale), ROUND(y + 100 *scale));
+
+    //handlebar
+    if (type == 1)
+        {
+        txSetColor(RGB(255, 0, 0), 3);
+        txSetFillColor(RGB(255, 0, 0));
+        POINT handlebar[4] = {{ROUND(x + 0.1 *scale), ROUND(y + 0.1 *scale)}, {ROUND(x + 45 *scale), ROUND(y + 15 *scale)},
+                              {ROUND(x + 42  *scale), ROUND(y + 18  *scale)}, {ROUND(x -  3 *scale), ROUND(y +  3 *scale)}};
+        txPolygon(handlebar, 4);
+
+        txSetColor(RGB(0, 0, 0), 3);
+        txSetFillColor(RGB(0, 0, 0));
+
+        txLine(x + 7 *scale,y + 50 *scale,x + 29 *scale, y + 11 *scale);
+        }
+
+    if (type == 2)
+        {
+        txSetColor(RGB(255, 0, 0), 3);
+        txSetFillColor(RGB(255, 0, 0));
+        POINT handlebar[4] = {{ROUND(x + 0.1 *scale), ROUND(y + 22 *scale)}, {ROUND(x + 45 *scale), ROUND(y +  7 *scale)},
+                              {ROUND(x + 42  *scale), ROUND(y + 4  *scale)}, {ROUND(x -  3 *scale), ROUND(y + 19 *scale)}};
+        txPolygon(handlebar, 4);
+
+        txSetColor(RGB(0, 0, 0), 3);
+        txSetFillColor(RGB(0, 0, 0));
+        txLine(x + 7 *scale,y + 50 *scale,x + 29 *scale, y + 11 *scale);
+        }
+    //boy
+    people_man(x - 10, y + 20, 1, 0);
+    }
