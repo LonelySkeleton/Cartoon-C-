@@ -9,19 +9,20 @@ using namespace std ;
 
 void SceneFirst  ();
 void SceneSecond ();
+void SceneThird ();
 
-void GirlAndTruck (int xG, int yG, double scaleG, int width, int xT, int yT, double scaleT, int xP, int yP, double scaleP);
-void IgorAndTram  (double xB, double yB, double scaleB, int width, double xT, double yT, double scaleT, double xP, double yP, double scaleP, int xM, int yM);
+void GirlAndTruck     (int xG, int yG, double scaleG, int width, int xT, int yT, double scaleT, int xP, int yP, double scaleP);
+void IgorAndTram      (double xB, double yB, double scaleB, int width, double xT, double yT, double scaleT, double xP, double yP, double scaleP, int xM, int yM);
+void MaximAndScooter  (double xMax, double yMax, double scaleMax, int width, double xS, double yS, double scaleS, int type, double xC, double yC, double scaleC, int xM, int yM);
 
 int main ()
     {
     txCreateWindow (1200, 800);
-    //SceneFirst ();
-    SceneSecond();
 
-    //Background_Third();
-    //Maxim(250, 250, 1, 1, 1, 1);
-    //Igor(550, 250, 1, 1, 1, 1);
+    //SceneFirst ();
+    //SceneSecond();
+    SceneThird();
+
     return 0;
     }
 
@@ -29,7 +30,9 @@ int main ()
 void SceneFirst ()
     {
     Background_First ();
+
     GirlAndTruck (792, 439, 0.9, 1, 230, -100, 0.4, 725, 419, 1);
+
     txSleep (760);
     }
 
@@ -37,13 +40,22 @@ void SceneFirst ()
 void SceneSecond ()
     {
     Background_Second();
-    //Igor(40, 200, 0.65, 1, 1, 1);
-    //Tram(900, 200, 0.65, 2);
-    //Tram(700, 333, 0.65, 1);
 
     IgorAndTram (286, 419, 0.65, 1, 700, 323, 0.7, 900, 190, 0.7, 800, 500);
+
     txSleep (760);
     }
+
+//-------------------------
+void SceneThird ()
+    {
+    Background_Third();
+    MaximAndScooter (286, 419, 1, 1, 400, 623, 1, 1, 0, 190, 1, 800, 500);
+
+    txSleep (760);
+    }
+
+//=======================
 
 void GirlAndTruck (int xG, int yG, double scaleG, int width, int xT, int yT, double scaleT, int xP, int yP, double scaleP)
     {
@@ -89,16 +101,19 @@ void GirlAndTruck (int xG, int yG, double scaleG, int width, int xT, int yT, dou
 
         txSelectFont ("DS Eraser Cyr", 75, 25, FW_BOLD, true, false, false, 0);
         txSetColor (RGB(255, 0, 0));
-        txTextOut (470, 50, "Внимание!");
+        txTextOut (470, 150, "Внимание!");
         txSelectFont ("DS Eraser Cyr", 75, 18, FW_BOLD, true, false, false, 0);
         txSetColor (RGB(255, 255, 255));
-        txTextOut (350, 200, "Отвлекись от телефона,");
-        txTextOut (275, 265, "сделай музыку в наушниках тише.");
-        txTextOut (230, 430, "Следи за тем, что происходит на дороге!");
+        txTextOut (350, 300, "Отвлекись от телефона,");
+        txTextOut (275, 365, "сделай музыку в наушниках тише.");
+        txTextOut (230, 530, "Следи за тем, что происходит на дороге!");
         txSleep (7500);
         }
 
     }
+
+//-------------------------
+
 void IgorAndTram  (double xI, double yI, double scaleI, int width, double xT1, double yT1, double scaleT1, double xT2, double yT2, double scaleT2, int xM, int yM)
     {
     int m = 1;
@@ -128,9 +143,9 @@ void IgorAndTram  (double xI, double yI, double scaleI, int width, double xT1, d
         xT2 -= t * 5;
         yT2 += t * 0.6;
 
-        people_woman(xM - m*6      , yM + m*1.5      , 0.75, 5 - 3*(m % 4));
-        people_woman(xM - 600      , yM - 300        , 0.65, 2);
-        people_woman(xM - 700 + m*2, yM + 200 + m*2  , 0.5 , 2 - 3*(m % 4));
+        people_woman(xM - m*6      , yM + m*1.5    , 0.75, 5 - 3*(m % 4));
+        people_woman(xM - 600      , yM - 300      , 0.65, 2);
+        people_woman(xM - 700 + m*2, yM + 200 + m*2, 0.5 , 2 - 3*(m % 4));
 
         people_man(xM - 550      , yM - 300      , 0.65, 2);
         people_man(xM - 350 - m*3, yM + 250 - m*3, 0.5 , 3 - 3*(m % 4));
@@ -152,9 +167,9 @@ void IgorAndTram  (double xI, double yI, double scaleI, int width, double xT1, d
         }
 
 
-        Igor_Reverse  (xI, yI, scaleI, width, 2, 5 - 3*(counter % 4));
-        if (counter >  8) {Igor_Reverse  (xI, yI, scaleI, width, 2, 5 - 3*(counter % 4)); d = 0; b1 += 1; if (counter % 5 == 0) {t += 1;}}
-        if (counter > 16) {Igor_Reverse  (xI, yI, scaleI, width, 2, 5 - 3*(counter % 4)); b1 = 0; b2 += 1; if (counter % 2 !=0) {txRectangle(0, 0, 1200, 8000);}}
+        Igor_Reverse  (xI, yI, scaleI, width, 2, 2 - 3*(counter % 4));
+        if (counter >  8) {Igor_Reverse  (xI, yI, scaleI, width, 2, 2 - 3*(counter % 4)); d = 0; b1 += 1; if (counter % 5 == 0) {t += 1;}}
+        if (counter > 16) {Igor_Reverse  (xI, yI, scaleI, width, 2, 2 - 3*(counter % 4)); b1 = 0; b2 += 1; if (counter % 2 !=0) {txRectangle(0, 0, 1200, 8000);}}
 
         if (counter >= 30)
         {txSetFillColor (RGB(0, 0, 0));
@@ -162,13 +177,13 @@ void IgorAndTram  (double xI, double yI, double scaleI, int width, double xT1, d
 
         txSelectFont ("DS Eraser Cyr", 75, 25, FW_BOLD, true, false, false, 0);
         txSetColor (RGB(255, 0, 0));
-        txTextOut (470, 250, "Внимание!");
+        txTextOut (470, 350, "Внимание!");
         txSelectFont ("DS Eraser Cyr", 75, 18, FW_BOLD, true, false, false, 0);
         txSetColor (RGB(255, 255, 255));
-        txTextOut (350, 50, "Так Игорь стал инвалидом: ");
-        txTextOut (275, 100, "его сбил трамвай, и оторвало ногу");
-        txTextOut (230, 430, "Следи за тем, что происходит на дороге!");
-        txSleep (7500);}
+        txTextOut (350, 150, "Так Игорь стал инвалидом: ");
+        txTextOut (275, 200, "его сбил трамвай, и оторвало ногу");
+        txTextOut (230, 530, "Следи за тем, что происходит на дороге!");
+        txSleep (750);}
 
 
         m += 1;
@@ -177,4 +192,14 @@ void IgorAndTram  (double xI, double yI, double scaleI, int width, double xT1, d
         else {b = 0;}
         txSleep (750);
         }
+    }
+
+//-------------------------
+
+void MaximAndScooter  (double xMax, double yMax, double scaleMax, int width, double xS, double yS, double scaleS, int type, double xC, double yC, double scaleC, int xM, int yM)
+    {
+    Scooter(xS, yS, scaleS, type);
+    people_man(xM,       yM,      0.75, 0);
+    people_man(xM + 100, yM,      0.75, 0);
+    people_man(xM +  50, yM - 90, 0.75, 0);
     }
