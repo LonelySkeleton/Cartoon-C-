@@ -485,7 +485,7 @@ void Background_Third ()
 //============ELEMENTS BACKGROUND THIRD=======
 
 //{-------------------------------------------------------
-//!     Рисует дорогу
+//!     Рисует дорогу с люком
 //!
 //! @note <i> ----- </i>
 //!
@@ -516,6 +516,10 @@ void Highway (int x, int y)
     txSetColor (RGB(255, 255, 255), 4);
     txLine(x + 0.1, y + 207, x +  58, y + 158);
     txLine(x + 212, y +  54, x + 273, y + 0.1);
+
+    txSetFillColor (RGB(0, 0, 0));
+    txSetColor (RGB(0, 0, 0), 4);
+    txEllipse(ROUND(x + 303),  ROUND(y + 200), ROUND(x + 403),  ROUND(y + 240));
     }
 
 //{-------------------------------------------------------
@@ -1467,8 +1471,8 @@ void Maxim (int x, int y, double scale, double width, int height, int dist)
     {
     //shoes
     txSetColor (RGB(0, 0, 0), 2 + width);
-    txLine (ROUND(x + 10 - dist *scale), ROUND(y + 108 *scale), ROUND(x - 0.1 - dist *scale), ROUND(y + 110 *scale));
-    txLine (ROUND(x -  6 + dist *scale), ROUND(y + 108 *scale), ROUND(x - 16  + dist *scale), ROUND(y + 110 *scale));
+    txLine (ROUND(x - 10 - dist *scale), ROUND(y + 108 *scale), ROUND(x + 0.1 - dist *scale), ROUND(y + 110 *scale));
+    txLine (ROUND(x +  6 + dist *scale), ROUND(y + 108 *scale), ROUND(x + 16  + dist *scale), ROUND(y + 110 *scale));
 
     //body
         //clothes
@@ -1484,8 +1488,8 @@ void Maxim (int x, int y, double scale, double width, int height, int dist)
         //fringe
     txSetColor (RGB(250, 250, 210), 2 + width);
     txSetFillColor (RGB(250, 250, 210));
-    POINT body3[4] = { {ROUND(x - 20.5  *scale), ROUND(y - 13 *scale)}, {ROUND(x + 20 *scale),  ROUND(y +  5 *scale)},
-                       {ROUND(x + 22.25 *scale), ROUND(y - 17 *scale)}, {ROUND(x +  2 *scale),  ROUND(y - 22 *scale)} };
+    POINT body3[4] = { {ROUND(x + 20.5  *scale), ROUND(y - 13 *scale)}, {ROUND(x - 20 *scale),  ROUND(y +  5 *scale)},
+                       {ROUND(x - 22.25 *scale), ROUND(y - 17 *scale)}, {ROUND(x +  2 *scale),  ROUND(y - 22 *scale)} };
     txPolygon (body3, 4);
 
         //legs
@@ -1496,20 +1500,20 @@ void Maxim (int x, int y, double scale, double width, int height, int dist)
 
        //arms
     txSetColor (TX_BLACK, 2 + width);
-    txLine (ROUND(x -  4 *scale), ROUND(y + 48 *scale), ROUND(x - 37 *scale), ROUND(y + 37 + height *scale));
-    txLine (ROUND(x - 20 *scale), ROUND(y + 37 *scale), ROUND(x - 37 *scale), ROUND(y + 31 + height *scale));
+    txLine (ROUND(x +  4 *scale), ROUND(y + 48 *scale), ROUND(x + 37 *scale), ROUND(y + 37 + height *scale));
+    txLine (ROUND(x + 20 *scale), ROUND(y + 37 *scale), ROUND(x + 37 *scale), ROUND(y + 31 + height *scale));
 
     //hat
     txSetColor (RGB(25, 25, 112), 2 + width);
     txSetFillColor (RGB (25, 25, 112));
-    POINT hat[4] = { {ROUND(x + 31 *scale), ROUND(y -  2 *scale)}, {ROUND(x + 36 *scale),  ROUND(y - 13 *scale)},
-                     {ROUND(x - 10 *scale), ROUND(y - 32 *scale)}, {ROUND(x - 15 *scale),  ROUND(y - 20 *scale)} };
+    POINT hat[4] = { {ROUND(x - 31 *scale), ROUND(y -  2 *scale)}, {ROUND(x - 36 *scale),  ROUND(y - 13 *scale)},
+                     {ROUND(x + 10 *scale), ROUND(y - 32 *scale)}, {ROUND(x + 15 *scale),  ROUND(y - 20 *scale)} };
     txPolygon (hat, 4);
 
     txSetColor (RGB(30, 144, 255), 2 + width);
     txSetFillColor (RGB (30, 144, 255));
-    POINT visor[4] = { {ROUND(x + 43 *scale), ROUND(y -  1 *scale)}, {ROUND(x + 46 *scale),  ROUND(y - 7 *scale)},
-                       {ROUND(x + 27 *scale), ROUND(y - 13 *scale)}, {ROUND(x + 24 *scale),  ROUND(y - 8 *scale)} };
+    POINT visor[4] = { {ROUND(x - 43 *scale), ROUND(y -  1 *scale)}, {ROUND(x - 46 *scale),  ROUND(y - 7 *scale)},
+                       {ROUND(x - 27 *scale), ROUND(y - 13 *scale)}, {ROUND(x - 24 *scale),  ROUND(y - 8 *scale)} };
     txPolygon (visor, 4);
     }
 
