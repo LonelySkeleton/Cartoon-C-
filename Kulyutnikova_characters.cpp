@@ -13,7 +13,7 @@ void SceneThird ();
 
 void GirlAndTruck     (int xG, int yG, double scaleG, int width, int xT, int yT, double scaleT, int xP, int yP, double scaleP);
 void IgorAndTram      (double xB, double yB, double scaleB, int width, double xT, double yT, double scaleT, double xP, double yP, double scaleP, int xM, int yM);
-void MaximAndScooter  (double xMax, double yMax, double scaleMax, int width, double xS, double yS, double scaleS, int type, double xC, double yC, double scaleC, int xM, int yM);
+void MaximAndScooter  (double xMax, double yMax, double scaleMax, int width, int height, int dist, double xS, double yS, double scaleS, int type, double xC, double yC, double scaleC, int xM, int yM);
 
 int main ()
     {
@@ -50,7 +50,8 @@ void SceneSecond ()
 void SceneThird ()
     {
     Background_Third();
-    MaximAndScooter (286, 419, 1, 1, 400, 623, 1, 1, 0, 190, 1, 800, 500);
+    
+    MaximAndScooter (0, 680, 1, 1, 1, 1, 50, 623, 1, 1, 0, 190, 1, 800, 500);
 
     txSleep (760);
     }
@@ -196,10 +197,42 @@ void IgorAndTram  (double xI, double yI, double scaleI, int width, double xT1, d
 
 //-------------------------
 
-void MaximAndScooter  (double xMax, double yMax, double scaleMax, int width, double xS, double yS, double scaleS, int type, double xC, double yC, double scaleC, int xM, int yM)
+void MaximAndScooter  (double xMax, double yMax, double scaleMax, int width, int height, int dist, double xS, double yS, double scaleS, int type, double xC, double yC, double scaleC, int xM, int yM)
     {
     Scooter(xS, yS, scaleS, type);
     people_man(xM,       yM,      0.75, 0);
     people_man(xM + 100, yM,      0.75, 0);
     people_man(xM +  50, yM - 90, 0.75, 0);
+    Maxim(xMax, yMax, scaleMax, width, height, dist);
+    
+    int mas = 1;
+    int s = 1;
+    int maxim = 1;
+    int counter = 0;
+    //txPlaySound ("Сцена3.wav");
+    while (pow((pow(xI - xT2, 2) + pow(yI - yT2, 2)), 0.5) >= 100 )
+        {
+        Background_Second();
+
+        xI += b * 1.3;
+        yI += b * 3.1;
+
+        xI -= b1 * 4.3;
+        yI += b1 * 1.1;
+
+        xI -= b2 * 0.3;
+        yI -= b2 * 2.1;
+
+        xT1 += t * 3;
+        yT1 -= t * 0.6;
+
+        xT2 -= t * 5;
+        yT2 += t * 0.6;
+
+        people_woman(xM - m*6      , yM + m*1.5    , 0.75, 5 - 3*(m % 4));
+        people_woman(xM - 600      , yM - 300      , 0.65, 2);
+        people_woman(xM - 700 + m*2, yM + 200 + m*2, 0.5 , 2 - 3*(m % 4));
+
+        people_man(xM - 550      , yM - 300      , 0.65, 2);
+        people_man(xM - 350 - m*3, yM + 250 - m*3, 0.5 , 3 - 3*(m % 4));
     }
