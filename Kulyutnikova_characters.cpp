@@ -12,8 +12,8 @@ void SceneSecond ();
 void SceneThird ();
 
 void GirlAndTruck     (int xG, int yG, double scaleG, int width, int xT, int yT, double scaleT, int xP, int yP, double scaleP);
-void IgorAndTram      (double xB, double yB, double scaleB, int width, double xT, double yT, double scaleT, double xP, double yP, double scaleP, int xM, int yM);
-void MaximAndScooter  (double xMax, double yMax, double scaleMax, int width, int height, int dist, double xS, double yS, double scaleS, int type, double xC, double yC, double scaleC, int xM, int yM);
+void IgorAndTram      (int xB, int yB, double scaleB, int width, int xT, int yT, double scaleT, int xP, int yP, double scaleP, int xM, int yM);
+void MaximAndScooter  (int xMax, int yMax, double scaleMax, int width, int height, int dist, int xS, int yS, double scaleS, int type, int xC, int yC, double scaleC, int xM, int yM);
 
 int main ()
     {
@@ -50,7 +50,7 @@ void SceneSecond ()
 void SceneThird ()
     {
     Background_Third();
-    
+
     MaximAndScooter (0, 680, 1, 1, 1, 1, 50, 623, 1, 1, 0, 190, 1, 800, 500);
 
     txSleep (760);
@@ -115,7 +115,7 @@ void GirlAndTruck (int xG, int yG, double scaleG, int width, int xT, int yT, dou
 
 //-------------------------
 
-void IgorAndTram  (double xI, double yI, double scaleI, int width, double xT1, double yT1, double scaleT1, double xT2, double yT2, double scaleT2, int xM, int yM)
+void IgorAndTram  (int xI, int yI, double scaleI, int width, int xT1, int yT1, double scaleT1, int xT2, int yT2, double scaleT2, int xM, int yM)
     {
     int m = 1;
     int b = 1;
@@ -173,7 +173,8 @@ void IgorAndTram  (double xI, double yI, double scaleI, int width, double xT1, d
         if (counter > 16) {Igor_Reverse  (xI, yI, scaleI, width, 2, 2 - 3*(counter % 4)); b1 = 0; b2 += 1; if (counter % 2 !=0) {txRectangle(0, 0, 1200, 8000);}}
 
         if (counter >= 30)
-        {txSetFillColor (RGB(0, 0, 0));
+        {
+        txSetFillColor (RGB(0, 0, 0));
         txRectangle (0, 0, 1200, 800);
 
         txSelectFont ("DS Eraser Cyr", 75, 25, FW_BOLD, true, false, false, 0);
@@ -184,7 +185,8 @@ void IgorAndTram  (double xI, double yI, double scaleI, int width, double xT1, d
         txTextOut (350, 150, "Так Игорь стал инвалидом: ");
         txTextOut (275, 200, "его сбил трамвай, и оторвало ногу");
         txTextOut (230, 530, "Следи за тем, что происходит на дороге!");
-        txSleep (750);}
+        txSleep (750);
+        }
 
 
         m += 1;
@@ -197,42 +199,54 @@ void IgorAndTram  (double xI, double yI, double scaleI, int width, double xT1, d
 
 //-------------------------
 
-void MaximAndScooter  (double xMax, double yMax, double scaleMax, int width, int height, int dist, double xS, double yS, double scaleS, int type, double xC, double yC, double scaleC, int xM, int yM)
+void MaximAndScooter  (int xMax, int yMax, double scaleMax, int width, int height, int dist, int xS, int yS, double scaleS, int type, int xC, int yC, double scaleC, int xM, int yM)
     {
-    Scooter(xS, yS, scaleS, type);
-    people_man(xM,       yM,      0.75, 0);
-    people_man(xM + 100, yM,      0.75, 0);
-    people_man(xM +  50, yM - 90, 0.75, 0);
-    Maxim(xMax, yMax, scaleMax, width, height, dist);
-    
-    int mas = 1;
     int s = 1;
     int maxim = 1;
     int counter = 0;
+
     //txPlaySound ("Сцена3.wav");
-    while (pow((pow(xI - xT2, 2) + pow(yI - yT2, 2)), 0.5) >= 100 )
+
+    while (counter <= 25)
         {
-        Background_Second();
+        Background_Third();
 
-        xI += b * 1.3;
-        yI += b * 3.1;
+        if (counter <= 21)
+            {
+            xS += s * 19.6;
+            yS -= s * 22;
 
-        xI -= b1 * 4.3;
-        yI += b1 * 1.1;
+            xMax += maxim * 19.6;
+            yMax -= maxim * 22;
 
-        xI -= b2 * 0.3;
-        yI -= b2 * 2.1;
+            Scooter(xS, yS, scaleS, type);
+            Maxim(xMax, yMax, scaleMax, width, height, dist);
+            }
 
-        xT1 += t * 3;
-        yT1 -= t * 0.6;
+        if (counter >= 22 and counter <= 25)
+            {
 
-        xT2 -= t * 5;
-        yT2 += t * 0.6;
+            xS += s * 50;
+            yS -= s * 22;
 
-        people_woman(xM - m*6      , yM + m*1.5    , 0.75, 5 - 3*(m % 4));
-        people_woman(xM - 600      , yM - 300      , 0.65, 2);
-        people_woman(xM - 700 + m*2, yM + 200 + m*2, 0.5 , 2 - 3*(m % 4));
+            xMax -= maxim * 25;
+            yMax -= maxim * 22;
 
-        people_man(xM - 550      , yM - 300      , 0.65, 2);
-        people_man(xM - 350 - m*3, yM + 250 - m*3, 0.5 , 3 - 3*(m % 4));
+            Scooter(xS, yS, scaleS, 2);
+            Maxim(xMax, yMax, scaleMax, width, height, dist);
+            }
+
+        people_man(xM,       yM,      0.75, 0);
+        people_man(xM + 100, yM,      0.75, 0);
+        people_man(xM +  50, yM - 90, 0.75, 0);
+
+
+        counter += 1;
+
+        txSleep (750);
+        }
+
+    txSetFillColor (RGB(0, 0, 0));
+    txRectangle (0, 0, 1200, 800);
+
     }
