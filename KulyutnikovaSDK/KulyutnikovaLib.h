@@ -48,12 +48,12 @@ void Igor_Reverse    (int x, int y, double scale,
                       int width,
                       int height,
                       int dist);
-void Tram            (double x, double y, double scale,
+void Tram            (int x, int y, double scale,
                       int type);
-void Tram_Door_Left  (double x, double y,
-                      double x1, double y1, double scale);
-void Tram_Door_Right (double x, double y,
-                      double x1, double y1, double scale);
+void Tram_Door_Left  (int x, int y,
+                      int x1, int y1, double scale);
+void Tram_Door_Right (int x, int y,
+                      int x1, int y1, double scale);
 
 //-----------------------
 void Maxim   (int x, int y, double scale,
@@ -1226,7 +1226,7 @@ void Igor_Reverse (int x, int y, double scale, int width, int height, int dist)
 //! @endcode
 //}------------------------------------------------------
 
-void Tram (double x, double y, double scale, int type)
+void Tram (int x, int y, double scale, int type)
     {
     int x1 = x;
     int x2 = x - 560;
@@ -1388,7 +1388,7 @@ void Tram (double x, double y, double scale, int type)
 //! @endcode
 //}------------------------------------------------------
 
-void Tram_Door_Left (double x, double y, double x1, double y1, double scale)
+void Tram_Door_Left (int x, int y, int x1, int y1, double scale)
     {
     txSetFillColor (RGB(0, 0, 0));
     POINT inside[4] = {{ROUND(x + 150 *scale), ROUND(y -  45 *scale)}, {ROUND(x + 150 *scale), ROUND(y + 150 *scale)},
@@ -1426,7 +1426,7 @@ void Tram_Door_Left (double x, double y, double x1, double y1, double scale)
 //! @endcode
 //}------------------------------------------------------
 
-void Tram_Door_Right (double x, double y, double x1, double y1, double scale)
+void Tram_Door_Right (int x, int y, int x1, int y1, double scale)
     {
     txSetFillColor (RGB(0, 0, 0));
     POINT inside[4] = {{ROUND(x1 + 200 *scale), ROUND(y1 + 143 *scale)}, {ROUND(x1 + 200 *scale), ROUND(y1  -  53 *scale)},
@@ -1579,13 +1579,13 @@ void Scooter (int x, int y, double scale, int type)
         {
         txSetColor(RGB(255, 0, 0), 3);
         txSetFillColor(RGB(255, 0, 0));
-        POINT handlebar[4] = {{ROUND(x + 0.1 *scale), ROUND(y + 22 *scale)}, {ROUND(x + 45 *scale), ROUND(y +  7 *scale)},
-                              {ROUND(x + 42  *scale), ROUND(y + 4  *scale)}, {ROUND(x -  3 *scale), ROUND(y + 19 *scale)}};
+        POINT handlebar[4] = {{ROUND(x +  5 *scale), ROUND(y -  7 *scale)}, {ROUND(x + 45 *scale), ROUND(y + 18 *scale)},
+                              {ROUND(x + 42 *scale), ROUND(y + 21 *scale)}, {ROUND(x +  2 *scale), ROUND(y - 4 *scale)}};
         txPolygon(handlebar, 4);
 
         txSetColor(RGB(0, 0, 0), 3);
         txSetFillColor(RGB(0, 0, 0));
-        txLine(x + 7 *scale,y + 50 *scale,x + 29 *scale, y + 11 *scale);
+        txLine(x + 7 *scale, y + 50 *scale, x + 29 *scale, y + 11 *scale);
         }
     //boy
     people_man(x - 10, y + 20, 1, 0);
