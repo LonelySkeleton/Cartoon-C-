@@ -62,7 +62,7 @@ void Maxim   (int x, int y, double scale,
               int dist);
 void Scooter (int x, int y, double scale,
               int type);
-void Ball    (int x, int y, double scale);
+void Boom (int x, int y);
 
 //-----------------------
 void people_woman (int x, int y, double scale,
@@ -717,7 +717,9 @@ void people_woman (int x, int y, double scale, double dist)
 
 void people_man (int x, int y, double scale, double dist)
     {
+    txSetColor (TX_BLACK, 3);
     txSetFillColor (TX_BLACK);
+
     txCircle (ROUND(x + 0.5 *scale), ROUND(y + 0.5 *scale), ROUND(23 *scale));
 
     txRectangle (x + 18, ROUND(y + 95*scale), x - 16, ROUND(y + 24*scale));
@@ -1589,4 +1591,33 @@ void Scooter (int x, int y, double scale, int type)
         }
     //boy
     people_man(x - 10, y + 20, 1, 0);
+    }
+
+//{-------------------------------------------------------
+//!     Рисует взрыв
+//!
+//! @note <i> ---- </i>
+//!
+//! <table border = 0>
+//! <tr><td> </td>
+//! <td>
+//! @param x        x - координата начальной точки (левый верхний угол переда)
+//! @param y        y - координата начальной точки (левый верхний угол переда
+//! </td>
+//! </tr>
+//! </table>
+//!
+//!
+//! @par Пример использования:
+//! @code
+//!     Boom (400, 100);
+//! @endcode
+//}----------------------------------
+
+void Boom (int x, int y)
+    {
+    txSetColor(RGB(255, 0, 0));
+    txSetFillColor(RGB(255, 0, 0));
+    txTextOut (x, y, "Boom");
+    txSelectFont ("DS Eraser Cyr", 95, 23, FW_BOLD, true, false, false, 0);
     }
