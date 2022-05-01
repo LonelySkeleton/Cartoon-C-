@@ -19,8 +19,8 @@ int main ()
     {
     txCreateWindow (1200, 800);
 
-    //SceneFirst ();
-    //SceneSecond();
+    SceneFirst ();
+    SceneSecond();
     SceneThird();
 
     return 0;
@@ -102,7 +102,7 @@ void GirlAndTruck (int xG, int yG, double scaleG, int width, int xT, int yT, dou
 
         txSelectFont ("DS Eraser Cyr", 75, 25, FW_BOLD, true, false, false, 0);
         txSetColor (RGB(255, 0, 0));
-        txTextOut (470, 150, "Внимание!");
+        txTextOut (455, 150, "Внимание!");
         txSelectFont ("DS Eraser Cyr", 75, 18, FW_BOLD, true, false, false, 0);
         txSetColor (RGB(255, 255, 255));
         txTextOut (350, 300, "Отвлекись от телефона,");
@@ -110,7 +110,6 @@ void GirlAndTruck (int xG, int yG, double scaleG, int width, int xT, int yT, dou
         txTextOut (230, 530, "Следи за тем, что происходит на дороге!");
         txSleep (7500);
         }
-
     }
 
 //-------------------------
@@ -125,7 +124,7 @@ void IgorAndTram  (int xI, int yI, double scaleI, int width, int xT1, int yT1, d
     int t = 0;
     int counter = 0;
     txPlaySound ("Сцена2.wav");
-    while (pow((pow(xI - xT2, 2) + pow(yI - yT2, 2)), 0.5) >= 100 )
+    while (counter <= 23)
         {
         Background_Second();
 
@@ -141,7 +140,7 @@ void IgorAndTram  (int xI, int yI, double scaleI, int width, int xT1, int yT1, d
         xT1 += t * 3;
         yT1 -= t * 0.6;
 
-        xT2 -= t * 5;
+        xT2 -= t * 7;
         yT2 += t * 0.6;
 
         people_woman(xM - m*6      , yM + m*1.5    , 0.75, 5 - 3*(m % 4));
@@ -169,11 +168,16 @@ void IgorAndTram  (int xI, int yI, double scaleI, int width, int xT1, int yT1, d
 
 
         Igor_Reverse  (xI, yI, scaleI, width, 2, 2 - 3*(counter % 4));
-        if (counter >  8) {Igor_Reverse  (xI, yI, scaleI, width, 2, 2 - 3*(counter % 4)); d = 0; b1 += 1; if (counter % 5 == 0) {t += 1;}}
-        if (counter > 16) {Igor_Reverse  (xI, yI, scaleI, width, 2, 2 - 3*(counter % 4)); b1 = 0; b2 += 1; if (counter % 2 !=0) {txRectangle(0, 0, 1200, 8000);}}
+        if (counter >  7) {Igor_Reverse  (xI, yI, scaleI, width, 2, 2 - 3*(counter % 4)); d = 0; b1 += 1; if (counter % 5 == 0) {t += 1;}}
+        if (counter > 11) {Igor_Reverse  (xI, yI, scaleI, width, 2, 2 - 3*(counter % 4)); b1 = 0; b2 += 1;
+        if (counter > 12) {if (counter % 2 !=0) {txRectangle(0, 0, 1200, 8000);}}}
 
-        if (counter >= 30)
-        {
+        m += 1;
+        counter += 1;
+        if (counter <= 6) {b += 1; d = 6;}
+        else {b = 0;}
+        txSleep (750);
+        }
         txSetFillColor (RGB(0, 0, 0));
         txRectangle (0, 0, 1200, 800);
 
@@ -185,27 +189,19 @@ void IgorAndTram  (int xI, int yI, double scaleI, int width, int xT1, int yT1, d
         txTextOut (350, 150, "Так Игорь стал инвалидом: ");
         txTextOut (275, 200, "его сбил трамвай, и оторвало ногу");
         txTextOut (230, 530, "Следи за тем, что происходит на дороге!");
-        txSleep (750);
-        }
+        txSleep (7500);
 
-
-        m += 1;
-        counter += 1;
-        if (counter <= 8) {b += 1; d = 6;}
-        else {b = 0;}
-        txSleep (750);
-        }
     }
 
 //-------------------------
 
 void MaximAndScooter  (int xMax, int yMax, double scaleMax, int width, int height, int dist, int xS, int yS, double scaleS, int type, int xC, int yC, double scaleC, int xM, int yM)
     {
+    txPlaySound ("Сцена3.wav");
     int s = 1;
     int maxim = 1;
     int counter = 0;
-
-    //txPlaySound ("Сцена3.wav");
+    txSelectFont ("DS Eraser Cyr", 75, 25, FW_BOLD, true, false, false, 0);
 
     while (counter <= 25)
         {
@@ -221,7 +217,11 @@ void MaximAndScooter  (int xMax, int yMax, double scaleMax, int width, int heigh
 
             Scooter(xS, yS, scaleS, type);
             Maxim(xMax, yMax, scaleMax, width, height, dist);
+            people_man(xM,       yM - 2*(counter % 2),       0.75,  3 - 2*(counter % 3));
+            people_man(xM + 100, yM - 2*(counter % 2),       0.75,  6 - 2*(counter % 2));
+            people_man(xM +  50, yM - 2*(counter % 2) - 90,  0.75,  4 - 2*(counter % 2));
             }
+
 
         if (counter >= 22 and counter <= 25)
             {
@@ -234,12 +234,11 @@ void MaximAndScooter  (int xMax, int yMax, double scaleMax, int width, int heigh
 
             Scooter(xS, yS, scaleS, 2);
             Maxim(xMax, yMax, scaleMax, width, height, dist);
+            people_man(xM,       yM,                        0.75, 3 - 2*(counter % 2));
+            people_man(xM + 100, yM - 4*(counter % 3),      0.75, 6 - 2*(counter % 3));
+            people_man(xM +  50, yM - 2*(counter % 3) - 90, 0.75, 4 - 2*(counter % 2));
+            if (counter == 22) {Boom(xM - 20, yM - 40);}
             }
-
-        people_man(xM,       yM,      0.75, 0);
-        people_man(xM + 100, yM,      0.75, 0);
-        people_man(xM +  50, yM - 90, 0.75, 0);
-
 
         counter += 1;
 
@@ -248,5 +247,16 @@ void MaximAndScooter  (int xMax, int yMax, double scaleMax, int width, int heigh
 
     txSetFillColor (RGB(0, 0, 0));
     txRectangle (0, 0, 1200, 800);
+    txSleep(5000);
 
+    txSetColor (RGB(255, 0, 0));
+    txTextOut (470, 350, "Внимание!");
+    txSelectFont ("DS Eraser Cyr", 75, 18, FW_BOLD, true, false, false, 0);
+    txSetColor (RGB(255, 255, 255));
+    txTextOut (350, 100, "Так Максим сварился заживо.");
+    txTextOut (380, 150, "Под люком был кипяток");
+    txTextOut (300, 530, "Не катайтесь вдвоем на самокате!");
+    txTextOut (390, 580, "Не играйте с корсаром!");
+    txTextOut (330, 630, "Будьте аккуратны на дороге!");
+    txSleep (7500);
     }
