@@ -516,10 +516,27 @@ void Highway (int x, int y)
     txSetColor (RGB(255, 255, 255), 4);
     txLine(x + 0.1, y + 207, x +  58, y + 158);
     txLine(x + 212, y +  54, x + 273, y + 0.1);
-
+    //---------
     txSetFillColor (RGB(0, 0, 0));
     txSetColor (RGB(0, 0, 0), 4);
-    txEllipse(ROUND(x + 303),  ROUND(y + 200), ROUND(x + 403),  ROUND(y + 240));
+    txEllipse(ROUND(x + 253),  ROUND(y + 190), ROUND(x + 383),  ROUND(y + 240));
+
+    txSetFillColor (RGB(50, 50, 50));
+    txSetColor (RGB(50, 50, 50), 4);
+    txEllipse(ROUND(x + 263),  ROUND(y + 200), ROUND(x + 383),  ROUND(y + 240));
+
+    txSetFillColor (RGB(100, 100, 100));
+    txSetColor (RGB(100, 100, 100), 4);
+    txEllipse(ROUND(x + 293),  ROUND(y + 160), ROUND(x + 423),  ROUND(y + 210));
+    //---------
+    txSetFillColor (RGB(255, 255, 0));
+    txSetColor (RGB(255, 255, 0), 4);
+    txLine(ROUND(x + 150),  ROUND(y + 170), ROUND(x + 150),  ROUND(y + 260));
+    txLine(ROUND(x + 320),  ROUND(y + 230), ROUND(x + 320),  ROUND(y + 320));
+
+    POINT warning[4] = {{ROUND(x + 150), ROUND(y + 190)}, {ROUND(x + 320), ROUND(y + 270)},
+                        {ROUND(x + 320), ROUND(y + 290)}, {ROUND(x + 150), ROUND(y + 210)}};
+    txPolygon(warning, 4);
     }
 
 //{-------------------------------------------------------
