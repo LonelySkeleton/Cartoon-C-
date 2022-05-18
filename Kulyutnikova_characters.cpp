@@ -19,8 +19,8 @@ int main ()
     {
     txCreateWindow (1200, 800);
 
-    SceneFirst ();
-    SceneSecond();
+    //SceneFirst ();
+    //SceneSecond();
     SceneThird();
 
     return 0;
@@ -203,11 +203,11 @@ void MaximAndScooter  (int xMax, int yMax, double scaleMax, int width, int heigh
     int counter = 0;
     txSelectFont ("DS Eraser Cyr", 75, 25, FW_BOLD, true, false, false, 0);
 
-    while (counter <= 25)
+    while (counter <= 26)
         {
         Background_Third();
 
-        if (counter <= 21)
+        if (counter <= 23)
             {
             xS += s * 19.6;
             yS -= s * 22;
@@ -218,26 +218,28 @@ void MaximAndScooter  (int xMax, int yMax, double scaleMax, int width, int heigh
             Scooter(xS, yS, scaleS, type);
             Maxim(xMax, yMax, scaleMax, width, height, dist);
             people_man(xM,       yM - 2*(counter % 2),       0.75,  3 - 2*(counter % 3));
-            people_man(xM + 100, yM - 2*(counter % 2),       0.75,  6 - 2*(counter % 2));
-            people_man(xM +  50, yM - 2*(counter % 2) - 90,  0.75,  4 - 2*(counter % 2));
+            people_man(xM + 100, yM - 2*(counter % 2),       0.75,  1 - 2*(counter % 2));
+            people_man(xM +  50, yM - 2*(counter % 2) - 90,  0.75,  0 - 2*(counter % 2));
             }
 
-
-        if (counter >= 22 and counter <= 25)
+        if (counter == 22)
             {
+            Boom(xM - 20, yM - 40);
+            }
 
-            xS += s * 50;
-            yS -= s * 22;
+        if (counter > 23 and counter <= 26)
+            {
+            xS -= s * 0;
+            yS += s * 0;
 
-            xMax -= maxim * 25;
-            yMax -= maxim * 22;
+            xMax -= maxim * 35;
+            yMax -= maxim * 20;
 
-            Scooter(xS, yS, scaleS, 2);
+            Scooter(xS, yS, scaleS, 1);
             Maxim(xMax, yMax, scaleMax, width, height, dist);
-            people_man(xM,       yM,                        0.75, 3 - 2*(counter % 2));
-            people_man(xM + 100, yM - 4*(counter % 3),      0.75, 6 - 2*(counter % 3));
-            people_man(xM +  50, yM - 2*(counter % 3) - 90, 0.75, 4 - 2*(counter % 2));
-            if (counter == 22) {Boom(xM - 20, yM - 40);}
+            people_man(xM,       yM,                        0.75, 0 - 2*(counter % 2));
+            people_man(xM + 100, yM - 4*(counter % 3),      0.75, 2 - 2*(counter % 3));
+            people_man(xM +  50, yM - 2*(counter % 3) - 90, 0.75, 3 - 2*(counter % 2));
             }
 
         counter += 1;
